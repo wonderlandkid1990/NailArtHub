@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
+<head>
 <style>
 
     .nailsy-hero {
@@ -84,10 +84,36 @@
             height: 100%;
             object-fit: cover;
         }
+
+    .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+        /* detect scrolling to trigger this class */
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card {
+            flex: 1;
+            background: #FFFDFB;
+            padding: 50px 30px;
+            border: 1px solid #EAE5DC;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
 </style>
-<div class="nailsy-hero">
+</head>
+<body>
+<div style="background-color: #FAF6F0; width: 100%; min-height: 100vh; overflow: hidden; margin: 0; padding: 0;">
+        <div class="nailsy-hero" style="background-color: transparent; min-height: 85vh; display: flex; align-items: center; padding: 0 60px 60px 60px;">
     <!-- Left side text -->
-    <div class="hero-text-side">
+            <div class="hero-text-side" style="flex: 1; padding-right: 80px;">
         <div class="hero-tagline">Trendy & Smart Exploration</div>
         <h1 class="hero-title">
             Find the Best<br>
@@ -102,7 +128,80 @@
     </div>
 
     <!-- Right side poster -->
-    <div class="hero-image-side">
+            <div class="hero-image-side" style="flex: 1; height: 70vh; overflow: hidden;">
         <img src="~/images/nail-hero.jpg" alt="Minimalist Nail Art">
     </div>
 </div>
+<!-- ================= Section 2: About ================= -->
+        <div class="reveal-on-scroll" style="background-color: transparent; padding: 100px 60px;">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #1A1A1A; margin-bottom: 40px; letter-spacing: 1px;">
+            About Our Concept
+        </h2>
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 1.15rem; color: #555555; line-height: 2; letter-spacing: 0.5px;">
+            本網頁提供最直覺的檢索，不管是想尋找美甲靈感，還是想尋求專業服務，<br>
+            這裡結合了先進的網路數據採集技術，將當下最火熱的 YouTube 影音趨勢與全台優質沙龍進行整合，<br>
+            旨在打造一個讓妳輕鬆、簡單就能完成美麗願望的智能美甲導航平台。
+        </p>
+    </div>
+</div>
+
+<!-- ================= Section 3: How to use ================= -->
+        <div class="reveal-on-scroll" style="background-color: transparent; padding: 100px 60px;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+
+        <!-- Section -->
+        <div style="text-align: center; margin-bottom: 80px;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #1A1A1A; letter-spacing: 1px;">
+                How It Works
+            </h2>
+            <p style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: #C49A45; margin-top: 10px; font-weight: 600;">
+                三個步驟 掌握指尖潮流
+            </p>
+        </div>
+
+        <div style="display: flex; gap: 40px; justify-content: space-between;">
+                    <div class="feature-card">
+                        <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #C49A45; margin-bottom: 20px;">01</div>
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 15px; color: #1A1A1A;">大數據趨勢爬取</h3>
+                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">全自動追蹤 YouTube,Pinterest和IG最新美甲影片圖片，精準解析觀看量與爆款關鍵字標籤。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #C49A45; margin-bottom: 20px;">02</div>
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 15px; color: #1A1A1A;">直覺式標籤篩選</h3>
+                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">依據貓眼、法式、日系等流行關鍵字，一鍵篩選出最符合妳當下靈感的款式。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #C49A45; margin-bottom: 20px;">03</div>
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 15px; color: #1A1A1A;">精選沙龍媒合</h3>
+                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">連結優質美甲師的 Instagram 與 Pinterest 作品牆，在地沙龍一網打盡。</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 建立觀察器
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // 如果區塊進入畫面中
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // 浮現過後就停止觀察該元件，讓動畫只執行一次，保持網頁流暢
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15 // 當目標有 15% 進入畫面時就觸發
+            });
+
+            // 尋找網頁上所有設定了 .reveal-on-scroll 的區塊並加入觀察
+            const items = document.querySelectorAll('.reveal-on-scroll');
+            items.forEach(item => observer.observe(item));
+        });
+    </script>
+}
+</body>

@@ -1,0 +1,77 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<style>
+    @@keyframes gentleFloat {
+        0% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+
+        100% {
+            transform: translateY(0px);
+        }
+    }
+
+    .hero-container {
+        background-color: #fcfbfa;
+        padding: 100px 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 70vh;
+    }
+
+    .hero-title-large {
+        font-family: 'Playfair Display', 'Noto Serif TC', serif;
+        font-size: 4.5rem;
+        font-weight: 300;
+        color: #2c2a29;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+        animation: gentleFloat 4s ease-in-out infinite;
+        display: inline-block;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        color: #706e6b;
+        line-height: 1.8;
+        margin-bottom: 40px;
+    }
+
+    .btn-cta {
+        background-color: #4a3e3d;
+        color: #ffffff;
+        padding: 15px 40px;
+        text-decoration: none;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-cta:hover {
+            background-color: #6b5b59;
+            color: #ffffff;
+        }
+</style>
+<div class="hero-container">
+    <div style="flex: 1; padding-right: 40px;">
+        <h1 class="hero-title-large">Alisa Nails</h1>
+
+        <div class="hero-subtitle">
+            <p>最新流行色？最流行款式？家附近美甲怎麼找？</p>
+            <p>本網頁提供最直覺的檢索，不管是找靈感還是找服務，<br>這裡可以簡單完成妳的願望！</p>
+        </div>
+
+        <a asp-page="/Services" class="btn-cta">開始使用</a>
+    </div>
+
+    <div style="flex: 1; text-align: center;">
+        <img src="~/images/nail-hero.jpg" alt="Nail Art" style="width: 100%; max-width: 450px; object-fit: cover;" />
+    </div>
+</div>

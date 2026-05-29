@@ -3,75 +3,106 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
 <style>
-    @@keyframes gentleFloat {
-        0% {
-            transform: translateY(0px);
-        }
 
-        50% {
-            transform: translateY(-10px);
-        }
-
-        100% {
-            transform: translateY(0px);
-        }
-    }
-
-    .hero-container {
-        background-color: #fcfbfa;
-        padding: 100px 60px;
+    .nailsy-hero {
+        background-color: #FAF6F0;
+        min-height: 85vh;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        min-height: 70vh;
+        padding: 0 60px 60px 60px;
+        font-family: 'Montserrat', sans-serif;
     }
 
-    .hero-title-large {
-        font-family: 'Playfair Display', 'Noto Serif TC', serif;
-        font-size: 4.5rem;
-        font-weight: 300;
-        color: #2c2a29;
+    .hero-text-side {
+        flex: 1;
+        padding-right: 80px;
+    }
+
+    .hero-tagline {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: #C49A45;
         margin-bottom: 20px;
-        letter-spacing: 2px;
-        animation: gentleFloat 4s ease-in-out infinite;
-        display: inline-block;
+        font-weight: 600;
     }
 
-    .hero-subtitle {
-        font-size: 1.2rem;
-        color: #706e6b;
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        color: #1A1A1A;
+        line-height: 1.15;
+        margin-bottom: 30px;
+        font-weight: 400;
+    }
+
+        .hero-title em {
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+        }
+
+    .hero-description {
+        font-size: 1.05rem;
+        color: #555555;
         line-height: 1.8;
         margin-bottom: 40px;
+        letter-spacing: 0.5px;
     }
 
-    .btn-cta {
-        background-color: #4a3e3d;
-        color: #ffffff;
-        padding: 15px 40px;
+    .btn-nailsy {
+        display: inline-block;
+        border: 1px solid #1A1A1A;
+        color: #1A1A1A;
+        padding: 15px 45px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        font-weight: 500;
         text-decoration: none;
-        letter-spacing: 1px;
-        transition: all 0.3s ease;
+        transition: all 0.4s ease;
     }
 
-        .btn-cta:hover {
-            background-color: #6b5b59;
-            color: #ffffff;
+        .btn-nailsy:hover {
+            background-color: #1A1A1A;
+            color: #FAF6F0;
+        }
+
+    /* Right side pic */
+    .hero-image-side {
+        flex: 1;
+        height: 70vh;
+        overflow: hidden;
+    }
+
+        .hero-image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 </style>
-<div class="hero-container">
-    <div style="flex: 1; padding-right: 40px;">
-        <h1 class="hero-title-large">Alisa Nails</h1>
-
-        <div class="hero-subtitle">
-            <p>最新流行色？最流行款式？家附近美甲怎麼找？</p>
-            <p>本網頁提供最直覺的檢索，不管是找靈感還是找服務，<br>這裡可以簡單完成妳的願望！</p>
+<div class="nailsy-hero">
+    <!-- Left side text -->
+    <div class="hero-text-side">
+        <div class="hero-tagline">Trendy & Smart Exploration</div>
+        <h1 class="hero-title">
+            Find the Best<br>
+            <em>Nail Trends</em> Near You.
+        </h1>
+        <div class="hero-description">
+            最新流行色？最流行款式？家附近美甲怎麼找？<br>
+            本網頁提供最直覺的檢索，不管是找靈感還是找服務，這裡可以簡單完成妳的願望！
         </div>
-
-        <a asp-page="/Services" class="btn-cta">開始使用</a>
+        <!-- Button to Services -->
+        <a asp-page="/Services" class="btn-nailsy">開始使用 / Explore</a>
     </div>
 
-    <div style="flex: 1; text-align: center;">
-        <img src="~/images/nail-hero.jpg" alt="Nail Art" style="width: 100%; max-width: 450px; object-fit: cover;" />
+    <!-- Right side poster -->
+    <div class="hero-image-side">
+        <img src="~/images/nail-hero.jpg" alt="Minimalist Nail Art">
     </div>
 </div>

@@ -39,7 +39,7 @@ namespace NailArtHub.Pages
             {
                 var firstClickedTag = SelectedTags.First();
 
-                int existingCount = await _context.NailTrends.CountAsync(t => t.Tag == firstClickedTag);
+                int existingCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower() == firstClickedTag.ToLower());
 
                 if (existingCount == 0)
                 {
@@ -50,7 +50,9 @@ namespace NailArtHub.Pages
 
             if (SelectedTags != null && SelectedTags.Any())
             {
-                query = query.Where(t => SelectedTags.Contains(t.Tag));
+                var selectedTagsLower = SelectedTags.Select(tag => tag.ToLower()).ToList();
+
+                query = query.Where(t => selectedTagsLower.Contains(t.Tag.ToLower()));
             }
 
             if (!string.IsNullOrEmpty(SearchQuery))
@@ -73,11 +75,21 @@ namespace NailArtHub.Pages
                 start.Arguments = $"\"{scriptPath}\" \"{tagToSearch}\"";
                 start.UseShellExecute = false;
                 start.RedirectStandardOutput = true;
+                start.RedirectStandardError = true;
                 start.CreateNoWindow = true;
 
                 using (Process process = Process.Start(start))
                 {
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    string error = await process.StandardError.ReadToEndAsync();
                     await process.WaitForExitAsync();
+                    System.Diagnostics.Debug.WriteLine("=== Python 輸出訊息 ===");
+                    System.Diagnostics.Debug.WriteLine(output);
+                    if (!string.IsNullOrEmpty(error))
+                    {
+                        System.Diagnostics.Debug.WriteLine("=== Python 錯誤回報 ===");
+                        System.Diagnostics.Debug.WriteLine(error);
+                    }
                 }
             }
             catch (System.Exception ex)

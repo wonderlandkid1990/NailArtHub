@@ -1,3 +1,4 @@
+import sys
 import time
 import sqlite3
 from datetime import datetime
@@ -19,8 +20,14 @@ edge_service = Service(EdgeChromiumDriverManager().install())
 driver = webdriver.Edge(service=edge_service) 
 driver.maximize_window()
 
-target_tag = "Cateyes"
-search_keyword = "Cateyes nails trend"
+if len(sys.argv) > 1:
+    target_tag = sys.argv[1]
+    search_keyword = f"{target_tag} nails trend"
+else:
+    target_tag = "Cateyes"
+    search_keyword = "Cateyes nails trend"
+
+print(f"Python 收到指令！準備開始爬取關鍵字: {search_keyword}")
 
 driver.get(f"https://www.pinterest.com/search/pins/?q={search_keyword}")
 

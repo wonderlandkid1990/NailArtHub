@@ -22,4 +22,10 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="NailArtHub.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

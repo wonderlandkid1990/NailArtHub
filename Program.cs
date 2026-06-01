@@ -3,7 +3,7 @@ using NailArtHub.Data;
 var builder = WebApplication.CreateBuilder(args);
 // === Register SQLite database ===
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=NailProject.db"));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 // ===================================
 
 // Add services to the container.

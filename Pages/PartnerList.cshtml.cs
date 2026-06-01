@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace NailArtHub
+namespace NailArtHub.Pages
 {
-    public class ServicesModel : PageModel
+    public class PartnerListModel : PageModel
     {
         public void OnGet()
         {

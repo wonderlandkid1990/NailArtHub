@@ -1,0 +1,222 @@
+﻿@page
+@model ServicesModel
+@{
+    ViewData["Title"] = "Explore Services";
+}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<head>
+    <style>
+            .services-page {
+                background-color: #FAF6F0;
+                min-height: 100vh;
+                font-family: 'Montserrat', sans-serif;
+                padding: 60px;
+                color: #1A1A1A;
+            }
+
+            .page-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 3rem;
+                text-align: center;
+                margin-bottom: 50px;
+                letter-spacing: 1px;
+            }
+
+            .tag-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+                max-width: 900px;
+                margin: 0 auto 40px auto;
+            }
+
+            .tag-checkbox {
+                display: none;
+            }
+
+            .tag-label {
+                background-color: #FFFDFB;
+                border: 1px solid #EAE5DC;
+                padding: 10px 24px;
+                border-radius: 30px;
+                font-size: 0.9rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                letter-spacing: 0.5px;
+                font-weight: 500;
+                user-select: none;
+            }
+
+            .tag-checkbox:checked + .tag-label {
+                background-color: #1A1A1A;
+                color: #FAF6F0;
+                border-color: #1A1A1A;
+            }
+
+            .tag-label:hover {
+                border-color: #1A1A1A;
+            }
+
+            .search-section {
+                max-width: 600px;
+                margin: 0 auto 60px auto;
+                display: flex;
+                gap: 15px;
+            }
+
+            .search-input {
+                flex: 1;
+                background-color: #FFFDFB;
+                border: 1px solid #EAE5DC;
+                padding: 15px 25px;
+                font-size: 1rem;
+                letter-spacing: 0.5px;
+                outline: none;
+                transition: border-color 0.3s;
+            }
+
+                .search-input:focus {
+                    border-color: #1A1A1A;
+                }
+
+            .btn-search {
+                background-color: #1A1A1A;
+                color: #FAF6F0;
+                border: none;
+                padding: 0 35px;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 500;
+                transition: background-color 0.3s;
+            }
+
+                .btn-search:hover {
+                    background-color: #404040;
+                }
+
+            .results-layout {
+                display: flex;
+                gap: 50px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .left-results-side {
+                flex: 1.5;
+            }
+
+            .right-salon-side {
+                flex: 1;
+            }
+
+            .section-subtitle {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.6rem;
+                margin-bottom: 25px;
+                border-bottom: 1px solid #EAE5DC;
+                padding-bottom: 10px;
+            }
+
+            .result-card {
+                background: #FFFDFB;
+                border: 1px solid #EAE5DC;
+                padding: 30px;
+                margin-bottom: 20px;
+                transition: transform 0.3s;
+            }
+
+                .result-card:hover {
+                    transform: translateY(-3px);
+                }
+
+            .salon-card {
+                background: #FFFDFB;
+                border: 1px solid #C49A45;
+                padding: 25px;
+                margin-bottom: 20px;
+                border-radius: 4px;
+            }
+    </style>
+</head>
+<body>
+    <div class="services-page">
+        <h1 class="page-title">Explore Trends & Services</h1>
+
+        <form method="get">
+            <div class="tag-container">
+                <input type="checkbox" id="tag-trendy" name="tags" value="Trendy" class="tag-checkbox" checked />
+                <label for="tag-trendy" class="tag-label"># Trendy</label>
+
+                <input type="checkbox" id="tag-color" name="tags" value="Color" class="tag-checkbox" />
+                <label for="tag-color" class="tag-label"># Color</label>
+
+                <input type="checkbox" id="tag-cateyes" name="tags" value="Cateyes" class="tag-checkbox" />
+                <label for="tag-cateyes" class="tag-label"># Cateyes</label>
+
+                <input type="checkbox" id="tag-long" name="tags" value="LongNail" class="tag-checkbox" />
+                <label for="tag-long" class="tag-label"># Long Nail</label>
+
+                <input type="checkbox" id="tag-short" name="tags" value="ShortNail" class="tag-checkbox" />
+                <label for="tag-short" class="tag-label"># Short Nail</label>
+
+                <input type="checkbox" id="tag-extensions" name="tags" value="Extensions" class="tag-checkbox" />
+                <label for="tag-extensions" class="tag-label"># Extensions</label>
+
+                <input type="checkbox" id="tag-japanese" name="tags" value="Japanese" class="tag-checkbox" />
+                <label for="tag-japanese" class="tag-label"># Japanese Style</label>
+
+                <input type="checkbox" id="tag-classic" name="tags" value="Classic" class="tag-checkbox" />
+                <label for="tag-classic" class="tag-label"># Classic</label>
+            </div>
+
+            <div class="search-section">
+                <input type="text" name="searchQuery" class="search-input" placeholder="Search for styles, colors, or keywords..." />
+                <button type="submit" class="btn-search">Search</button>
+            </div>
+        </form>
+
+        <div class="results-layout">
+
+            <div class="left-results-side">
+                <h2 class="section-subtitle">Trending Inspirations</h2>
+
+                <div class="result-card">
+                    <span style="font-size: 0.8rem; color: #C49A45; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Trending #1</span>
+                    <h3 style="font-family: 'Playfair Display', serif; margin: 10px 0;">Premium Cat-Eye Velvet Nail Art</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">A stunning magnetic gel look featuring subtle silver shimmering undertones perfect for summer evenings.</p>
+                </div>
+
+                <div class="result-card">
+                    <span style="font-size: 0.8rem; color: #C49A45; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Trending #2</span>
+                    <h3 style="font-family: 'Playfair Display', serif; margin: 10px 0;">Minimalist Japanese Pastel Tips</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Clean, short nails styled with ultra-thin organic pastel borders. Highly requested style this month.</p>
+                </div>
+            </div>
+
+            <div class="right-salon-side">
+                <h2 class="section-subtitle" style="font-size: 1.3rem; color: #555;">Featured Salons</h2>
+
+                <p style="font-size: 0.85rem; color: #888; font-style: italic; margin-bottom: 20px;">Nail salons providing these services:</p>
+
+                <div class="salon-card">
+                    <h4 style="font-weight: 600; margin-bottom: 5px;">Alisa Nails Studio</h4>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">📍 Taipei, Da'an District</p>
+                    <span style="background: #EAE5DC; padding: 3px 8px; font-size: 0.75rem; text-transform: uppercase;">#Cateyes</span>
+                    <span style="background: #EAE5DC; padding: 3px 8px; font-size: 0.75rem; text-transform: uppercase; margin-left: 5px;">#Japanese</span>
+                </div>
+
+                <div class="salon-card">
+                    <h4 style="font-weight: 600; margin-bottom: 5px;">Graceful Artistry</h4>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">📍 New Taipei City, Banqiao</p>
+                    <span style="background: #EAE5DC; padding: 3px 8px; font-size: 0.75rem; text-transform: uppercase;">#Extensions</span>
+                    <span style="background: #EAE5DC; padding: 3px 8px; font-size: 0.75rem; text-transform: uppercase; margin-left: 5px;">#Trendy</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>

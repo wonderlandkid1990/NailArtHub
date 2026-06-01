@@ -6,13 +6,13 @@ namespace NailArtHub.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "請輸入店家名稱")]
+        [Required(ErrorMessage = "Please enter the shop name")]
         public string ShopName { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "請輸入聯絡人姓名")]
+        [Required(ErrorMessage = "Please enter your name")]
         public string OwnerName { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "請輸入地址")]
+        [Required(ErrorMessage = "Please enter the address")]
         public string Address { get; set; } = string.Empty;
 
         // Location (台北/新北) selector

@@ -87,6 +87,18 @@
         object-fit: cover;
     }
 
+    .hero-hand-fade {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    object-position: top !important;
+    margin-bottom: -200px !important; 
+    position: relative !important;
+    z-index: 0 !important;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
+    }
+
     .reveal-on-scroll {
         opacity: 0;
         transform: translateY(30px);
@@ -95,20 +107,20 @@
         transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-        /* detect scrolling to trigger this class */
-        .reveal-on-scroll.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* detect scrolling to trigger this class */
+    .reveal-on-scroll.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-        .feature-card {
-            flex: 1;
-            background: #FFFDFB;
-            padding: 50px 30px;
-            border: 1px solid #EAE5DC;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-        }
+    .feature-card {
+        flex: 1;
+        background: #FFFDFB;
+        padding: 50px 30px;
+        border: 1px solid #EAE5DC;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    }
 </style>
 </head>
 <body>
@@ -130,9 +142,9 @@
     </div>
 
     <!-- Right side poster -->
-            <div class="hero-image-side" style="flex: 1; height: 70vh; overflow: hidden;">
-            <img src="~/images/nail-hero.png" alt="Minimalist Nail Art">
-    </div>
+            <div class="hero-image-side" style="flex: 1; height: 70vh; position: relative; overflow: visible !important;">
+                <img src="~/images/nail-hero.png" class="hero-hand-fade" alt="Minimalist Nail Art">
+            </div>
 </div>
 <!-- ================= Section 2: About ================= -->
         <div class="reveal-on-scroll" style="background-color: transparent; padding: 100px 60px;">

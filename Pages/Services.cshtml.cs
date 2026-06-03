@@ -32,26 +32,26 @@ namespace NailArtHub.Pages
         public List<string> SelectedTags { get; set; } = new List<string>();
 
         public async Task OnGetAsync()
+
         {
             AvailableTags = await _context.NailTags.ToListAsync();
 
             if (SelectedTags != null && SelectedTags.Any())
             {
                 var firstClickedTag = SelectedTags.First();
-
-                int existingCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower() == firstClickedTag.ToLower());
+                var cleanedTag = firstClickedTag.ToLower().Replace(" ", "");
+                int existingCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower() == cleanedTag);
 
                 if (existingCount == 0)
                 {
-                    await RunPythonCrawlerAsync(firstClickedTag);
+                    await RunPythonCrawlerAsync(cleanedTag);
                 }
             }
             var query = _context.NailTrends.AsQueryable();
 
             if (SelectedTags != null && SelectedTags.Any())
             {
-                var selectedTagsLower = SelectedTags.Select(tag => tag.ToLower()).ToList();
-
+                var selectedTagsLower = SelectedTags.Select(tag => tag.ToLower().Replace(" ", "")).ToList();
                 query = query.Where(t => selectedTagsLower.Contains(t.Tag.ToLower()));
             }
 
@@ -67,34 +67,36 @@ namespace NailArtHub.Pages
         {
             try
             {
-                string pythonExePath = @"python";
+                string shellPath = @"c:\Users\honlo\anaconda3\python.exe";
                 string scriptPath = @"C:\Users\honlo\Documents\NailArtHub\import_sqlite3.py";
 
                 ProcessStartInfo start = new ProcessStartInfo();
-                start.FileName = pythonExePath;
+                start.FileName = shellPath;
                 start.Arguments = $"\"{scriptPath}\" \"{tagToSearch}\"";
                 start.UseShellExecute = false;
                 start.RedirectStandardOutput = true;
                 start.RedirectStandardError = true;
                 start.CreateNoWindow = true;
+                start.StandardOutputEncoding = System.Text.Encoding.UTF8;
+                start.StandardErrorEncoding = System.Text.Encoding.UTF8;
 
                 using (Process process = Process.Start(start))
                 {
                     string output = await process.StandardOutput.ReadToEndAsync();
                     string error = await process.StandardError.ReadToEndAsync();
                     await process.WaitForExitAsync();
-                    System.Diagnostics.Debug.WriteLine("=== Python 輸出訊息 ===");
+                    System.Diagnostics.Debug.WriteLine("=== Python output ===");
                     System.Diagnostics.Debug.WriteLine(output);
                     if (!string.IsNullOrEmpty(error))
                     {
-                        System.Diagnostics.Debug.WriteLine("=== Python 錯誤回報 ===");
+                        System.Diagnostics.Debug.WriteLine("=== Python error ===");
                         System.Diagnostics.Debug.WriteLine(error);
                     }
                 }
             }
             catch (System.Exception ex)
             {
-                System.Console.WriteLine($"Python 執行失敗: {ex.Message}");
+                System.Console.WriteLine($"C# failed: {ex.Message}");
             }
         }
     }

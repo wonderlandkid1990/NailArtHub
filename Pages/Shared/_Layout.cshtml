@@ -10,28 +10,34 @@
     <link rel="stylesheet" href="~/NailArtHub.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header style="background-color: #f7f4eb !important; border: none !important;">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm py-2" style="background: transparent !important; border: none !important;">
-            <div class="container-fluid px-4">
-                <!-- Lgo -->
-                <a class="navbar-brand d-flex align-items-center" href="/">
-                    <img src="~/images/NAH.png" alt="NAH Logo" style="height: 80px; width: auto; mix-blend-mode: multiply !important;">
-                </a>
+    <header style="background-color: #FAF6F0 !important;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm p-0" style="background: transparent !important; border: none !important;">
+            <div class="container-fluid p-0 d-flex align-items-center justify-content-between">
+                <!-- Logo -->
+                <div class="logo-container px-4 py-2 d-flex align-items-center">
+                    <a class="navbar-brand m-0 p-0 d-flex align-items-center" href="/">
+                        <img src="~/images/NAH.png" alt="NAH Logo" style="height: 140px; width: auto; mix-blend-mode: multiply !important;">
+                        <span style="font-size: 10px; font-weight: 500; color: #1a1a1a; letter-spacing: 3px; line-height: 1; margin-top: 2px; font-family: sans-serif;">
+                            NAIL ART HUB
+                        </span>
+                    </a>
+                </div>
                 <!-- APP version -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-                    <ul class="navbar-nav ms-auto gap-4">
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end pe-4">
+                    <ul class="navbar-nav gap-4">
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-medium" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-medium" asp-area="" asp-page="/Services">Services</a>
+                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/Services">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-medium" asp-area="" asp-page="/PartnerList">Partner List</a>
+                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/PartnerList">Partner List</a>
                         </li>
                     </ul>
                 </div>

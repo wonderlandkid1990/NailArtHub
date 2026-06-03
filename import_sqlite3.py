@@ -17,14 +17,15 @@ def connect_to_existing_db():
     return conn
 
 if len(sys.argv) > 1:
-    target_tag = sys.argv[1].lower()
-    search_keyword = f"{target_tag} nails trend"
+    target_tag = sys.argv[1].lower().replace(" ", "")
 else:
     target_tag = "cateyes"
-    search_keyword = "cateyes nails trend"
-
-print(f"Python trigger activated. Target Tag: {target_tag}")
-print(f"Search Keyword: {search_keyword}")
+if "nail" in target_tag:
+    search_keyword = f"{target_tag}s trend"
+else:
+    search_keyword = f"{target_tag} nails trend"
+print(f"Python trigger activated. Target Tag to save in DB: {target_tag}")
+print(f"Search Keyword on Pinterest: {search_keyword}")
 
 edge_options = Options()
 edge_options.add_argument("--headless=new")

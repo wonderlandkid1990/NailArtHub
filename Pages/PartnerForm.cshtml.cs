@@ -1,12 +1,57 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using NailArtHub.Data;
+using NailArtHub.Models;
+using NailArtHub.Models.NailArtHub.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NailArtHub.Pages
 {
     public class PartnerFormModel : PageModel
     {
-        public void OnGet()
+        private readonly AppDbContext _context;
+
+        public PartnerFormModel(AppDbContext context)
         {
+            _context = context;
+        }
+
+        [BindProperty]
+        public NewApply ApplyForm { get; set; }
+
+        public List<NailTag> AvailableTags { get; set; }
+
+        [BindProperty]
+        public List<int> SelectedTagIds { get; set; }
+
+        public async Task OnGetAsync()
+        {
+            AvailableTags = await _context.NailTags.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                AvailableTags = await _context.NailTags.AsNoTracking().ToListAsync();
+                return Page();
+            }
+
+            if (SelectedTagIds != null && SelectedTagIds.Any())
+            {
+                ApplyForm.SelectedTagsString = string.Join(",", SelectedTagIds);
+            }
+
+            ApplyForm.ApplyDate = System.DateTime.Now;
+            ApplyForm.Status = "Pending";
+
+            _context.NewApplies.Add(ApplyForm);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Index");
         }
     }
 }

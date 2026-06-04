@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NailArtHub.Models
 {
@@ -15,7 +16,7 @@ namespace NailArtHub.Models
         [Required(ErrorMessage = "Please enter the address")]
         public string Address { get; set; } = string.Empty;
 
-        // Location (台北/新北) selector
+        // Location (Taipei/New Taipei) selector
         public string Location { get; set; } = string.Empty;
 
         public string InstagramUrl { get; set; } = string.Empty;
@@ -23,5 +24,7 @@ namespace NailArtHub.Models
 
         // Agreement
         public bool IsAgreed { get; set; }
+
+        public List<ShopTagBridge> ShopTagBridges { get; set; } = new List<ShopTagBridge>();
     }
 }

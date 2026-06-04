@@ -33,28 +33,40 @@ namespace NailArtHub.Pages
 
         public async Task OnGetAsync(string handler)
         {
-            AvailableTags = await _context.NailTags.ToListAsync();
+            // Show top 6 only
+            AvailableTags = await _context.NailTags
+                .OrderByDescending(t => t.ViewCount)
+                .Take(6)
+                .ToListAsync();
 
             if (!string.IsNullOrEmpty(SearchQuery) && (SelectedTags == null || !SelectedTags.Any()))
             {
-                string cleanedSearch = SearchQuery.Trim().ToLower().Replace(" ", "");
+                string cleanedSearch = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
 
-                CurrentDisplayTag = SearchQuery.Trim().ToUpper();
+                CurrentDisplayTag = SearchQuery.Trim().ToUpper().Replace("#", "");
 
-                var tagExists = await _context.NailTags
-                    .AnyAsync(t => t.TagName.ToLower().Replace(" ", "") == cleanedSearch);
+                var existingTag = await _context.NailTags
+                    .FirstOrDefaultAsync(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == cleanedSearch);
 
-                if (!tagExists)
+                if (existingTag == null)
                 {
-                    var newTag = new NailTag { TagName = SearchQuery.Trim() };
+                    var newTag = new NailTag { TagName = SearchQuery.Trim().Replace("#", ""), ViewCount = 1 };
                     _context.NailTags.Add(newTag);
                     await _context.SaveChangesAsync();
-
-                    AvailableTags = await _context.NailTags.ToListAsync();
                 }
+                else
+                {
+                    existingTag.ViewCount += 1;
+                }
+                await _context.SaveChangesAsync();
 
-                int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower() == cleanedSearch);
-                if (trendCount == 0)
+                AvailableTags = await _context.NailTags
+                    .OrderByDescending(t => t.ViewCount)
+                    .Take(6)
+                    .ToListAsync();
+
+                int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower().Trim() == cleanedSearch);
+                if (trendCount < 3) // Less 3 then re-scrape again
                 {
                     await RunPythonCrawlerAsync(cleanedSearch);
                 }
@@ -63,13 +75,23 @@ namespace NailArtHub.Pages
             else if (SelectedTags != null && SelectedTags.Any())
             {
                 var firstClickedTag = SelectedTags.First();
-                var cleanedTag = firstClickedTag.ToLower().Replace(" ", "");
 
-                CurrentDisplayTag = firstClickedTag.ToUpper();
+                string cleanedTag = firstClickedTag.ToLower().Replace(" ", "").Replace("#", "");
 
-                int existingCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower() == cleanedTag);
+                CurrentDisplayTag = firstClickedTag.Replace("#", "").Trim().ToUpper();
 
-                if (existingCount == 0)
+                var clickedTagEntity = await _context.NailTags
+                    .FirstOrDefaultAsync(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == cleanedTag);
+                if (clickedTagEntity != null)
+                {
+                    clickedTagEntity.ViewCount += 1;
+                    await _context.SaveChangesAsync();
+                }
+
+                // Less 3 results, re-scrape again
+                int existingCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower().Trim() == cleanedTag);
+
+                if (existingCount < 3)
                 {
                     await RunPythonCrawlerAsync(cleanedTag);
                 }
@@ -79,13 +101,13 @@ namespace NailArtHub.Pages
 
             if (SelectedTags != null && SelectedTags.Any())
             {
-                var selectedTagsLower = SelectedTags.Select(tag => tag.ToLower().Replace(" ", "")).ToList();
-                query = query.Where(t => selectedTagsLower.Contains(t.Tag.ToLower()));
+                var selectedTagsLower = SelectedTags.Select(tag => tag.ToLower().Replace(" ", "").Replace("#", "")).ToList();
+                query = query.Where(t => selectedTagsLower.Contains(t.Tag.ToLower().Trim()));
             }
             else if (!string.IsNullOrEmpty(SearchQuery))
             {
-                string cleanedSearchLower = SearchQuery.ToLower().Replace(" ", "");
-                query = query.Where(t => t.Title.ToLower().Contains(cleanedSearchLower) || t.Tag.ToLower().Contains(cleanedSearchLower));
+                string cleanedSearchLower = SearchQuery.ToLower().Replace(" ", "").Replace("#", "");
+                query = query.Where(t => t.Title.ToLower().Contains(cleanedSearchLower) || t.Tag.ToLower().Trim().Contains(cleanedSearchLower));
             }
 
             TrendResults = await query.OrderByDescending(t => t.Id).ToListAsync();

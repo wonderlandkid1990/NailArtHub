@@ -1,4 +1,91 @@
 ﻿@page
 @model NailArtHub.Pages.PartnerFormModel
 @{
+    ViewData["Title"] = "Franchise application";
+}
+
+<div class="container mt-5 mb-5" style="max-width: 600px; font-family: 'Noto Sans TC', sans-serif;">
+    <div class="text-center mb-5">
+        <h2 style="font-weight: 300; letter-spacing: 2px; color: #333;">BECOME A PARTNER</h2>
+        <p style="color: #888; font-size: 14px;">加入 NAH，讓更多人看見妳的獨特美甲美學</p>
+    </div>
+
+    <form method="post" class="p-4 bg-white" style="border: 1px solid #eaeaea; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+        <div class="mb-4">
+            <label asp-for="ApplyForm.ShopName" class="form-label small" style="letter-spacing: 1px; color: #555;">SHOP NAME / 店家名稱</label>
+            <input asp-for="ApplyForm.ShopName" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="例如: Alisa Nails Studio" />
+            <span asp-validation-for="ApplyForm.ShopName" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="ApplyForm.OwnerName" class="form-label small" style="letter-spacing: 1px; color: #555;">OWNER NAME / 負責人姓名</label>
+            <input asp-for="ApplyForm.OwnerName" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="例如: Alisa Chang" />
+            <span asp-validation-for="ApplyForm.OwnerName" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="ApplyForm.Location" class="form-label small" style="letter-spacing: 1px; color: #555;">LOCATION / 服務地區</label>
+            <select asp-for="ApplyForm.Location" class="form-select" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;">
+                <option value="">請選擇縣市...</option>
+                <option value="Taipei">台北市 (Taipei)</option>
+                <option value="New Taipei">新北市 (New Taipei)</option>
+            </select>
+            <span asp-validation-for="ApplyForm.Location" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="ApplyForm.Address" class="form-label small" style="letter-spacing: 1px; color: #555;">ADDRESS / 店家詳細地址</label>
+            <input asp-for="ApplyForm.Address" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="例如: 大安區敦化南路一段XXX號" />
+            <span asp-validation-for="ApplyForm.Address" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="ApplyForm.InstagramUrl" class="form-label small" style="letter-spacing: 1px; color: #555;">INSTAGRAM URL / IG 專頁連結</label>
+            <input asp-for="ApplyForm.InstagramUrl" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="https://www.instagram.com/your_salon" />
+            <span asp-validation-for="ApplyForm.InstagramUrl" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="ApplyForm.PinterestUrl" class="form-label small" style="letter-spacing: 1px; color: #555;">PINTEREST URL / Pinterest 連結 (選填)</label>
+            <input asp-for="ApplyForm.PinterestUrl" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="https://www.pinterest.com/your_salon" />
+            <span asp-validation-for="ApplyForm.PinterestUrl" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label small d-block mb-3" style="letter-spacing: 1px; color: #555;">SERVICES & STYLES / 連結專屬風格標籤 (可多選)</label>
+            <div class="row g-3" style="background-color: #fafafa; padding: 15px; border-radius: 2px; margin: 0;">
+                @if (Model.AvailableTags != null)
+                {
+                    foreach (var tag in Model.AvailableTags)
+                    {
+                        <div class="col-6">
+                            <div class="form-check d-flex align-items-center mb-0">
+                                <input class="form-check-input" type="checkbox" name="SelectedTagIds" value="@tag.Id" id="tag_@tag.Id" style="border-radius: 2px; border-color: #ced4da; cursor: pointer;" />
+                                <label class="form-check-label small ms-2" for="tag_@tag.Id" style="color: #666; font-size: 13px; cursor: pointer; user-select: none;">
+                                    # @tag.TagName.ToUpper()
+                                </label>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="mb-5 form-check d-flex align-items-start mt-4">
+            <input type="checkbox" class="form-check-input" id="agreeCheck" required style="border-radius: 2px; border-color: #ced4da; margin-top: 4px; cursor: pointer;" />
+            <label class="form-check-label small ms-2" for="agreeCheck" style="color: #888; font-size: 12px; line-height: 1.6; cursor: pointer; user-select: none;">
+                我同意提供以上店家資訊供 NAH 平台進行審核，並承諾所填寫之經營內容與美甲作品皆為真實、無侵權之行為。
+            </label>
+        </div>
+
+        <button type="submit" class="btn w-100 text-white" style="background-color: #1a1a1a; border-radius: 2px; padding: 12px; font-size: 14px; letter-spacing: 2px; font-weight: 500; transition: all 0.3s;">
+            SUBMIT APPLICATION / 提交加盟申請
+        </button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

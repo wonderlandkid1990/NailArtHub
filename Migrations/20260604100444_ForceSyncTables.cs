@@ -6,28 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NailArtHub.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateShopAndAddPartnerSystem : Migration
+    public partial class ForceSyncTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.CreateTable(
-                name: "NailTrend",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Tag = table.Column<string>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    SourceUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    CrawledAt = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NailTrend", x => x.Id);
-                });
-
+        {                
             migrationBuilder.CreateTable(
                 name: "NewApplies",
                 columns: table => new
@@ -39,14 +22,33 @@ namespace NailArtHub.Migrations
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Location = table.Column<string>(type: "TEXT", nullable: false),
                     InstagramUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    PinterestUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    SelectedTagsString = table.Column<string>(type: "TEXT", nullable: false),
+                    PinterestUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    SelectedTagsString = table.Column<string>(type: "TEXT", nullable: true),
                     ApplyDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Status = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NewApplies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shops",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ShopName = table.Column<string>(type: "TEXT", nullable: false),
+                    OwnerName = table.Column<string>(type: "TEXT", nullable: false),
+                    Address = table.Column<string>(type: "TEXT", nullable: false),
+                    Location = table.Column<string>(type: "TEXT", nullable: false),
+                    InstagramUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    PinterestUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    IsAgreed = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shops", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,6 +99,12 @@ namespace NailArtHub.Migrations
 
             migrationBuilder.DropTable(
                 name: "ShopTagBridges");
+
+            migrationBuilder.DropTable(
+                name: "NailTags");
+
+            migrationBuilder.DropTable(
+                name: "Shops");
         }
     }
 }

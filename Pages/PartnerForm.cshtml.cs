@@ -26,7 +26,7 @@ namespace NailArtHub.Pages
 
         [BindProperty]
         public List<int> SelectedTagIds { get; set; }
-
+        public bool IsSuccess { get; set; } = false;
         public async Task OnGetAsync()
         {
             AvailableTags = await _context.NailTags.AsNoTracking().ToListAsync();
@@ -51,7 +51,8 @@ namespace NailArtHub.Pages
             _context.NewApplies.Add(ApplyForm);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Index");
+            IsSuccess = true;
+            return Page();
         }
     }
 }

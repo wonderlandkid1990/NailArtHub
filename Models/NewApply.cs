@@ -22,9 +22,9 @@
             public string Location { get; set; }
 
             public string InstagramUrl { get; set; }
-            public string PinterestUrl { get; set; }
+            public string? PinterestUrl { get; set; }
 
-            public string SelectedTagsString { get; set; }
+            public string? SelectedTagsString { get; set; }
 
             public DateTime ApplyDate { get; set; } = DateTime.Now;
             public string Status { get; set; } = "Pending"; // Pending, Approved, Rejected

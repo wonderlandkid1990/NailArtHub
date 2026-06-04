@@ -43,11 +43,9 @@ namespace NailArtHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PinterestUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SelectedTagsString")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ShopName")

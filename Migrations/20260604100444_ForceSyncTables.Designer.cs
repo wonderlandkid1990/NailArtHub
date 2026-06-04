@@ -11,8 +11,8 @@ using NailArtHub.Data;
 namespace NailArtHub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260604090848_UpdateShopAndAddPartnerSystem")]
-    partial class UpdateShopAndAddPartnerSystem
+    [Migration("20260604100444_ForceSyncTables")]
+    partial class ForceSyncTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,11 +46,9 @@ namespace NailArtHub.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PinterestUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SelectedTagsString")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ShopName")

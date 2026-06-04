@@ -1,6 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using NailArtHub.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+// === Admin login ===
+//builder.Services.AddRazorPages(options =>
+//{
+//    options.Conventions.AuthorizeFolder("/Admin");
+//});
 // === Register SQLite database ===
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));

@@ -20,26 +20,53 @@ namespace NailArtHub.Pages
             _context = context;
         }
 
-        // Put the list for tag
         public IList<NailTrend> TrendResults { get; set; } = new List<NailTrend>();
         public IList<NailTag> AvailableTags { get; set; } = new List<NailTag>();
 
-        // Combine the search and tags 
         [BindProperty(SupportsGet = true)]
         public string SearchQuery { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public List<string> SelectedTags { get; set; } = new List<string>();
 
-        public async Task OnGetAsync()
+        public string CurrentDisplayTag { get; set; }
 
+        public async Task OnGetAsync(string handler)
         {
             AvailableTags = await _context.NailTags.ToListAsync();
 
-            if (SelectedTags != null && SelectedTags.Any())
+            if (!string.IsNullOrEmpty(SearchQuery) && (SelectedTags == null || !SelectedTags.Any()))
+            {
+                string cleanedSearch = SearchQuery.Trim().ToLower().Replace(" ", "");
+
+                CurrentDisplayTag = SearchQuery.Trim().ToUpper();
+
+                var tagExists = await _context.NailTags
+                    .AnyAsync(t => t.TagName.ToLower().Replace(" ", "") == cleanedSearch);
+
+                if (!tagExists)
+                {
+                    var newTag = new NailTag { TagName = SearchQuery.Trim() };
+                    _context.NailTags.Add(newTag);
+                    await _context.SaveChangesAsync();
+
+                    AvailableTags = await _context.NailTags.ToListAsync();
+                }
+
+                int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower() == cleanedSearch);
+                if (trendCount == 0)
+                {
+                    await RunPythonCrawlerAsync(cleanedSearch);
+                }
+            }
+
+            else if (SelectedTags != null && SelectedTags.Any())
             {
                 var firstClickedTag = SelectedTags.First();
                 var cleanedTag = firstClickedTag.ToLower().Replace(" ", "");
+
+                CurrentDisplayTag = firstClickedTag.ToUpper();
+
                 int existingCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower() == cleanedTag);
 
                 if (existingCount == 0)
@@ -47,6 +74,7 @@ namespace NailArtHub.Pages
                     await RunPythonCrawlerAsync(cleanedTag);
                 }
             }
+
             var query = _context.NailTrends.AsQueryable();
 
             if (SelectedTags != null && SelectedTags.Any())
@@ -54,15 +82,20 @@ namespace NailArtHub.Pages
                 var selectedTagsLower = SelectedTags.Select(tag => tag.ToLower().Replace(" ", "")).ToList();
                 query = query.Where(t => selectedTagsLower.Contains(t.Tag.ToLower()));
             }
-
-            if (!string.IsNullOrEmpty(SearchQuery))
+            else if (!string.IsNullOrEmpty(SearchQuery))
             {
-                query = query.Where(t => t.Title.Contains(SearchQuery) || t.Tag.Contains(SearchQuery));
+                string cleanedSearchLower = SearchQuery.ToLower().Replace(" ", "");
+                query = query.Where(t => t.Title.ToLower().Contains(cleanedSearchLower) || t.Tag.ToLower().Contains(cleanedSearchLower));
             }
 
-
             TrendResults = await query.OrderByDescending(t => t.Id).ToListAsync();
+
+            if (string.IsNullOrEmpty(CurrentDisplayTag) && TrendResults.Any())
+            {
+                CurrentDisplayTag = TrendResults.First().Tag.ToUpper();
+            }
         }
+
         private async Task RunPythonCrawlerAsync(string tagToSearch)
         {
             try

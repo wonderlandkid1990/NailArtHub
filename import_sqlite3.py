@@ -20,10 +20,12 @@ if len(sys.argv) > 1:
     target_tag = sys.argv[1].lower().replace(" ", "")
 else:
     target_tag = "cateyes"
+
 if "nail" in target_tag:
     search_keyword = f"{target_tag}s trend"
 else:
     search_keyword = f"{target_tag} nails trend"
+
 print(f"Python trigger activated. Target Tag to save in DB: {target_tag}")
 print(f"Search Keyword on Pinterest: {search_keyword}")
 
@@ -35,7 +37,7 @@ edge_options.add_argument("--disable-dev-shm-usage")
 edge_options.add_argument("--no-first-run")
 edge_options.add_argument("--no-default-browser-check")
 edge_options.add_argument("--disable-features=EdgeShopping")
-edge_options.add_argument("--blink-settings=imagesEnabled=false")
+edge_options.add_argument("--blink-settings=imagesEnabled=false") # 不載入圖片加速爬取
 
 edge_service = Service(EdgeChromiumDriverManager().install())
 edge_service.creation_flags = 0x08000000 
@@ -74,6 +76,7 @@ try:
 
             cursor.execute("SELECT 1 FROM NailTrend WHERE ImageUrl = ?", (img_url,))
             if cursor.fetchone() is None:
+
                 cursor.execute('''
                     INSERT INTO NailTrend (Tag, Title, ImageUrl, SourceUrl, CrawledAt)
                     VALUES (?, ?, ?, ?, ?)

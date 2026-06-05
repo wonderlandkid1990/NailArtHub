@@ -1,142 +1,226 @@
 ﻿@page
 @model NailArtHub.Pages.PartnerFormModel
 @{
-    ViewData["Title"] = "Franchise application";
+    ViewData["Title"] = "Become a Partner - NailArtHub";
 }
 
-<div class="container mt-5 mb-5" style="max-width: 600px; font-family: 'Noto Sans TC', sans-serif;">
+<!-- 載入與 Services 相同的精品字體 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-    @if (Model.IsSuccess)
-    {
-        <div class="text-center p-5 bg-white" style="border: 1px solid #eaeaea; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin-top: 50px;">
-            <div class="mb-4" style="font-size: 40px; color: #333;">✨</div>
-            <h3 style="font-weight: 300; letter-spacing: 2px; color: #1a1a1a; margin-bottom: 15px;">THANK YOU</h3>
-            <p style="color: #666; font-size: 15px; line-height: 1.8; font-weight: 400;">
-                Thank you for your application! Your details have been submitted successfully.<br />
-                Please sit tight while we review your application. We will take a look at your nail art page very shortly.
-            </p>
-            <hr style="border-top: 1px solid #eee; margin: 30px auto; width: 60px;" />
-            <a asp-page="/Services" class="btn" style="border: 1px solid #1a1a1a; background-color: #1a1a1a; color: #fff; border-radius: 2px; padding: 10px 30px; font-size: 13px; letter-spacing: 1px; text-decoration: none; transition: all 0.3s;">
-                Back to Explore
-            </a>
-        </div>
+<style>
+    /* 100% 複製 Services 頁面的視覺語彙與基調 */
+    .services-style-page {
+        background-color: #FAF6F0;
+        min-height: 100vh;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px;
+        color: #1A1A1A;
+        margin-top: -48px; /* 補償 Layout 邊距 */
     }
-    else
-    {
-        <div class="text-center mb-5">
-            <h2 style="font-weight: 300; letter-spacing: 2px; color: #333;">BECOME A PARTNER</h2>
-            <p style="color: #888; font-size: 14px;">Join NAH, and let the world discover your unique nail artistry.</p>
-        </div>
 
-        <form method="post" class="p-4 bg-white" style="border: 1px solid #eaeaea; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
-            <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+    .page-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 50px;
+        letter-spacing: 1px;
+    }
 
-            <div class="mb-4">
-                <label asp-for="ApplyForm.ShopName" class="form-label small" style="letter-spacing: 1px; color: #555;">SHOP NAME</label>
-                <input asp-for="ApplyForm.ShopName" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="Ex: Beauty Nails Salon" />
-                <span asp-validation-for="ApplyForm.ShopName" class="text-danger small"></span>
+    /* 表單容器對齊 Services 的內卡片質感 */
+    .form-container {
+        background: #FFFDFB;
+        border: 1px solid #EAE5DC;
+        padding: 40px;
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    /* 輸入框對齊 .search-input 風格 */
+    .custom-input {
+        width: 100%;
+        background-color: #FFFDFB;
+        border: 1px solid #EAE5DC;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        outline: none;
+        transition: border-color 0.3s;
+        border-radius: 0;
+        font-family: 'Montserrat', sans-serif;
+        color: #1A1A1A;
+    }
+
+        .custom-input:focus {
+            border-color: #1A1A1A;
+        }
+
+    /* 提交按鈕對齊 .btn-search 風格 */
+    .btn-submit {
+        background-color: #1A1A1A;
+        color: #FAF6F0;
+        border: none;
+        padding: 15px 35px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 500;
+        transition: background-color 0.3s;
+        width: 100%;
+        cursor: pointer;
+    }
+
+        .btn-submit:hover {
+            background-color: #404040;
+        }
+
+    /* 標籤選取盒比照 Services 的 tag 概念 */
+    .form-tag-pill {
+        background-color: #FFFDFB;
+        border: 1px solid #EAE5DC;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        user-select: none;
+    }
+
+    .form-check-input:checked + .form-tag-pill {
+        background-color: #1A1A1A;
+        color: #FAF6F0;
+        border-color: #1A1A1A;
+    }
+</style>
+
+<div class="services-style-page">
+    <div class="container" style="padding: 0;">
+
+        @if (Model.IsSuccess)
+        {
+            <div class="form-container text-center animate__animated animate__fadeIn" style="padding: 60px 40px;">
+                <div class="mb-4" style="font-size: 3rem;">✨</div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px;">Thank You</h3>
+                <p style="color: #666; font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px;">
+                    Your details have been submitted successfully.<br />
+                    Please sit tight while we review your application. We will check out your nail art page very shortly!
+                </p>
+                <a asp-page="/Services" class="btn-submit" style="text-decoration: none; display: inline-block; width: auto; padding: 12px 40px;">
+                    Back to Explore
+                </a>
             </div>
+        }
+        else
+        {
+            <!-- 🌟 完全對齊 Services 的網頁主標題 -->
+            <h1 class="page-title">Become a Partner</h1>
 
-            <div class="mb-4">
-                <label asp-for="ApplyForm.OwnerName" class="form-label small" style="letter-spacing: 1px; color: #555;">OWNER NAME</label>
-                <input asp-for="ApplyForm.OwnerName" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="Ex: Vivian Chen" />
-                <span asp-validation-for="ApplyForm.OwnerName" class="text-danger small"></span>
-            </div>
+            <form method="post" class="form-container animate__animated animate__fadeIn">
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
 
-            <div class="mb-4">
-                <label asp-for="ApplyForm.Location" class="form-label small" style="letter-spacing: 1px; color: #555;">LOCATION</label>
-                <select asp-for="ApplyForm.Location" class="form-select" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;">
-                    <option value="">Select...</option>
-                    <optgroup label="Northern Taiwan">
-                        <option value="Taipei">Taipei City</option>
-                        <option value="New Taipei">New Taipei City</option>
-                        <option value="Keelung">Keelung City</option>
-                        <option value="Taoyuan">Taoyuan City</option>
-                        <option value="HsinchuCounty">Hsinchu County</option>
-                        <option value="HsinchuCity">Hsinchu City</option>
-                    </optgroup>
+                <div class="mb-4">
+                    <label asp-for="ApplyForm.ShopName" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">SHOP NAME</label>
+                    <input asp-for="ApplyForm.ShopName" class="custom-input" placeholder="Ex: Beauty Nails Salon" />
+                    <span asp-validation-for="ApplyForm.ShopName" class="text-danger small"></span>
+                </div>
 
-                    <optgroup label="Central Taiwan">
-                        <option value="Miaoli">Miaoli County</option>
-                        <option value="Taichung">Taichung City</option>
-                        <option value="Changhua">Changhua County</option>
-                        <option value="Nantou">Nantou County</option>
-                        <option value="Yunlin">Yunlin County</option>
-                    </optgroup>
+                <div class="mb-4">
+                    <label asp-for="ApplyForm.OwnerName" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">OWNER NAME</label>
+                    <input asp-for="ApplyForm.OwnerName" class="custom-input" placeholder="Ex: Vivian Chen" />
+                    <span asp-validation-for="ApplyForm.OwnerName" class="text-danger small"></span>
+                </div>
 
-                    <optgroup label="Southern Taiwan">
-                        <option value="ChiayiCounty">Chiayi County</option>
-                        <option value="ChiayiCity">Chiayi City</option>
-                        <option value="Tainan">Tainan City</option>
-                        <option value="Kaohsiung">Kaohsiung City</option>
-                        <option value="Pingtung">Pingtung County</option>
-                    </optgroup>
+                <div class="mb-4">
+                    <label asp-for="ApplyForm.Location" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">LOCATION</label>
+                    <select asp-for="ApplyForm.Location" class="custom-input" style="cursor: pointer; height: 50px;">
+                        <option value="">Select...</option>
+                        <optgroup label="Northern Taiwan">
+                            <option value="Taipei">Taipei City</option>
+                            <option value="New Taipei">New Taipei City</option>
+                            <option value="Keelung">Keelung City</option>
+                            <option value="Taoyuan">Taoyuan City</option>
+                            <option value="HsinchuCounty">Hsinchu County</option>
+                            <option value="HsinchuCity">Hsinchu City</option>
+                        </optgroup>
+                        <optgroup label="Central Taiwan">
+                            <option value="Miaoli">Miaoli County</option>
+                            <option value="Taichung">Taichung City</option>
+                            <option value="Changhua">Changhua County</option>
+                            <option value="Nantou">Nantou County</option>
+                            <option value="Yunlin">Yunlin County</option>
+                        </optgroup>
+                        <optgroup label="Southern Taiwan">
+                            <option value="ChiayiCounty">Chiayi County</option>
+                            <option value="ChiayiCity">Chiayi City</option>
+                            <option value="Tainan">Tainan City</option>
+                            <option value="Kaohsiung">Kaohsiung City</option>
+                            <option value="Pingtung">Pingtung County</option>
+                        </optgroup>
+                        <optgroup label="Eastern Taiwan">
+                            <option value="Yilan">Yilan County</option>
+                            <option value="Hualien">Hualien County</option>
+                            <option value="Taitung">Taitung County</option>
+                        </optgroup>
+                        <optgroup label="Outer Islands">
+                            <option value="Penghu">Penghu County</option>
+                            <option value="Kinmen">Kinmen County</option>
+                            <option value="Matsu">Matsu (Lienchiang County)</option>
+                        </optgroup>
+                    </select>
+                    <span asp-validation-for="ApplyForm.Location" class="text-danger small"></span>
+                </div>
 
-                    <optgroup label="Eastern Taiwan">
-                        <option value="Yilan">Yilan County</option>
-                        <option value="Hualien">Hualien County</option>
-                        <option value="Taitung">Taitung County</option>
-                    </optgroup>
+                <div class="mb-4">
+                    <label asp-for="ApplyForm.Address" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">ADDRESS</label>
+                    <input asp-for="ApplyForm.Address" class="custom-input" placeholder="Ex: 大安區敦化南路一段XXX號" />
+                    <span asp-validation-for="ApplyForm.Address" class="text-danger small"></span>
+                </div>
 
-                    <optgroup label="Outer Islands">
-                        <option value="Penghu">Penghu County</option>
-                        <option value="Kinmen">Kinmen County</option>
-                        <option value="Matsu">Matsu (Lienchiang County)</option>
-                    </optgroup>
-                </select>
-                <span asp-validation-for="ApplyForm.Location" class="text-danger small"></span>
-            </div>
+                <div class="mb-4">
+                    <label asp-for="ApplyForm.InstagramUrl" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">INSTAGRAM URL</label>
+                    <input asp-for="ApplyForm.InstagramUrl" class="custom-input" placeholder="https://www.instagram.com/your_salon" />
+                    <span asp-validation-for="ApplyForm.InstagramUrl" class="text-danger small"></span>
+                </div>
 
-            <div class="mb-4">
-                <label asp-for="ApplyForm.Address" class="form-label small" style="letter-spacing: 1px; color: #555;">ADDRESS</label>
-                <input asp-for="ApplyForm.Address" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="Ex: 大安區敦化南路一段XXX號" />
-                <span asp-validation-for="ApplyForm.Address" class="text-danger small"></span>
-            </div>
+                <div class="mb-4">
+                    <label asp-for="ApplyForm.PinterestUrl" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">INSTAGRAM POST URL (OPTIONAL)</label>
+                    <input asp-for="ApplyForm.PinterestUrl" class="custom-input" placeholder="Paste featured public Instagram post URL for preview card." />
+                    <span asp-validation-for="ApplyForm.PinterestUrl" class="text-danger small"></span>
+                </div>
 
-            <div class="mb-4">
-                <label asp-for="ApplyForm.InstagramUrl" class="form-label small" style="letter-spacing: 1px; color: #555;">INSTAGRAM URL</label>
-                <input asp-for="ApplyForm.InstagramUrl" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="https://www.instagram.com/your_salon" />
-                <span asp-validation-for="ApplyForm.InstagramUrl" class="text-danger small"></span>
-            </div>
-
-            <div class="mb-4">
-                <label asp-for="ApplyForm.PinterestUrl" class="form-label small" style="letter-spacing: 1px; color: #555;">PINTEREST URL(Option)</label>
-                <input asp-for="ApplyForm.PinterestUrl" class="form-control" style="border: 1px solid #dcdcdc; border-radius: 2px; padding: 10px; font-size: 14px;" placeholder="https://www.pinterest.com/your_salon" />
-                <span asp-validation-for="ApplyForm.PinterestUrl" class="text-danger small"></span>
-            </div>
-
-            <div class="mb-4">
-                <label class="form-label small d-block mb-3" style="letter-spacing: 1px; color: #555;">SERVICES & STYLES(Select all that apply)</label>
-                <div class="row g-3" style="background-color: #fafafa; padding: 15px; border-radius: 2px; margin: 0;">
-                    @if (Model.AvailableTags != null)
-                    {
-                        foreach (var tag in Model.AvailableTags)
+                <div class="mb-4">
+                    <label class="form-label style-label d-block mb-3" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">SERVICES & STYLES</label>
+                    <div class="d-flex flex-wrap gap-2" style="background-color: #FAF6F0; padding: 20px; border: 1px solid #EAE5DC;">
+                        @if (Model.AvailableTags != null)
                         {
-                            <div class="col-6">
-                                <div class="form-check d-flex align-items-center mb-0">
-                                    <input class="form-check-input" type="checkbox" name="SelectedTagIds" value="@tag.Id" id="tag_@tag.Id" style="border-radius: 2px; border-color: #ced4da; cursor: pointer;" />
-                                    <label class="form-check-label small ms-2" for="tag_@tag.Id" style="color: #666; font-size: 13px; cursor: pointer; user-select: none;">
-                                        # @tag.TagName.ToUpper()
+                            foreach (var tag in Model.AvailableTags)
+                            {
+                                <div style="position: relative;">
+                                    <input class="form-check-input style-checkbox" type="checkbox" name="SelectedTagIds" value="@tag.Id" id="tag_@tag.Id" style="display: none;" />
+                                    <label class="form-tag-pill" for="tag_@tag.Id">
+                                        # @tag.TagName
                                     </label>
                                 </div>
-                            </div>
+                            }
                         }
-                    }
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-5 form-check d-flex align-items-start mt-4">
-                <input type="checkbox" class="form-check-input" id="agreeCheck" required style="border-radius: 2px; border-color: #ced4da; margin-top: 4px; cursor: pointer;" />
-                <label class="form-check-label small ms-2" for="agreeCheck" style="color: #888; font-size: 12px; line-height: 1.6; cursor: pointer; user-select: none;">
-                    I agree to submit the business information above for NAH platform review. I certify that all provided operational content and nail art imagery are accurate and non-infringing. The applicant shall bear full legal responsibility for any third-party intellectual property disputes; NAH assumes no liability arising from the submitted or aggregated content.
-                </label>
-            </div>
+                <div class="mb-5 form-check d-flex align-items-start mt-4" style="padding-left: 0;">
+                    <input type="checkbox" id="agreeCheck" required style="cursor: pointer; width: 16px; height: 16px; margin-top: 3px; border: 1px solid #EAE5DC;" />
+                    <label for="agreeCheck" style="color: #666; font-size: 0.75rem; line-height: 1.6; cursor: pointer; user-select: none; margin-left: 10px;">
+                        I agree to submit the business information above for NAH platform review. I certify that all provided operational content and nail art imagery are accurate and non-infringing. The applicant shall bear full legal responsibility for any third-party intellectual property disputes; NAH assumes no liability arising from the submitted or aggregated content.
+                    </label>
+                </div>
 
-            <button type="submit" class="btn w-100 text-white" style="background-color: #1a1a1a; border-radius: 2px; padding: 12px; font-size: 14px; letter-spacing: 2px; font-weight: 500; transition: all 0.3s;">
-                SUBMIT APPLICATION
-            </button>
-        </form>
-    }
+                <button type="submit" class="btn-submit">
+                    Submit Application
+                </button>
+            </form>
+        }
+    </div>
 </div>
 
 @section Scripts {

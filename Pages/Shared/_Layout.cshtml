@@ -27,14 +27,50 @@
 <!DOCTYPE html>
 <html lang="@(currentCulture.StartsWith("zh") ? "zh-Hant" : "en")">
 <head>
+    <style>
+            :lang(zh) body,
+            :lang(zh) p,
+            :lang(zh) div,
+            :lang(zh) a,
+            :lang(zh) .nav-link {
+                font-family: 'Montserrat', 'Noto Sans TC', sans-serif !important;
+                font-weight: 300 !important;
+                letter-spacing: 1px !important;
+            }
+
+            :lang(en) body,
+            :lang(en) p,
+            :lang(en) div,
+            :lang(en) a,
+            :lang(en) .nav-link {
+                font-family: 'Montserrat', sans-serif !important;
+                font-weight: 300 !important;
+                letter-spacing: 1.5px !important;
+            }
+
+            .navbar-nav .nav-link {
+                text-transform: uppercase !important;
+                font-size: 14px !important;
+            }
+
+                .navbar-nav .nav-link.fw-bold {
+                    font-weight: inherit !important;
+                }
+    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NailArtHub</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NailArtHub.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header style="background-color: #FAF6F0 !important;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm p-0" style="background: transparent !important; border: none !important;">
@@ -58,13 +94,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end pe-4">
                     <ul class="navbar-nav gap-4 d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/Index">@Localizer["HomeLabel"]</a>
+                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/Index">@Localizer["HomeLabel"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/Services">@Localizer["ServicesLabel"]</a>
+                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/Services">@Localizer["ServicesLabel"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/PartnerList">@Localizer["Partner_List"]</a>
+                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/PartnerList">@Localizer["Partner_List"]</a>
                         </li>
 
                         <li class="nav-item ms-2">

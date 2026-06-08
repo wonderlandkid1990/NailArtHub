@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLabel" xml:space="preserve">
-    <value>關於本站]</value>
+    <value>關於本站</value>
   </data>
   <data name="About_Line1" xml:space="preserve">
     <value>我們致力於打造流暢且極具直覺性的美甲導覽體驗。</value>
@@ -144,14 +144,29 @@
   <data name="AllDistrictsLabel" xml:space="preserve">
     <value>行政區</value>
   </data>
+  <data name="All_StylesLabel" xml:space="preserve">
+    <value>所有風格</value>
+  </data>
   <data name="ExploreLabel" xml:space="preserve">
     <value>回到探索</value>
   </data>
   <data name="ExploreNowLabel" xml:space="preserve">
     <value>開始探索</value>
   </data>
+  <data name="Explore_Trends_Services" xml:space="preserve">
+    <value>探索潮流與美學服務</value>
+  </data>
+  <data name="Featured_Salons" xml:space="preserve">
+    <value>精選沙龍</value>
+  </data>
   <data name="FilterLabel" xml:space="preserve">
     <value>篩選地區(台灣)</value>
+  </data>
+  <data name="Find_ around_you" xml:space="preserve">
+    <value>尋找妳身邊的美學沙龍</value>
+  </data>
+  <data name="GoPinterest" xml:space="preserve">
+    <value>前往 Pinterest 看看這款設計</value>
   </data>
   <data name="Hero_Sub_Line1" xml:space="preserve">
     <value>正在尋找當季最熱門的流行色與超人氣款式？還是想發掘離您最近的高質感美甲沙龍？</value>
@@ -165,6 +180,9 @@
   <data name="Hero_Sub_Line4" xml:space="preserve">
     <value>您對美感的所有嚮往，都能在此輕鬆實現！</value>
   </data>
+  <data name="Hero_taglineLabel" xml:space="preserve">
+    <value>潮流與智慧的優雅探索</value>
+  </data>
   <data name="HomeLabel" xml:space="preserve">
     <value>首頁</value>
   </data>
@@ -177,8 +195,20 @@
   <data name="InstaPostLabel" xml:space="preserve">
     <value>精選貼文連結（用於預覽卡片）</value>
   </data>
+  <data name="Join_us" xml:space="preserve">
+    <value>成為夥伴</value>
+  </data>
+  <data name="No_studios_found" xml:space="preserve">
+    <value>未找到符合目前篩選條件的工作室。</value>
+  </data>
+  <data name="No_trending_styles" xml:space="preserve">
+    <value>暫無符合此篩選的風格樣式。</value>
+  </data>
   <data name="OwnerNameLabel" xml:space="preserve">
     <value>負責人姓名</value>
+  </data>
+  <data name="PartnerLabel" xml:space="preserve">
+    <value>加入美學夥伴</value>
   </data>
   <data name="Partner_List" xml:space="preserve">
     <value>精選沙龍</value>
@@ -218,5 +248,8 @@
   </data>
   <data name="TermAgreementText" xml:space="preserve">
     <value>我同意提交上述店家資訊以供 NAH 平台審核。我保證所提供之所有營運內容及美甲作品圖片均屬實且無侵權情事。若發生任何第三方智慧財產權糾紛，申請人應承擔全部法律責任；NAH 對於提交或彙整之內容概不承擔任何法律責任。</value>
+  </data>
+  <data name="Trending_Inspirations" xml:space="preserve">
+    <value>熱門風格靈感</value>
   </data>
 </root>

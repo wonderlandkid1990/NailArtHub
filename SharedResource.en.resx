@@ -144,14 +144,29 @@
   <data name="AllDistrictsLabel" xml:space="preserve">
     <value>All Districts</value>
   </data>
+  <data name="All_StylesLabel" xml:space="preserve">
+    <value>ALL STYLES</value>
+  </data>
   <data name="ExploreLabel" xml:space="preserve">
     <value>Bacl to Explore</value>
   </data>
   <data name="ExploreNowLabel" xml:space="preserve">
     <value>EXPLORE NOW</value>
   </data>
+  <data name="Explore_Trends_Services" xml:space="preserve">
+    <value>Explore Trends &amp; Services</value>
+  </data>
+  <data name="Featured_Salons" xml:space="preserve">
+    <value>Featured Salons</value>
+  </data>
   <data name="FilterLabel" xml:space="preserve">
     <value>Filter by Location (Taiwan)</value>
+  </data>
+  <data name="Find_ around_you" xml:space="preserve">
+    <value>Find the salon around you</value>
+  </data>
+  <data name="GoPinterest" xml:space="preserve">
+    <value>View Source on Pinterest</value>
   </data>
   <data name="Hero_Sub_Line1" xml:space="preserve">
     <value>Looking for the latest trending colors? The most popular styles? Or trying to find a nail salon near you?</value>
@@ -165,6 +180,9 @@
   <data name="Hero_Sub_Line4" xml:space="preserve">
     <value>your beauty desires can be effortlessly fulfilled right here!</value>
   </data>
+  <data name="Hero_taglineLabel" xml:space="preserve">
+    <value>Trendy &amp; Smart Exploration</value>
+  </data>
   <data name="HomeLabel" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -177,8 +195,20 @@
   <data name="InstaPostLabel" xml:space="preserve">
     <value>INSTAGRAM POST URL(Optional)</value>
   </data>
+  <data name="Join_us" xml:space="preserve">
+    <value>Join us!</value>
+  </data>
+  <data name="No_studios_found" xml:space="preserve">
+    <value>No studios found matching the current filters.</value>
+  </data>
+  <data name="No_trending_styles" xml:space="preserve">
+    <value>No trending styles found matching your criteria.</value>
+  </data>
   <data name="OwnerNameLabel" xml:space="preserve">
     <value>OWNER NAME</value>
+  </data>
+  <data name="PartnerLabel" xml:space="preserve">
+    <value>Become a Partner</value>
   </data>
   <data name="Partner_List" xml:space="preserve">
     <value>Partner List</value>
@@ -218,5 +248,8 @@
   </data>
   <data name="TermAgreementText" xml:space="preserve">
     <value>I agree to submit the business information above for NAH platform review. I certify that all provided operational content and nail art imagery are accurate and non-infringing. The applicant shall bear full legal responsibility for any third-party intellectual property disputes; NAH assumes no liability arising from the submitted or aggregated content.</value>
+  </data>
+  <data name="Trending_Inspirations" xml:space="preserve">
+    <value>Trending Inspirations</value>
   </data>
 </root>

@@ -28,6 +28,31 @@
         letter-spacing: 1px;
     }
 
+    :lang(zh) .page-title {
+        font-family: "PMingLiU-ExtB", "MingLiU", "Microsoft JhengHei", "Songti TC", "Noto Serif TC", serif !important;
+        font-weight: 700 !important;
+        font-size: 3.2rem !important;
+        letter-spacing: 2px !important;
+        color: #1A1A1A !important;
+    }
+
+    .form-container,
+    .form-container label,
+    .form-container input,
+    .form-container select,
+    .form-container option,
+    .form-container span {
+        font-family: 'Montserrat', 'Noto Sans TC', sans-serif !important;
+        font-weight: 300 !important;
+        letter-spacing: 1px !important;
+    }
+
+        .form-container label {
+            font-weight: 400 !important;
+            margin-bottom: 8px;
+            color: #333333 !important;
+        }
+
     .form-container {
         background: #FFFDFB;
         border: 1px solid #EAE5DC;
@@ -46,7 +71,6 @@
         outline: none;
         transition: border-color 0.3s;
         border-radius: 0;
-        font-family: 'Montserrat', sans-serif;
         color: #1A1A1A;
     }
 
@@ -114,7 +138,7 @@
         }
         else
         {
-            <h1 class="page-title">Become a Partner</h1>
+            <h1 class="page-title">@Localizer["PartnerLabel"]</h1>
 
             <form method="post" class="form-container animate__animated animate__fadeIn">
                 <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>

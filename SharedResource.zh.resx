@@ -165,6 +165,9 @@
   <data name="Find_ around_you" xml:space="preserve">
     <value>尋找妳身邊的美學沙龍</value>
   </data>
+  <data name="GoInstagram" xml:space="preserve">
+    <value>前往店家Instagram預約</value>
+  </data>
   <data name="GoPinterest" xml:space="preserve">
     <value>前往 Pinterest 看看這款設計</value>
   </data>
@@ -213,8 +216,14 @@
   <data name="Partner_List" xml:space="preserve">
     <value>精選沙龍</value>
   </data>
+  <data name="Partner_Studios" xml:space="preserve">
+    <value>沙龍夥伴</value>
+  </data>
   <data name="Process_Subtitle" xml:space="preserve">
     <value>簡單 3 步驟，精準掌握指尖潮流</value>
+  </data>
+  <data name="Selected_Studios" xml:space="preserve">
+    <value>篩選結果</value>
   </data>
   <data name="ServicesLabel" xml:space="preserve">
     <value>指尖美學</value>

@@ -120,6 +120,24 @@
   <data name="AboutLabel" xml:space="preserve">
     <value>關於本站]</value>
   </data>
+  <data name="About_Line1" xml:space="preserve">
+    <value>我們致力於打造流暢且極具直覺性的美甲導覽體驗。</value>
+  </data>
+  <data name="About_Line2" xml:space="preserve">
+    <value>無論您正在尋找下一款美甲的設計靈感，</value>
+  </data>
+  <data name="About_Line3" xml:space="preserve">
+    <value>或是探尋通過認證的專業美甲師，</value>
+  </data>
+  <data name="About_Line4" xml:space="preserve">
+    <value>平台皆能透過先進的數據分析，將 Pinterest 與 Instagram 上最火熱的流行趨勢，與全台頂尖的優質沙龍進行深度整合。</value>
+  </data>
+  <data name="About_Line5" xml:space="preserve">
+    <value>我們旨在建立一座智慧美甲導航中心，</value>
+  </data>
+  <data name="About_Line6" xml:space="preserve">
+    <value>讓您追求個人美學的過程，變得無比流暢且簡單。</value>
+  </data>
   <data name="AllCityLabel" xml:space="preserve">
     <value>縣市</value>
   </data>
@@ -135,11 +153,23 @@
   <data name="FilterLabel" xml:space="preserve">
     <value>篩選地區(台灣)</value>
   </data>
+  <data name="Hero_Sub_Line1" xml:space="preserve">
+    <value>正在尋找當季最熱門的流行色與超人氣款式？還是想發掘離您最近的高質感美甲沙龍？</value>
+  </data>
+  <data name="Hero_Sub_Line2" xml:space="preserve">
+    <value>我們的平台為您提供最直覺的搜尋體驗。</value>
+  </data>
+  <data name="Hero_Sub_Line3" xml:space="preserve">
+    <value>無論是汲取指尖靈感，還是尋覓專業技術服務，</value>
+  </data>
+  <data name="Hero_Sub_Line4" xml:space="preserve">
+    <value>您對美感的所有嚮往，都能在此輕鬆實現！</value>
+  </data>
   <data name="HomeLabel" xml:space="preserve">
     <value>首頁</value>
   </data>
   <data name="HowItWorksLabel" xml:space="preserve">
-    <value>How It Works</value>
+    <value>體驗指南</value>
   </data>
   <data name="InstaLabel" xml:space="preserve">
     <value>Instagram 連結</value>
@@ -153,6 +183,9 @@
   <data name="Partner_List" xml:space="preserve">
     <value>精選沙龍</value>
   </data>
+  <data name="Process_Subtitle" xml:space="preserve">
+    <value>簡單 3 步驟，精準掌握指尖潮流</value>
+  </data>
   <data name="ServicesLabel" xml:space="preserve">
     <value>指尖美學</value>
   </data>
@@ -164,6 +197,15 @@
   </data>
   <data name="ShopNameLabel" xml:space="preserve">
     <value>店家名稱</value>
+  </data>
+  <data name="Step1_Desc" xml:space="preserve">
+    <value>系統將自動追蹤 YouTube、Pinterest 與 Instagram 上的最新美甲影片與風格圖片，精準分析觀看趨勢與熱門關鍵字標籤。</value>
+  </data>
+  <data name="Step2_Desc" xml:space="preserve">
+    <value>無論是貓眼、法式還是日系風格，只需輕鬆一鍵，即可依據當下流行的標籤，篩選出完美契合您心情的命定款式。</value>
+  </data>
+  <data name="Step3_Desc" xml:space="preserve">
+    <value>直接為您串聯在地美甲師在 Instagram 上的精彩作品集，將最優質的在地沙龍，第一時間完美呈現在您眼前。</value>
   </data>
   <data name="SubmitApplicationLabel" xml:space="preserve">
     <value>提交申請</value>

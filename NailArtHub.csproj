@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\fonts\ChenYuluoyan-2.0-Thin.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="NailArtHub.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

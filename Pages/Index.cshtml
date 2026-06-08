@@ -6,122 +6,127 @@
 }
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <head>
-<style>
+    <style>
 
-    .nailsy-hero {
-        background-color: #FAF6F0;
-        min-height: 85vh;
-        display: flex;
-        align-items: center;
-        padding: 0 60px 60px 60px;
-        font-family: 'Montserrat', sans-serif;
-    }
+            .nailsy-hero {
+                background-color: #FAF6F0;
+                min-height: 85vh;
+                display: flex;
+                align-items: center;
+                padding: 0 60px 60px 60px;
+                font-family: 'Montserrat', sans-serif;
+            }
 
-    .hero-text-side {
-        flex: 1.4;
-        padding-right: 40px;
-    }
+            .hero-text-side {
+                flex: 1.4;
+                padding-right: 40px;
+            }
 
-    .hero-tagline {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        color: #C49A45;
-        margin-bottom: 20px;
-        font-weight: 600;
-    }
+            .hero-tagline {
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 4px;
+                color: #C49A45;
+                margin-bottom: 20px;
+                font-weight: 600;
+            }
 
-    .hero-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 4.5rem;
-        color: #1A1A1A;
-        line-height: 1.1;
-        margin-bottom: 25px;
-        font-weight: 400;
-        letter-spacing: -1px;
-    }
+            .hero-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 4.5rem;
+                color: #1A1A1A;
+                line-height: 1.1;
+                margin-bottom: 25px;
+                font-weight: 400;
+                letter-spacing: -1px;
+            }
 
-    .hero-title em {
-        font-style: italic;
-        font-family: 'Playfair Display', serif;
-    }
+                .hero-title em {
+                    font-style: italic;
+                    font-family: 'Playfair Display', serif;
+                }
 
-    .hero-description {
-        font-size: 1.05rem;
-        color: #555555;
-        line-height: 1.8;
-        margin-bottom: 40px;
-        letter-spacing: 0.5px;
-        max-width: 90%;
-    }
+            .hero-description {
+                font-size: 1.05rem;
+                color: #555555;
+                line-height: 1.8;
+                margin-bottom: 40px;
+                letter-spacing: 0.5px;
+                max-width: 90%;
+            }
 
-     .btn-satrt {
-        display: inline-block;
-        border: 1px solid #1A1A1A;
-        color: #1A1A1A;
-        padding: 15px 45px;
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        letter-spacing: 2px;
-        font-weight: 500;
-        text-decoration: none;
-        transition: all 0.4s ease;
-    }
+            .btn-satrt {
+                display: inline-block;
+                border: 1px solid #1A1A1A;
+                color: #1A1A1A;
+                padding: 15px 45px;
+                text-transform: uppercase;
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+                font-weight: 500;
+                text-decoration: none;
+                transition: all 0.4s ease;
+            }
 
-     .btn-satrt:hover {
-        background-color: #1A1A1A;
-        color: #FAF6F0;
-     }
+                .btn-satrt:hover {
+                    background-color: #1A1A1A;
+                    color: #FAF6F0;
+                }
 
-    /* Right side pic */
-    .hero-image-side {
-        flex: 1;
-        height: 100vh;
-        overflow: hidden;
-    }
+            /* Right side pic */
+            .hero-image-side {
+                flex: 1;
+                height: 100vh;
+                overflow: hidden;
+            }
 
-    .hero-image-side img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+                .hero-image-side img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
 
-    .hero-hand-fade {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: cover !important;
-    object-position: top !important;
-    margin-bottom: -200px !important; 
-    position: relative !important;
-    z-index: 0 !important;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
-    }
+            .hero-hand-fade {
+                width: 100% !important;
+                height: auto !important;
+                object-fit: cover !important;
+                object-position: top !important;
+                margin-bottom: -200px !important;
+                position: relative !important;
+                z-index: 0 !important;
+                -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
+                mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
+            }
 
-    .reveal-on-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        will-change: transform, opacity;
-        backface-visibility: hidden;
-        transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
+            .reveal-on-scroll {
+                opacity: 0;
+                transform: translateY(30px);
+                will-change: transform, opacity;
+                backface-visibility: hidden;
+                transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
 
-    /* detect scrolling to trigger this class */
-    .reveal-on-scroll.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
+                /* detect scrolling to trigger this class */
+                .reveal-on-scroll.active {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
 
-    .feature-card {
-        flex: 1;
-        background: #FFFDFB;
-        padding: 50px 30px;
-        border: 1px solid #EAE5DC;
-        text-align: center;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-    }
+            .feature-card {
+                flex: 1;
+                background: #FFFDFB;
+                padding: 50px 30px;
+                border: 1px solid #EAE5DC;
+                text-align: center;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            }
+
+            /* Language fonts control  */
+
             .lang-zh, .lang-en {
                 display: none;
             }
@@ -130,10 +135,63 @@
                 display: inline;
             }
 
-            :lang(en) .lang-en {
-                display: inline;
+            :lang(en) a,
+            :lang(en) .nav-link,
+            :lang(en) .menu-item {
+                font-weight: 400 !important;
+                letter-spacing: 2px !important;
             }
-</style>
+
+            :lang(en) .lang-en {
+                display: inline !important;
+            }
+
+            :lang(en) body {
+                font-weight: 300 !important;
+            }
+            :lang(zh) body,
+            :lang(zh) .nailsy-hero,
+            :lang(zh) p,
+            :lang(zh) div,
+            :lang(zh) h1,
+            :lang(zh) h2,
+            :lang(zh) h3,
+            :lang(zh) a {
+                font-family: 'Montserrat', 'Noto Sans TC', sans-serif !important;
+                font-weight: 300 !important;
+                letter-spacing: 1px !important;
+            }
+
+            :lang(zh) .hero-title,
+            :lang(zh) h2 {
+                font-family: "PMingLiU-ExtB", "MingLiU", "Microsoft JhengHei", "Songti TC", "Noto Serif TC", serif !important;
+                font-weight: 700 !important;
+                color: #1A1A1A !important;
+                font-size: 4.0rem !important;
+                letter-spacing: 2px !important;
+                line-height: 1.35 !important;
+            }
+
+            @@font-face {
+                font-family: "MySalonFont";
+                src: url("/fonts/ChenYuluoyan-2.0-Thin.ttf") format("truetype");
+                font-weight: 300;
+                font-style: normal;
+            }
+
+            :lang(zh) .hero-title em {
+                font-family: "MySalonFont", sans-serif !important;
+                font-style: normal !important;
+                color: #1A1A1A !important;
+                font-weight: 300 !important;
+                font-size: 5.4rem !important;
+                letter-spacing: 6px !important;
+                vertical-align: -6px;
+
+                display: inline-block;
+                margin-left: 12px;
+            }
+    </style>
 </head>
 <body>
 <div style="background-color: #FAF6F0; width: 100%; min-height: 100vh; overflow: hidden; margin: 0; padding: 0;">
@@ -155,10 +213,10 @@
                     </span>
                 </h1>
         <div class="hero-description">
-            Looking for the latest trending colors? The most popular styles? Or trying to find a nail salon near you?<br>
-            Our platform offers the most intuitive search experience.<br>
-            Whether you're gathering inspiration or seeking professional services,<br>
-            your beauty desires can be effortlessly fulfilled right here!
+                    @Localizer["Hero_Sub_Line1"]<br>
+                    @Localizer["Hero_Sub_Line2"]<br>
+                    @Localizer["Hero_Sub_Line3"]<br>
+                    @Localizer["Hero_Sub_Line4"]
         </div>
     </div>
 
@@ -174,12 +232,12 @@
                     @Localizer["AboutLabel"]
         </h2>
         <p style="font-family: 'Montserrat', sans-serif; font-size: 1.15rem; color: #555555; line-height: 2; letter-spacing: 0.5px;">
-                    We provide a seamless and highly intuitive navigation experience.<br>
-                    Whether you are searching for your next nail art inspiration<br>
-                    or looking for a certified professional,<br>
-                    our platform leverages advanced data analytics to integrate the hottest trends from YouTube, Pinterest, and Instagram with premier salons across Taiwan.<br>
-                    We aim to create an intelligent nail navigation hub<br>
-                    where achieving your beauty aesthetic is smooth and simple.
+                    @Localizer["About_Line1"]<br>
+                    @Localizer["About_Line2"]<br>
+                    @Localizer["About_Line3"]<br>
+                    @Localizer["About_Line4"]<br>
+                    @Localizer["About_Line5"]<br>
+                    @Localizer["About_Line6"]
         </p>
     </div>
 </div>
@@ -191,10 +249,10 @@
         <!-- Section -->
         <div style="text-align: center; margin-bottom: 80px;">
             <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #1A1A1A; letter-spacing: 1px;">
-                        @Localizer["HowItWorksLabel"]How It Works
+                        @Localizer["HowItWorksLabel"]
             </h2>
             <p style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: #C49A45; margin-top: 10px; font-weight: 600;">
-                Master the Fingertip Trends in 3 Simple Steps
+                        @Localizer["Process_Subtitle"]
             </p>
         </div>
 
@@ -202,17 +260,17 @@
                     <div class="feature-card">
                         <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #C49A45; margin-bottom: 20px;">01</div>
                         <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 15px; color: #1A1A1A;">Big Data Trend Scraping</h3>
-                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Automatically tracks the latest nail art videos and images across YouTube, Pinterest, and Instagram, precisely analyzing views and trending keyword tags.</p>
+                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">@Localizer["Step1_Desc"]</p>
                     </div>
                     <div class="feature-card">
                         <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #C49A45; margin-bottom: 20px;">02</div>
                         <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 15px; color: #1A1A1A;">Intuitive Tag Filtering</h3>
-                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Effortlessly filter styles that match your current mood with a single click, based on trending tags like Cateye, French, or Japanese style.</p>
+                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">@Localizer["Step2_Desc"]</p>
                     </div>
                     <div class="feature-card">
                         <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #C49A45; margin-bottom: 20px;">03</div>
                         <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 15px; color: #1A1A1A;">Curated Salon Matchmaking</h3>
-                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Directly connects you to local nail artists' portfolios on Instagram and Pinterest, bringing the best local salons right to your screen.</p>
+                        <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">@Localizer["Step3_Desc"]</p>
                     </div>
                 </div>
         </div><br>

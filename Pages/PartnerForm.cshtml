@@ -4,20 +4,18 @@
     ViewData["Title"] = "Become a Partner - NailArtHub";
 }
 
-<!-- 載入與 Services 相同的精品字體 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
-    /* 100% 複製 Services 頁面的視覺語彙與基調 */
     .services-style-page {
         background-color: #FAF6F0;
         min-height: 100vh;
         font-family: 'Montserrat', sans-serif;
         padding: 60px;
         color: #1A1A1A;
-        margin-top: -48px; /* 補償 Layout 邊距 */
+        margin-top: -48px;
     }
 
     .page-title {
@@ -28,7 +26,6 @@
         letter-spacing: 1px;
     }
 
-    /* 表單容器對齊 Services 的內卡片質感 */
     .form-container {
         background: #FFFDFB;
         border: 1px solid #EAE5DC;
@@ -37,7 +34,6 @@
         margin: 0 auto;
     }
 
-    /* 輸入框對齊 .search-input 風格 */
     .custom-input {
         width: 100%;
         background-color: #FFFDFB;
@@ -56,7 +52,6 @@
             border-color: #1A1A1A;
         }
 
-    /* 提交按鈕對齊 .btn-search 風格 */
     .btn-submit {
         background-color: #1A1A1A;
         color: #FAF6F0;
@@ -75,7 +70,6 @@
             background-color: #404040;
         }
 
-    /* 標籤選取盒比照 Services 的 tag 概念 */
     .form-tag-pill {
         background-color: #FFFDFB;
         border: 1px solid #EAE5DC;
@@ -88,9 +82,13 @@
         user-select: none;
     }
 
-    .form-check-input:checked + .form-tag-pill {
+    .style-checkbox:checked + .form-tag-pill {
         background-color: #1A1A1A;
         color: #FAF6F0;
+        border-color: #1A1A1A;
+    }
+
+    .form-tag-pill:hover {
         border-color: #1A1A1A;
     }
 </style>
@@ -114,7 +112,6 @@
         }
         else
         {
-            <!-- 🌟 完全對齊 Services 的網頁主標題 -->
             <h1 class="page-title">Become a Partner</h1>
 
             <form method="post" class="form-container animate__animated animate__fadeIn">
@@ -132,44 +129,8 @@
                     <span asp-validation-for="ApplyForm.OwnerName" class="text-danger small"></span>
                 </div>
 
-                <div class="mb-4">
-                    <label asp-for="ApplyForm.Location" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">LOCATION</label>
-                    <select asp-for="ApplyForm.Location" class="custom-input" style="cursor: pointer; height: 50px;">
-                        <option value="">Select...</option>
-                        <optgroup label="Northern Taiwan">
-                            <option value="Taipei">Taipei City</option>
-                            <option value="New Taipei">New Taipei City</option>
-                            <option value="Keelung">Keelung City</option>
-                            <option value="Taoyuan">Taoyuan City</option>
-                            <option value="HsinchuCounty">Hsinchu County</option>
-                            <option value="HsinchuCity">Hsinchu City</option>
-                        </optgroup>
-                        <optgroup label="Central Taiwan">
-                            <option value="Miaoli">Miaoli County</option>
-                            <option value="Taichung">Taichung City</option>
-                            <option value="Changhua">Changhua County</option>
-                            <option value="Nantou">Nantou County</option>
-                            <option value="Yunlin">Yunlin County</option>
-                        </optgroup>
-                        <optgroup label="Southern Taiwan">
-                            <option value="ChiayiCounty">Chiayi County</option>
-                            <option value="ChiayiCity">Chiayi City</option>
-                            <option value="Tainan">Tainan City</option>
-                            <option value="Kaohsiung">Kaohsiung City</option>
-                            <option value="Pingtung">Pingtung County</option>
-                        </optgroup>
-                        <optgroup label="Eastern Taiwan">
-                            <option value="Yilan">Yilan County</option>
-                            <option value="Hualien">Hualien County</option>
-                            <option value="Taitung">Taitung County</option>
-                        </optgroup>
-                        <optgroup label="Outer Islands">
-                            <option value="Penghu">Penghu County</option>
-                            <option value="Kinmen">Kinmen County</option>
-                            <option value="Matsu">Matsu (Lienchiang County)</option>
-                        </optgroup>
-                    </select>
-                    <span asp-validation-for="ApplyForm.Location" class="text-danger small"></span>
+                <div class="form-group mb-3">
+                    @await Html.PartialAsync("_LocationSelector")
                 </div>
 
                 <div class="mb-4">
@@ -192,13 +153,14 @@
 
                 <div class="mb-4">
                     <label class="form-label style-label d-block mb-3" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">SERVICES & STYLES</label>
-                    <div class="d-flex flex-wrap gap-2" style="background-color: #FAF6F0; padding: 20px; border: 1px solid #EAE5DC;">
+
+                    <div class="d-flex flex-wrap gap-2" style="background-color: #FFFDFB; padding: 20px; border: 1px solid #EAE5DC;">
                         @if (Model.AvailableTags != null)
                         {
                             foreach (var tag in Model.AvailableTags)
                             {
                                 <div style="position: relative;">
-                                    <input class="form-check-input style-checkbox" type="checkbox" name="SelectedTagIds" value="@tag.Id" id="tag_@tag.Id" style="display: none;" />
+                                    <input class="style-checkbox" type="checkbox" name="SelectedTagIds" value="@tag.Id" id="tag_@tag.Id" style="display: none;" />
                                     <label class="form-tag-pill" for="tag_@tag.Id">
                                         # @tag.TagName
                                     </label>

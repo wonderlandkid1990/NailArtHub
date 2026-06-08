@@ -8,6 +8,8 @@
         public class NewApply
         {
             public int Id { get; set; }
+            public string City { get; set; }
+            public string District { get; set; }
 
             [Required(ErrorMessage = "Please enter the shop name")]
             public string ShopName { get; set; }

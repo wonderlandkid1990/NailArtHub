@@ -19,6 +19,12 @@ namespace NailArtHub.Pages
             _context = context;
         }
 
+        [BindProperty(SupportsGet = true)]
+        public string SelectedCity { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SelectedDistrict { get; set; }
+
         [BindProperty]
         public NewApply ApplyForm { get; set; }
 
@@ -26,7 +32,9 @@ namespace NailArtHub.Pages
 
         [BindProperty]
         public List<int> SelectedTagIds { get; set; }
+
         public bool IsSuccess { get; set; } = false;
+
         public async Task OnGetAsync()
         {
             AvailableTags = await _context.NailTags.AsNoTracking().ToListAsync();
@@ -44,6 +52,9 @@ namespace NailArtHub.Pages
             {
                 ApplyForm.SelectedTagsString = string.Join(",", SelectedTagIds);
             }
+
+            ApplyForm.City = SelectedCity;
+            ApplyForm.District = SelectedDistrict;
 
             ApplyForm.ApplyDate = System.DateTime.Now;
             ApplyForm.Status = "Pending";

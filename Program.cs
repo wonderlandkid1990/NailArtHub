@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 // ===================================
-
+builder.Services.AddScoped<NailArtHub.Services.RegionService>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 

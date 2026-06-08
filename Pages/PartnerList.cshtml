@@ -2,6 +2,9 @@
 @model NailArtHub.Pages.PartnerListModel
 @{
     ViewData["Title"] = "Our Partner Studios - NailArtHub";
+
+    ViewData["SelectedCity"] = Model.SelectedCity;
+    ViewData["SelectedDistrict"] = Model.SelectedDistrict;
 }
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,7 +12,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
-
     .services-page {
         background-color: #FAF6F0;
         min-height: 100vh;
@@ -26,69 +28,6 @@
         margin-bottom: 50px;
         letter-spacing: 1px;
     }
-
-    .tag-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        justify-content: center;
-        max-width: 900px;
-        margin: 0 auto 40px auto;
-    }
-
-    .tag-pill-btn {
-        background-color: #FFFFFF;
-        border: 1px solid #EAE5DC;
-        padding: 10px 24px;
-        border-radius: 30px;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        letter-spacing: 0.5px;
-        font-weight: 500;
-        color: #1A1A1A;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-        .tag-pill-btn.active {
-            background-color: #1A1A1A;
-            color: #FAF6F0;
-            border-color: #1A1A1A;
-        }
-
-        .tag-pill-btn:hover:not(.active) {
-            border-color: #1A1A1A;
-        }
-
-    .search-section-wrapper {
-        max-width: 600px;
-        margin: 0 auto 60px auto;
-    }
-
-    .search-style-select {
-        width: 100%;
-        background-color: #FFFDFB;
-        border: 1px solid #EAE5DC;
-        padding: 15px 25px;
-        font-size: 1rem;
-        letter-spacing: 0.5px;
-        outline: none;
-        transition: border-color 0.3s;
-        height: 54px;
-        font-family: 'Montserrat', sans-serif;
-        color: #1A1A1A;
-        cursor: pointer;
-        -webkit-appearance: none;
-        appearance: none;
-        background-image: url("data:image/svg+xml;utf8,<svg fill='%231A1A1A' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-        background-repeat: no-repeat;
-        background-position: calc(100% - 20px) center;
-    }
-
-        .search-style-select:focus {
-            border-color: #1A1A1A;
-        }
 
     .results-layout {
         display: flex;
@@ -116,71 +55,73 @@
         .result-card-shop:hover {
             transform: translateY(-3px);
         }
+
+    .tag-pill-btn {
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        border: 1px solid #ddd;
+    }
+
+    .join-us-btn {
+        display: block;
+        width: 100%;
+        background-color: #FFFDFB;
+        border: 1px solid #1A1A1A;
+        color: #1A1A1A;
+        padding: 12px;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        transition: all 0.3s;
+    }
+
+        .join-us-btn:hover {
+            background-color: #1A1A1A;
+            color: #FAF6F0;
+        }
 </style>
 
 <div class="services-page">
     <h1 class="page-title">Partner Studios</h1>
 
-    <div class="tag-container">
-        <a asp-page="./PartnerList" asp-route-SelectedTagId="" asp-route-SelectedLocation="@Model.SelectedLocation"
-           class="tag-pill-btn @(Model.SelectedTagId == null ? "active" : "")">
-            ALL STYLES
-        </a>
+    <form method="get" id="locationForm">
+        <input type="hidden" id="hiddenTagId" name="SelectedTagId" value="@Model.SelectedTagId" />
 
-        @foreach (var tag in Model.AllTags)
-        {
-            <a asp-page="./PartnerList" asp-route-SelectedTagId="@tag.Id" asp-route-SelectedLocation="@Model.SelectedLocation"
-               class="tag-pill-btn @(Model.SelectedTagId == tag.Id ? "active" : "")">
-                # @tag.TagName
-            </a>
-        }
-    </div>
+        <div class="tag-container" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; justify-content: center; font-family: 'Montserrat', sans-serif;">
+            @{
+                bool isAllSelected = Model.SelectedTagId == null;
+            }
+            <label class="tag-pill @(isAllSelected ? "active" : "")"
+                   onclick="submitWithTag('')"
+                   style="padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; cursor: pointer; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; transition: all 0.3s; display: inline-block;
+                background-color: @(isAllSelected ? "#1A1A1A" : "#FFFFFF");
+                color: @(isAllSelected ? "#FFFFFF" : "#1A1A1A"); user-select: none;">
+                ALL STYLES
+            </label>
 
-    <div class="search-section-wrapper">
-        <form method="get" id="locationForm">
-            <input type="hidden" name="SelectedTagId" value="@Model.SelectedTagId" />
-            <select name="SelectedLocation" asp-for="SelectedLocation" onchange="document.getElementById('locationForm').submit();"
-                    class="search-style-select">
-                <option value="">Filter by Location (All Taiwan)...</option>
-                <optgroup label="Northern Taiwan">
-                    <option value="Taipei">Taipei City</option>
-                    <option value="New Taipei">New Taipei City</option>
-                    <option value="Keelung">Keelung City</option>
-                    <option value="Taoyuan">Taoyuan City</option>
-                    <option value="HsinchuCounty">Hsinchu County</option>
-                    <option value="HsinchuCity">Hsinchu City</option>
-                </optgroup>
-                <optgroup label="Central Taiwan">
-                    <option value="Miaoli">Miaoli County</option>
-                    <option value="Taichung">Taichung City</option>
-                    <option value="Changhua">Changhua County</option>
-                    <option value="Nantou">Nantou County</option>
-                    <option value="Yunlin">Yunlin County</option>
-                </optgroup>
-                <optgroup label="Southern Taiwan">
-                    <option value="ChiayiCounty">Chiayi County</option>
-                    <option value="ChiayiCity">Chiayi City</option>
-                    <option value="Tainan">Tainan City</option>
-                    <option value="Kaohsiung">Kaohsiung City</option>
-                    <option value="Pingtung">Pingtung County</option>
-                </optgroup>
-                <optgroup label="Eastern Taiwan">
-                    <option value="Yilan">Yilan County</option>
-                    <option value="Hualien">Hualien County</option>
-                    <option value="Taitung">Taitung County</option>
-                </optgroup>
-                <optgroup label="Outer Islands">
-                    <option value="Penghu">Penghu County</option>
-                    <option value="Kinmen">Kinmen County</option>
-                    <option value="Matsu">Matsu (Lienchiang County)</option>
-                </optgroup>
-                @foreach (var loc in Model.LocationList)
-                {
-                    <option value="@loc">📍 @loc</option>
-                }
-            </select>
-        </form>
-    </div>
+            @foreach (var tag in Model.AllTags)
+            {
+                bool isSelected = Model.SelectedTagId == tag.Id;
+
+                <label class="tag-pill @(isSelected ? "active" : "")"
+                       onclick="submitWithTag('@tag.Id')"
+                       style="padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.3s; display: inline-block;
+                    background-color: @(isSelected ? "#1A1A1A" : "#FFFFFF");
+                    color: @(isSelected ? "#FFFFFF" : "#1A1A1A"); user-select: none;">
+                    # @tag.TagName
+                </label>
+            }
+        </div>
+
+        <!-- ZH/EN -->
+        <div class="search-bar-wrapper" style="max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 35px;">
+            @await Html.PartialAsync("_LocationSelector")
+        </div>
+    </form>
 
     <div class="results-layout">
         <div style="flex: 1;">
@@ -253,6 +194,13 @@
                         </div>
                     }
                 </div>
+                <br>
+                <div class="w-50 mx-auto">
+                    <a asp-page="/PartnerForm" class="join-us-btn" style="margin-bottom: 0;">
+                        Join us!
+                    </a>
+                </div>
+                <br>
             }
         </div>
     </div>
@@ -261,6 +209,16 @@
 @section Scripts {
     <script async src="//www.instagram.com/embed.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () { if (window.instgrm) { window.instgrm.Embeds.process(); } });
+        function submitWithTag(tagId) {
+        const form = document.getElementById("locationForm");
+        const hiddenInput = document.getElementById("hiddenTagId");
+
+        if (hiddenInput) {
+        hiddenInput.value = tagId;
+        }
+        if (form) {
+        form.submit();
+        }
+        }
     </script>
 }

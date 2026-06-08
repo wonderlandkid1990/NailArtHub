@@ -1,0 +1,127 @@
+﻿@inject NailArtHub.Services.RegionService RegionService
+@{
+    var regions = RegionService.GetTaiwanRegions();
+    var currentCity = ViewData["SelectedCity"]?.ToString() ?? "";
+    var currentDistrict = ViewData["SelectedDistrict"]?.ToString() ?? "";
+}
+
+<div id="locationDataContainer"
+     data-current-city="@currentCity"
+     data-current-district="@currentDistrict"
+     style="font-family: 'Montserrat', 'Noto Sans TC', sans-serif;">
+
+    <div id="selectorTitle" style="font-size: 13px; font-style: italic; color: #888; margin-bottom: 8px; font-weight: 500; letter-spacing: 0.5px;">
+        <span style="color: #e05275; font-style: normal; margin-right: 3px;">📍</span> Filter by Location (Taiwan)...
+    </div>
+
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <select id="globalCitySelect" name="SelectedCity"
+                style="flex: 1; min-width: 140px; height: 42px; border: 1px solid #222222; border-radius: 4px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #1A1A1A; background: #ffffff; cursor: pointer; outline: none;">
+            <option id="defaultCityOpt" value="">All Cities</option>
+            @foreach (var r in regions)
+            {
+                if (r.CityEn == currentCity || r.CityZh == currentCity)
+                {
+                    <option value="@r.CityEn" data-zh="@r.CityZh" selected="selected">@r.CityEn</option>
+                }
+                else
+                {
+                    <option value="@r.CityEn" data-zh="@r.CityZh">@r.CityEn</option>
+                }
+            }
+        </select>
+
+        <select id="globalDistrictSelect" name="SelectedDistrict"
+                style="flex: 1; min-width: 140px; height: 42px; border: 1px solid #e2dcd5; border-radius: 4px; padding: 0 12px; font-size: 14px; color: #666; background: #ffffff; cursor: pointer; outline: none;">
+            <option id="defaultDistOpt" value="">All Districts</option>
+        </select>
+    </div>
+</div>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Language
+            const currentLang = "en";
+
+            const regionData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(regions));
+            const container = document.getElementById("locationDataContainer");
+            const savedCity = container.getAttribute("data-current-city");
+            const savedDistrict = container.getAttribute("data-current-district");
+
+            const citySelect = document.getElementById("globalCitySelect");
+            const districtSelect = document.getElementById("globalDistrictSelect");
+            const selectorTitle = document.getElementById("selectorTitle");
+            const defaultCityOpt = document.getElementById("defaultCityOpt");
+            const defaultDistOpt = document.getElementById("defaultDistOpt");
+
+            // ZH process
+            if (currentLang === "zh") {
+                selectorTitle.innerHTML = '<span style="color: #e05275; font-style: normal; margin-right: 3px;">📍</span> 依店家位置篩選 (台灣)...';
+                defaultCityOpt.textContent = "所有縣市";
+                defaultDistOpt.textContent = "所有行政區";
+
+                Array.from(citySelect.options).forEach(opt => {
+                    if (opt.value) {
+                        opt.textContent = opt.getAttribute("data-zh");
+                    }
+                });
+            }
+
+            function updateDistricts(selectedCityValue, savedDistVal) {
+                districtSelect.innerHTML = currentLang === "zh"
+                    ? '<option value="">所有行政區</option>'
+                    : '<option value="">All Districts</option>';
+
+                if (!selectedCityValue) {
+                    districtSelect.style.borderColor = "#e2dcd5";
+                    districtSelect.style.color = "#666";
+                    districtSelect.style.fontWeight = "normal";
+                    return;
+                }
+
+                const target = regionData.find(r => r.CityEn === selectedCityValue || r.CityZh === selectedCityValue);
+                if (target && target.Districts) {
+                    target.Districts.forEach(dist => {
+                        const option = document.createElement("option");
+                        option.value = dist.En;
+                        option.textContent = currentLang === "zh" ? dist.Zh : dist.En;
+
+                        if (dist.En === savedDistVal || dist.Zh === savedDistVal) {
+                            option.selected = true;
+                        }
+                        districtSelect.appendChild(option);
+                    });
+
+                    districtSelect.style.borderColor = "#222222";
+                    districtSelect.style.color = "#1A1A1A";
+                    districtSelect.style.fontWeight = "600";
+                }
+            }
+
+            if (savedCity) {
+                updateDistricts(savedCity, savedDistrict);
+            }
+
+            citySelect.addEventListener("change", function () {
+                const selectedCity = this.value;
+                updateDistricts(selectedCity, "");
+
+                const form = citySelect.closest("form");
+                if (form) {
+
+                    if (form.id === "filterForm" || form.id === "locationForm") {
+                        form.submit();
+                    }
+                }
+            });
+
+            districtSelect.addEventListener("change", function () {
+                const form = districtSelect.closest("form");
+                if (form) {
+                    if (form.id === "filterForm" || form.id === "locationForm") {
+                        form.submit();
+                    }
+                }
+            });
+        });
+</script>

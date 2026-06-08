@@ -2,36 +2,42 @@ using Microsoft.EntityFrameworkCore;
 using NailArtHub.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-// === Admin login ===
-//builder.Services.AddRazorPages(options =>
-//{
-//    options.Conventions.AuthorizeFolder("/Admin");
-//});
-// === Register SQLite database ===
+
+// ===  System Language (zh / en) === 
+var supportedCultures = new[] { "zh", "en" };
+builder.Services.Configure<RequestLocalizationOptions>(options => {
+    options.SetDefaultCulture(supportedCultures[0])
+           .AddSupportedCultures(supportedCultures)
+           .AddSupportedUICultures(supportedCultures);
+
+});
+
+builder.Services.AddLocalization();
+
+builder.Services.AddRazorPages()
+                .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix);
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-// ===================================
+
 builder.Services.AddScoped<NailArtHub.Services.RegionService>();
-// Add services to the container.
-builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseRequestLocalization();
 
+app.UseAuthorization();
 app.MapStaticAssets();
+
 app.MapRazorPages()
    .WithStaticAssets();
 

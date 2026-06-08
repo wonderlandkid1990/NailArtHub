@@ -1,5 +1,6 @@
 ﻿@page
 @model IndexModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<NailArtHub.SharedResource> Localizer
 @{
     ViewData["Title"] = "Home page";
 }
@@ -121,6 +122,17 @@
         text-align: center;
         box-shadow: 0 4px 20px rgba(0,0,0,0.02);
     }
+            .lang-zh, .lang-en {
+                display: none;
+            }
+
+            :lang(zh) .lang-zh {
+                display: inline;
+            }
+
+            :lang(en) .lang-en {
+                display: inline;
+            }
 </style>
 </head>
 <body>
@@ -129,10 +141,19 @@
     <!-- Left side text -->
             <div class="hero-text-side" style="flex: 1; padding-right: 80px;">
         <div class="hero-tagline">Trendy & Smart Exploration</div>
-        <h1 class="hero-title">
-            Find the Best<br>
-            <em>Nail Trends</em> Near You.
-        </h1>
+                <h1 class="hero-title">
+                    <!-- EN  -->
+                    <span class="lang-en">
+                        Find the Best<br>
+                        <em>Nail Trends</em> Near You.
+                    </span>
+
+                    <!-- ZH -->
+                    <span class="lang-zh">
+                        探索在您身邊的<br>
+                        最新<em>美甲潮流</em>
+                    </span>
+                </h1>
         <div class="hero-description">
             Looking for the latest trending colors? The most popular styles? Or trying to find a nail salon near you?<br>
             Our platform offers the most intuitive search experience.<br>
@@ -150,7 +171,7 @@
         <div class="reveal-on-scroll" style="background-color: transparent; padding: 100px 60px;">
     <div style="max-width: 900px; margin: 0 auto; text-align: center;">
         <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #1A1A1A; margin-bottom: 40px; letter-spacing: 1px;">
-            About
+                    @Localizer["AboutLabel"]
         </h2>
         <p style="font-family: 'Montserrat', sans-serif; font-size: 1.15rem; color: #555555; line-height: 2; letter-spacing: 0.5px;">
                     We provide a seamless and highly intuitive navigation experience.<br>
@@ -170,7 +191,7 @@
         <!-- Section -->
         <div style="text-align: center; margin-bottom: 80px;">
             <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #1A1A1A; letter-spacing: 1px;">
-                How It Works
+                        @Localizer["HowItWorksLabel"]How It Works
             </h2>
             <p style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: #C49A45; margin-top: 10px; font-weight: 600;">
                 Master the Fingertip Trends in 3 Simple Steps
@@ -197,7 +218,7 @@
         </div><br>
             <!-- Button to Services -->
             <div style="display: flex; justify-content: center; margin-top: 60px;">
-                <a asp-page="/Services" class="btn-satrt">EXPLORE NOW</a>
+                <a asp-page="/Services" class="btn-satrt">@Localizer["ExploreNowLabel"]</a>
             </div>
     </div>
 </div>

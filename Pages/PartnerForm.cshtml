@@ -1,5 +1,7 @@
 ﻿@page
 @model NailArtHub.Pages.PartnerFormModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<NailArtHub.SharedResource> Localizer
 @{
     ViewData["Title"] = "Become a Partner - NailArtHub";
 }
@@ -102,11 +104,11 @@
                 <div class="mb-4" style="font-size: 3rem;">✨</div>
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px;">Thank You</h3>
                 <p style="color: #666; font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px;">
-                    Your details have been submitted successfully.<br />
-                    Please sit tight while we review your application. We will check out your nail art page very shortly!
+                    @Localizer["SubmittedSuccessfulLabel"]<br />
+                    @Localizer["SubmittedSLabel2"]
                 </p>
                 <a asp-page="/Services" class="btn-submit" style="text-decoration: none; display: inline-block; width: auto; padding: 12px 40px;">
-                    Back to Explore
+                    @Localizer["ExploreLabel"]
                 </a>
             </div>
         }
@@ -118,13 +120,13 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
 
                 <div class="mb-4">
-                    <label asp-for="ApplyForm.ShopName" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">SHOP NAME</label>
+                    <label asp-for="ApplyForm.ShopName" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["ShopNameLabel"]</label>
                     <input asp-for="ApplyForm.ShopName" class="custom-input" placeholder="Ex: Beauty Nails Salon" />
                     <span asp-validation-for="ApplyForm.ShopName" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="ApplyForm.OwnerName" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">OWNER NAME</label>
+                    <label asp-for="ApplyForm.OwnerName" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["OwnerNameLabel"]</label>
                     <input asp-for="ApplyForm.OwnerName" class="custom-input" placeholder="Ex: Vivian Chen" />
                     <span asp-validation-for="ApplyForm.OwnerName" class="text-danger small"></span>
                 </div>
@@ -134,25 +136,25 @@
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="ApplyForm.Address" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">ADDRESS</label>
+                    <label asp-for="ApplyForm.Address" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["ShopNameAddress"]</label>
                     <input asp-for="ApplyForm.Address" class="custom-input" placeholder="Ex: 大安區敦化南路一段XXX號" />
                     <span asp-validation-for="ApplyForm.Address" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="ApplyForm.InstagramUrl" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">INSTAGRAM URL</label>
+                    <label asp-for="ApplyForm.InstagramUrl" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["InstaLabel"]</label>
                     <input asp-for="ApplyForm.InstagramUrl" class="custom-input" placeholder="https://www.instagram.com/your_salon" />
                     <span asp-validation-for="ApplyForm.InstagramUrl" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="ApplyForm.PinterestUrl" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">INSTAGRAM POST URL (OPTIONAL)</label>
+                    <label asp-for="ApplyForm.PinterestUrl" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["InstaPostLabel"]</label>
                     <input asp-for="ApplyForm.PinterestUrl" class="custom-input" placeholder="Paste featured public Instagram post URL for preview card." />
                     <span asp-validation-for="ApplyForm.PinterestUrl" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label style-label d-block mb-3" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">SERVICES & STYLES</label>
+                    <label class="form-label style-label d-block mb-3" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["ServicesTagLabel"]</label>
 
                     <div class="d-flex flex-wrap gap-2" style="background-color: #FFFDFB; padding: 20px; border: 1px solid #EAE5DC;">
                         @if (Model.AvailableTags != null)
@@ -173,12 +175,12 @@
                 <div class="mb-5 form-check d-flex align-items-start mt-4" style="padding-left: 0;">
                     <input type="checkbox" id="agreeCheck" required style="cursor: pointer; width: 16px; height: 16px; margin-top: 3px; border: 1px solid #EAE5DC;" />
                     <label for="agreeCheck" style="color: #666; font-size: 0.75rem; line-height: 1.6; cursor: pointer; user-select: none; margin-left: 10px;">
-                        I agree to submit the business information above for NAH platform review. I certify that all provided operational content and nail art imagery are accurate and non-infringing. The applicant shall bear full legal responsibility for any third-party intellectual property disputes; NAH assumes no liability arising from the submitted or aggregated content.
+                        @Localizer["TermAgreementText"]
                     </label>
                 </div>
 
                 <button type="submit" class="btn-submit">
-                    Submit Application
+                    @Localizer["SubmitApplicationLabel"]
                 </button>
             </form>
         }

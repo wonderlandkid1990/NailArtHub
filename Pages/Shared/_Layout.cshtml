@@ -1,5 +1,31 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<NailArtHub.SharedResource> Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var cookieName = CookieRequestCultureProvider.DefaultCookieName;
+    var cultureCookie = Context.Request.Cookies[cookieName];
+    string currentCulture = "zh";
+
+    if (!string.IsNullOrEmpty(cultureCookie))
+    {
+        var parts = cultureCookie.Split('|');
+        var uicPart = parts.FirstOrDefault(p => p.StartsWith("uic="));
+        if (uicPart != null)
+        {
+            currentCulture = uicPart.Substring(4);
+        }
+    }
+    if (!string.IsNullOrEmpty(Context.Request.Query["culture"]))
+    {
+        currentCulture = Context.Request.Query["culture"].ToString();
+    }
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path}{Context.Request.QueryString}";
+}
+
+<!DOCTYPE html>
+<html lang="@(currentCulture.StartsWith("zh") ? "zh-Hant" : "en")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,22 +48,45 @@
                         </span>
                     </a>
                 </div>
-                <!-- APP version -->
+
                 <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <!-- ZH/CN btn -->
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end pe-4">
-                    <ul class="navbar-nav gap-4">
+                    <ul class="navbar-nav gap-4 d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/Index">@Localizer["HomeLabel"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/Services">Services</a>
+                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/Services">@Localizer["ServicesLabell"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/PartnerList">Partner List</a>
+                            <a class="nav-link text-dark fw-bold" style="font-size: 15px; letter-spacing: 1px;" asp-area="" asp-page="/PartnerList">@Localizer["Partner_List"]</a>
+                        </li>
+
+                        <li class="nav-item ms-2">
+                            <form id="selectLanguageForm" asp-page="/SetLanguage" method="post" asp-route-returnUrl="@returnUrl" class="m-0">
+                                <input type="hidden" name="culture" id="layoutCultureInput" value="" />
+
+                                <div style="font-size: 0.85rem; letter-spacing: 1px; font-family: 'Montserrat', sans-serif;">
+                                    <a href="?culture=zh"
+                                       style="text-decoration: none; padding: 0 4px; transition: color 0.3s;
+                                        color: @(currentCulture == "zh" ? "#1A1A1A" : "#ccc"); font-weight: @(currentCulture == "zh" ? "700" : "400");">
+                                        ZH
+                                    </a>
+
+                                    <span style="color: #EAE5DC; padding: 0 1px;">|</span>
+
+                                    <a href="?culture=en"
+                                       style="text-decoration: none; padding: 0 4px; transition: color 0.3s;
+                                        color: @(currentCulture == "en" ? "#1A1A1A" : "#ccc"); font-weight: @(currentCulture == "en" ? "700" : "400");">
+                                        EN
+                                    </a>
+                                </div>
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -45,6 +94,7 @@
             </div>
         </nav>
     </header>
+
     <div class="container-fluid p-0">
         <main role="main">
             @RenderBody()
@@ -62,11 +112,23 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
-    function submitLocationForm() {
-    const form = document.getElementById("locationForm");
-    if (form) {
-    form.submit();
-    }
-    }
+
+    <script>
+        function changeGlobalLanguage(cultureCode) {
+        const input = document.getElementById('layoutCultureInput');
+        const form = document.getElementById('selectLanguageForm');
+        if (input && form) {
+        input.value = cultureCode;
+        form.submit();
+        }
+        }
+
+        function submitLocationForm() {
+        const form = document.getElementById("locationForm");
+        if (form) {
+        form.submit();
+        }
+        }
+    </script>
 </body>
 </html>

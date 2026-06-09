@@ -172,6 +172,18 @@
             }
         </div>
 
+        <div class="search-bar-container" style="display: flex; gap: 10px; max-width: 1200px; margin: 0 auto 40px auto;">
+            <input type="text" name="SearchQuery"
+                   value="@Model.SearchQuery"
+                   placeholder="Search for styles, colors, or keywords..."
+                   style="flex: 1; border: 1px solid #1A1A1A; padding: 15px 20px; font-family: 'Montserrat', sans-serif;" />
+
+            <button type="submit"
+                    style="background-color: #1A1A1A; color: #FFFDFB; border: none; padding: 0 40px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
+                SEARCH
+            </button>
+        </div>
+
         <div class="results-layout">
             <div class="left-results-side">
                 <h2 class="section-subtitle">@Localizer["Trending_Inspirations"]</h2>

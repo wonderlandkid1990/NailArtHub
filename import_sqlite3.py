@@ -13,18 +13,19 @@ from selenium.webdriver.edge.options import Options
 def connect_to_existing_db():
     db_path = r"C:\Users\honlo\Documents\NailArtHub\NailArtHub.db"
     print(f"Connecting to database: {db_path}")
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(db_path, timeout=30)
     return conn
 
+# if len(sys.argv) > 1:
+#     target_tag = sys.argv[1].lower().replace(" ", "")
+# else:
+#     target_tag = "cateyes"
 if len(sys.argv) > 1:
-    target_tag = sys.argv[1].lower().replace(" ", "")
+    target_tag = sys.argv[1].strip()
 else:
     target_tag = "cateyes"
 
-if "nail" in target_tag:
-    search_keyword = f"{target_tag}s trend"
-else:
-    search_keyword = f"{target_tag} nails trend"
+search_keyword = f"{target_tag} nail art trend"
 
 print(f"Python trigger activated. Target Tag to save in DB: {target_tag}")
 print(f"Search Keyword on Pinterest: {search_keyword}")

@@ -3,6 +3,12 @@
 @inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<NailArtHub.SharedResource> Localizer
 @{
     ViewData["Title"] = "Explore Services";
+
+    var queryParams = new Dictionary<string, string>();
+    if (ViewContext.HttpContext.Request.Query.ContainsKey("culture"))
+    {
+        queryParams["culture"] = ViewContext.HttpContext.Request.Query["culture"].ToString();
+    }
 }
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -224,7 +230,7 @@
 
             <div class="right-salon-side">
                 <h2 class="section-subtitle">@Localizer["Featured_Salons"]</h2>
-                <a asp-page="/PartnerForm" class="join-us-btn">@Localizer["Join_us"]</a>
+                <a asp-page="/PartnerForm" asp-all-route-data="queryParams" class="join-us-btn">@Localizer["Join_us"]</a>
                 <div style="background-color: #FFFDFB; border: 1px solid #EAE5DC; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
                     <p style="font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; color: #1A1A1A;">@Localizer["Find_ around_you"]：</p>
                     @await Html.PartialAsync("_LocationSelector")

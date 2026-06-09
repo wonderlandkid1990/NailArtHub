@@ -4,6 +4,11 @@
 @inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<NailArtHub.SharedResource> Localizer
 @inject IOptions<RequestLocalizationOptions> LocOptions
 @{
+    var queryParams = new Dictionary<string, string>();
+    if (Context.Request.Query.ContainsKey("culture"))
+    {
+        queryParams["culture"] = Context.Request.Query["culture"].ToString();
+    }
     var cookieName = CookieRequestCultureProvider.DefaultCookieName;
     var cultureCookie = Context.Request.Cookies[cookieName];
     string currentCulture = "zh";
@@ -94,35 +99,32 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end pe-4">
                     <ul class="navbar-nav gap-4 d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/Index">@Localizer["HomeLabel"]</a>
+                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/Index" asp-all-route-data="queryParams">@Localizer["HomeLabel"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/Services">@Localizer["ServicesLabel"]</a>
+                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/Services" asp-all-route-data="queryParams">@Localizer["ServicesLabel"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/PartnerList">@Localizer["Partner_List"]</a>
+                            <a class="nav-link text-dark" style="letter-spacing: 1px;" asp-area="" asp-page="/PartnerList" asp-all-route-data="queryParams">@Localizer["Partner_List"]</a>
                         </li>
 
                         <li class="nav-item ms-2">
-                            <form id="selectLanguageForm" asp-page="/SetLanguage" method="post" asp-route-returnUrl="@returnUrl" class="m-0">
-                                <input type="hidden" name="culture" id="layoutCultureInput" value="" />
+                            <div style="font-size: 0.85rem; letter-spacing: 1px; font-family: 'Montserrat', sans-serif;">
 
-                                <div style="font-size: 0.85rem; letter-spacing: 1px; font-family: 'Montserrat', sans-serif;">
-                                    <a href="?culture=zh"
-                                       style="text-decoration: none; padding: 0 4px; transition: color 0.3s;
-                                        color: @(currentCulture == "zh" ? "#1A1A1A" : "#ccc"); font-weight: @(currentCulture == "zh" ? "700" : "400");">
-                                        ZH
-                                    </a>
+                                <a href="@(Context.Request.Path)@(Context.Request.QueryString.Value.Contains("culture=") ? Context.Request.QueryString.Value.Replace("culture=" + currentCulture, "culture=zh") : (Context.Request.QueryString.HasValue ? Context.Request.QueryString.Value + "&culture=zh" : "?culture=zh"))"
+                                   style="text-decoration: none; padding: 0 4px; transition: color 0.3s;
+                                    color: @(currentCulture == "zh" ? "#1A1A1A" : "#ccc"); font-weight: @(currentCulture == "zh" ? "700" : "400");">
+                                    ZH
+                                </a>
 
-                                    <span style="color: #EAE5DC; padding: 0 1px;">|</span>
+                                <span style="color: #EAE5DC; padding: 0 1px;">|</span>
 
-                                    <a href="?culture=en"
-                                       style="text-decoration: none; padding: 0 4px; transition: color 0.3s;
-                                        color: @(currentCulture == "en" ? "#1A1A1A" : "#ccc"); font-weight: @(currentCulture == "en" ? "700" : "400");">
-                                        EN
-                                    </a>
-                                </div>
-                            </form>
+                                <a href="@(Context.Request.Path)@(Context.Request.QueryString.Value.Contains("culture=") ? Context.Request.QueryString.Value.Replace("culture=" + currentCulture, "culture=en") : (Context.Request.QueryString.HasValue ? Context.Request.QueryString.Value + "&culture=en" : "?culture=en"))"
+                                   style="text-decoration: none; padding: 0 4px; transition: color 0.3s;
+                                    color: @(currentCulture == "en" ? "#1A1A1A" : "#ccc"); font-weight: @(currentCulture == "en" ? "700" : "400");">
+                                    EN
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>

@@ -6,6 +6,11 @@
 
     ViewData["SelectedCity"] = Model.SelectedCity;
     ViewData["SelectedDistrict"] = Model.SelectedDistrict;
+    var queryParams = new Dictionary<string, string>();
+    if (ViewContext.HttpContext.Request.Query.ContainsKey("culture"))
+    {
+        queryParams["culture"] = ViewContext.HttpContext.Request.Query["culture"].ToString();
+    }
 }
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -218,7 +223,7 @@
                 </div>
                 <br>
                 <div class="w-50 mx-auto">
-                    <a asp-page="/PartnerForm" class="join-us-btn" style="margin-bottom: 0;">
+                    <a asp-page="/PartnerForm" asp-all-route-data="queryParams" class="join-us-btn" style="margin-bottom: 0;">
                         @Localizer["Join_us"]
                     </a>
                 </div>

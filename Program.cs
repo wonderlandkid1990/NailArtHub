@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using NailArtHub.Data;
 
@@ -6,10 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 // ===  System Language (zh / en) === 
 var supportedCultures = new[] { "zh", "en" };
 builder.Services.Configure<RequestLocalizationOptions>(options => {
-    options.SetDefaultCulture(supportedCultures[0])
+    var supportedCultures = new[] { "zh", "en" };
+    options.SetDefaultCulture("zh")
            .AddSupportedCultures(supportedCultures)
            .AddSupportedUICultures(supportedCultures);
 
+    options.RequestCultureProviders.Clear();
+    options.RequestCultureProviders.Add(new QueryStringRequestCultureProvider { QueryStringKey = "culture" });
+    options.RequestCultureProviders.Add(new CookieRequestCultureProvider());
 });
 
 builder.Services.AddLocalization();

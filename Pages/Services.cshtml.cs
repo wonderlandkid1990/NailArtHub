@@ -94,6 +94,29 @@ namespace NailArtHub.Pages
             else
             {
                 CurrentDisplayTag = "All_StylesLabel";
+                var topTagNames = await _context.NailTags
+                    .OrderByDescending(t => t.ViewCount)
+                    .Take(10)
+                    .Select(t => t.TagName.ToLower().Trim())
+                    .ToListAsync();
+
+                var randomTrends = new List<NailTrend>();
+                var random = new Random();
+
+                foreach (var tagName in topTagNames)
+                {
+                    var tagItems = await _context.NailTrends
+                        .Where(t => t.Tag.ToLower().Trim() == tagName)
+                        .Take(5)
+                        .ToListAsync();
+
+                    if (tagItems.Any())
+                    {
+                        randomTrends.AddRange(tagItems.OrderBy(x => random.Next()).Take(2));
+                    }
+                }
+                var randomIds = randomTrends.Select(t => t.Id).ToList();
+                query = query.Where(t => randomIds.Contains(t.Id));
             }
 
             Debug.WriteLine($"篩選後的 SQL 指令: {query.ToQueryString()}");

@@ -43,6 +43,15 @@ namespace NailArtHub.Pages
 
             if (!string.IsNullOrEmpty(SearchQuery))
             {
+                CurrentDisplayTag = SearchQuery.ToUpper().Replace("#", "");
+            }
+            else if (SelectedTagId.HasValue)
+            {
+                var tag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
+                CurrentDisplayTag = tag?.TagName?.ToUpper() ?? "TREND";
+            }
+            if (!string.IsNullOrEmpty(SearchQuery))
+            {
                 string cleanedSearch = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
                 string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
                 var existingTag = AllTags.FirstOrDefault(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == cleanedSearch);
@@ -68,28 +77,56 @@ namespace NailArtHub.Pages
 
             // Show top 6
             AvailableTags = await _context.NailTags.OrderByDescending(t => t.ViewCount).Take(6).ToListAsync();
-
+            // All style -> Radom tags
             var query = _context.NailTrends.AsQueryable();
-            if (SelectedTagId.HasValue)
+            if (string.IsNullOrEmpty(SearchQuery) && !SelectedTagId.HasValue)
             {
-                var currentTag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
-                if (currentTag != null)
+                CurrentDisplayTag = "All_StylesLabel";
+
+                var topTagNames = await _context.NailTags
+                    .OrderByDescending(t => t.ViewCount)
+                    .Take(10)
+                    .Select(t => t.TagName.ToLower().Trim())
+                    .ToListAsync();
+
+                var randomTrends = new List<NailTrend>();
+                var random = new Random();
+
+                foreach (var tagName in topTagNames)
                 {
-                    string cleaned = currentTag.TagName.ToLower().Replace(" ", "").Replace("#", "");
-                    query = query.Where(t => t.Tag.ToLower().Trim() == cleaned);
-                    CurrentDisplayTag = currentTag.TagName.ToUpper();
+                    var tagItems = await _context.NailTrends
+                        .Where(t => t.Tag.ToLower().Trim() == tagName)
+                        .Take(5)
+                        .ToListAsync();
+
+                    if (tagItems.Any())
+                    {
+                        var selected = tagItems.OrderBy(x => random.Next()).Take(2);
+                        randomTrends.AddRange(selected);
+                    }
                 }
+                TrendResults = randomTrends.OrderBy(x => random.Next()).ToList();
             }
-            if (string.IsNullOrEmpty(CurrentDisplayTag))
+            else
             {
-                CurrentDisplayTag = "Cateyes";
+                if (SelectedTagId.HasValue)
+                {
+                    var currentTag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
+                    if (currentTag != null)
+                    {
+                        string cleaned = currentTag.TagName.ToLower().Replace(" ", "").Replace("#", "");
+                        query = query.Where(t => t.Tag.ToLower().Trim() == cleaned);
+                        CurrentDisplayTag = currentTag.TagName.ToUpper();
+                    }
+                }
+                else if (!string.IsNullOrEmpty(SearchQuery))
+                {
+                    string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
+                    query = query.Where(t => t.Title.ToLower().Contains(q) || t.Tag.ToLower().Trim().Contains(q));
+                }
+
+                TrendResults = await query.OrderByDescending(t => t.Id).ToListAsync();
             }
-            else if (!string.IsNullOrEmpty(SearchQuery))
-            {
-                string cleanedSearchLower = SearchQuery.ToLower().Replace(" ", "").Replace("#", "");
-                query = query.Where(t => t.Title.ToLower().Contains(cleanedSearchLower) || t.Tag.ToLower().Trim().Contains(cleanedSearchLower));
-            }
-            TrendResults = await query.OrderByDescending(t => t.Id).ToListAsync();
 
             var shopQuery = _context.Shops.Include(s => s.ShopTagBridges).ThenInclude(b => b.NailTag).AsQueryable();
             var regions = _regionService.GetTaiwanRegions();

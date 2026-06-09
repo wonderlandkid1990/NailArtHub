@@ -45,8 +45,9 @@
     .tag-pill {
         background-color: #FFFDFB;
         border: 1px solid #EAE5DC;
-        padding: 8px 20px;
+        padding: 8px 15px;
         border-radius: 30px;
+        white-space: nowrap;
         font-size: 0.9rem;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -204,7 +205,7 @@
                             </div>
                             <div style="flex: 1.4;">
                                 <span style="color: #C49A45; font-weight: 600; letter-spacing: 1px;">
-                                    # @Model.CurrentDisplayTag
+                                    # @Localizer[trend.Tag]
                                 </span>
                                 <h3 style="font-family: 'Playfair Display', serif; margin: 8px 0 12px 0; font-size: 1.3rem;">
                                     @trend.Title
@@ -261,11 +262,20 @@
     function submitWithTag(tagId) {
         const form = document.getElementById("filterForm");
         const hiddenInput = document.getElementById("hiddenTagId");
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCulture = urlParams.get('culture');
 
         if (hiddenInput) {
             hiddenInput.value = tagId;
         }
         if (form) {
+            if (currentCulture) {
+                const cultureInput = document.createElement("input");
+                cultureInput.type = "hidden";
+                cultureInput.name = "culture";
+                cultureInput.value = currentCulture;
+                form.appendChild(cultureInput);
+            }
             form.submit();
         }
     }

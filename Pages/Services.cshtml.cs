@@ -39,21 +39,17 @@ namespace NailArtHub.Pages
         public async Task OnGetAsync()
         {
             AllTags = await _context.NailTags.ToListAsync();
-            var query = _context.NailTrends.AsQueryable();
-            bool hasSearch = !string.IsNullOrEmpty(Request.Query["SearchQuery"]);
-            bool hasTag = Request.Query.ContainsKey("SelectedTagId") && !string.IsNullOrEmpty(Request.Query["SelectedTagId"]);
-
+           
             if (!string.IsNullOrEmpty(SearchQuery))
             {
-                // [搜尋模式]：強制清空標籤篩選，確保搜尋優先
+                string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
+                var existingTag = AllTags.FirstOrDefault(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == q);
+                int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower().Replace(" ", "").Replace("#", "") == q);
+                CurrentDisplayTag = SearchQuery.ToUpper().Replace("#", "");
+
                 SelectedTagId = null;
 
                 string cleanedSearch = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
-                string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
-                var existingTag = AllTags.FirstOrDefault(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == cleanedSearch);
-
-                int trendCount = await _context.NailTrends.CountAsync(t => t.Tag == q);
-
                 if (existingTag == null || trendCount < 3)
                 {
                     if (existingTag == null)
@@ -71,43 +67,38 @@ namespace NailArtHub.Pages
                     await RunPythonCrawlerAsync(q);
                 }
             }
-            if (hasSearch)
+            IQueryable<NailTrend> query = _context.NailTrends;
+
+            if (!string.IsNullOrEmpty(SearchQuery))
             {
-                // === 強制執行搜尋模式 ===
-                string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
-                // 搜尋時，忽略任何 Tag 邏輯
-                query = query.Where(t => t.Title.ToLower().Contains(q) || t.Tag.ToLower().Trim().Contains(q));
-                CurrentDisplayTag = SearchQuery.ToUpper().Replace("#", "");
+                string q = SearchQuery.Trim().ToLower();
+
+                query = _context.NailTrends.Where(t =>
+                    t.Tag.ToLower() == q ||
+                    t.Tag.ToLower().Contains("#" + q)
+                );
+
+                CurrentDisplayTag = SearchQuery.ToUpper();
+                SelectedTagId = null;
             }
-            else if (hasTag)
+            else if (SelectedTagId.HasValue)
             {
-                // === 強制執行 Tag 模式 ===
                 var currentTag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
                 if (currentTag != null)
                 {
                     string cleaned = currentTag.TagName.ToLower().Replace(" ", "").Replace("#", "");
-                    query = query.Where(t => t.Tag.ToLower().Trim() == cleaned);
+                    query = query.Where(t => t.Tag.ToLower().Replace(" ", "").Replace("#", "") == cleaned);
                     CurrentDisplayTag = currentTag.TagName.ToUpper();
                 }
             }
             else
             {
-                // [預設模式]：顯示隨機內容
                 CurrentDisplayTag = "All_StylesLabel";
-                var topTagNames = await _context.NailTags.OrderByDescending(t => t.ViewCount).Take(10).Select(t => t.TagName.ToLower().Trim()).ToListAsync();
-                var randomTrends = new List<NailTrend>();
-                var random = new Random();
-                foreach (var tagName in topTagNames)
-                {
-                    var tagItems = await _context.NailTrends.Where(t => t.Tag.ToLower().Trim() == tagName).Take(5).ToListAsync();
-                    if (tagItems.Any()) randomTrends.AddRange(tagItems.OrderBy(x => random.Next()).Take(2));
-                }
-                query = query.Where(t => randomTrends.Contains(t));
             }
 
+            Debug.WriteLine($"篩選後的 SQL 指令: {query.ToQueryString()}");
             TrendResults = await query.OrderByDescending(t => t.Id).ToListAsync();
 
-            // === 地區篩選邏輯 ===
             var shopQuery = _context.Shops.Include(s => s.ShopTagBridges).ThenInclude(b => b.NailTag).AsQueryable();
             var regions = _regionService.GetTaiwanRegions();
 

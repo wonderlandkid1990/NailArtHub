@@ -77,7 +77,8 @@ try:
 
             cursor.execute("SELECT 1 FROM NailTrend WHERE ImageUrl = ?", (img_url,))
             if cursor.fetchone() is None:
-
+                
+                clean_tag = target_tag.lower().replace(" ", "").replace("#", "")
                 cursor.execute('''
                     INSERT INTO NailTrend (Tag, Title, ImageUrl, SourceUrl, CrawledAt)
                     VALUES (?, ?, ?, ?, ?)

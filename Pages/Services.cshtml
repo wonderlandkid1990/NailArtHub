@@ -162,30 +162,28 @@
     <h1 class="page-title">@Localizer["Explore_Trends_Services"]</h1>
 
     <form method="get" id="filterForm">
-
         <input type="hidden" id="hiddenTagId" name="SelectedTagId" value="@Model.SelectedTagId" />
-
         <div class="tag-container">
-            <div class="tag-pill @(!Model.SelectedTagId.HasValue ? "active" : "")" onclick="submitWithTag('')">
+            <div class="tag-pill @(!Model.SelectedTagId.HasValue ? "active" : "")" onclick="submitWithTag('')" >
                 @Localizer["All_StylesLabel"]
             </div>
 
             @foreach (var tag in Model.AllTags.Take(6))
             {
                 bool isSelected = Model.SelectedTagId.HasValue && Model.SelectedTagId.Value == tag.Id;
-                <div class="tag-pill @(isSelected ? "active" : "")" onclick="submitWithTag('@tag.Id')">
+                <div class="tag-pill @(isSelected ? "active" : "")" onclick="submitWithTag('@tag.Id')" >
                     # @tag.TagName
                 </div>
             }
         </div>
 
-        <div class="search-bar-container" style="display: flex; gap: 10px; max-width: 1200px; margin: 0 auto 40px auto;">
+        <div class="search-bar-container" style="display: flex; gap: 10px; max-width: 1200px; margin: 0 auto 40px auto;" >
             <input type="text" name="SearchQuery"
                    value="@Model.SearchQuery"
                    placeholder="Search for styles, colors, or keywords..."
                    style="flex: 1; border: 1px solid #1A1A1A; padding: 15px 20px; font-family: 'Montserrat', sans-serif;" />
 
-            <button type="submit"
+            <button type="button" onclick="submitSearch()"
                     style="background-color: #1A1A1A; color: #FFFDFB; border: none; padding: 0 40px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
                 SEARCH
             </button>
@@ -265,24 +263,28 @@
 </div>
 
 <script>
+    function submitSearch() {
+        const form = document.getElementById("filterForm");
+        const hiddenInput = document.getElementById("hiddenTagId");
+
+        if (hiddenInput) {
+            hiddenInput.value = "";
+        }
+        form.submit();
+    }
     function submitWithTag(tagId) {
         const form = document.getElementById("filterForm");
         const hiddenInput = document.getElementById("hiddenTagId");
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentCulture = urlParams.get('culture');
+        const searchInput = document.querySelector('input[name="SearchQuery"]');
+
+        if (searchInput) {
+            searchInput.value = "";
+        }
 
         if (hiddenInput) {
             hiddenInput.value = tagId;
         }
-        if (form) {
-            if (currentCulture) {
-                const cultureInput = document.createElement("input");
-                cultureInput.type = "hidden";
-                cultureInput.name = "culture";
-                cultureInput.value = currentCulture;
-                form.appendChild(cultureInput);
-            }
-            form.submit();
-        }
+
+        form.submit();
     }
 </script>

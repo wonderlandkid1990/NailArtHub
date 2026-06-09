@@ -31,7 +31,6 @@ namespace NailArtHub.Pages
 
         [BindProperty(SupportsGet = true)] public string SearchQuery { get; set; }
         [BindProperty(SupportsGet = true)] public int? SelectedTagId { get; set; }
-        [BindProperty(SupportsGet = true)] public List<string> SelectedTags { get; set; } = new List<string>();
         [BindProperty(SupportsGet = true)] public string SelectedCity { get; set; }
         [BindProperty(SupportsGet = true)] public string SelectedDistrict { get; set; }
 
@@ -40,23 +39,19 @@ namespace NailArtHub.Pages
         public async Task OnGetAsync()
         {
             AllTags = await _context.NailTags.ToListAsync();
+            var query = _context.NailTrends.AsQueryable();
+            bool hasSearch = !string.IsNullOrEmpty(Request.Query["SearchQuery"]);
+            bool hasTag = Request.Query.ContainsKey("SelectedTagId") && !string.IsNullOrEmpty(Request.Query["SelectedTagId"]);
 
             if (!string.IsNullOrEmpty(SearchQuery))
             {
-                CurrentDisplayTag = SearchQuery.ToUpper().Replace("#", "");
-            }
-            else if (SelectedTagId.HasValue)
-            {
-                var tag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
-                CurrentDisplayTag = tag?.TagName?.ToUpper() ?? "TREND";
-            }
-            if (!string.IsNullOrEmpty(SearchQuery))
-            {
+                // [搜尋模式]：強制清空標籤篩選，確保搜尋優先
+                SelectedTagId = null;
+
                 string cleanedSearch = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
                 string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
                 var existingTag = AllTags.FirstOrDefault(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == cleanedSearch);
 
-                // Tags less than 3 then trigger python 
                 int trendCount = await _context.NailTrends.CountAsync(t => t.Tag == q);
 
                 if (existingTag == null || trendCount < 3)
@@ -68,66 +63,51 @@ namespace NailArtHub.Pages
                         await RunPythonCrawlerAsync(cleanedSearch);
                         AllTags = await _context.NailTags.ToListAsync();
                     }
-
-                    existingTag.ViewCount += 1;
+                    else
+                    {
+                        existingTag.ViewCount += 1;
+                        await _context.SaveChangesAsync();
+                    }
                     await RunPythonCrawlerAsync(q);
                 }
-                CurrentDisplayTag = SearchQuery.Trim().ToUpper().Replace(" ", "").Replace("#", "");
             }
-
-            // Show top 6
-            AvailableTags = await _context.NailTags.OrderByDescending(t => t.ViewCount).Take(6).ToListAsync();
-            // All style -> Radom tags
-            var query = _context.NailTrends.AsQueryable();
-            if (string.IsNullOrEmpty(SearchQuery) && !SelectedTagId.HasValue)
+            if (hasSearch)
             {
-                CurrentDisplayTag = "All_StylesLabel";
-
-                var topTagNames = await _context.NailTags
-                    .OrderByDescending(t => t.ViewCount)
-                    .Take(10)
-                    .Select(t => t.TagName.ToLower().Trim())
-                    .ToListAsync();
-
-                var randomTrends = new List<NailTrend>();
-                var random = new Random();
-
-                foreach (var tagName in topTagNames)
+                // === 強制執行搜尋模式 ===
+                string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
+                // 搜尋時，忽略任何 Tag 邏輯
+                query = query.Where(t => t.Title.ToLower().Contains(q) || t.Tag.ToLower().Trim().Contains(q));
+                CurrentDisplayTag = SearchQuery.ToUpper().Replace("#", "");
+            }
+            else if (hasTag)
+            {
+                // === 強制執行 Tag 模式 ===
+                var currentTag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
+                if (currentTag != null)
                 {
-                    var tagItems = await _context.NailTrends
-                        .Where(t => t.Tag.ToLower().Trim() == tagName)
-                        .Take(5)
-                        .ToListAsync();
-
-                    if (tagItems.Any())
-                    {
-                        var selected = tagItems.OrderBy(x => random.Next()).Take(2);
-                        randomTrends.AddRange(selected);
-                    }
+                    string cleaned = currentTag.TagName.ToLower().Replace(" ", "").Replace("#", "");
+                    query = query.Where(t => t.Tag.ToLower().Trim() == cleaned);
+                    CurrentDisplayTag = currentTag.TagName.ToUpper();
                 }
-                TrendResults = randomTrends.OrderBy(x => random.Next()).ToList();
             }
             else
             {
-                if (SelectedTagId.HasValue)
+                // [預設模式]：顯示隨機內容
+                CurrentDisplayTag = "All_StylesLabel";
+                var topTagNames = await _context.NailTags.OrderByDescending(t => t.ViewCount).Take(10).Select(t => t.TagName.ToLower().Trim()).ToListAsync();
+                var randomTrends = new List<NailTrend>();
+                var random = new Random();
+                foreach (var tagName in topTagNames)
                 {
-                    var currentTag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
-                    if (currentTag != null)
-                    {
-                        string cleaned = currentTag.TagName.ToLower().Replace(" ", "").Replace("#", "");
-                        query = query.Where(t => t.Tag.ToLower().Trim() == cleaned);
-                        CurrentDisplayTag = currentTag.TagName.ToUpper();
-                    }
+                    var tagItems = await _context.NailTrends.Where(t => t.Tag.ToLower().Trim() == tagName).Take(5).ToListAsync();
+                    if (tagItems.Any()) randomTrends.AddRange(tagItems.OrderBy(x => random.Next()).Take(2));
                 }
-                else if (!string.IsNullOrEmpty(SearchQuery))
-                {
-                    string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
-                    query = query.Where(t => t.Title.ToLower().Contains(q) || t.Tag.ToLower().Trim().Contains(q));
-                }
-
-                TrendResults = await query.OrderByDescending(t => t.Id).ToListAsync();
+                query = query.Where(t => randomTrends.Contains(t));
             }
 
+            TrendResults = await query.OrderByDescending(t => t.Id).ToListAsync();
+
+            // === 地區篩選邏輯 ===
             var shopQuery = _context.Shops.Include(s => s.ShopTagBridges).ThenInclude(b => b.NailTag).AsQueryable();
             var regions = _regionService.GetTaiwanRegions();
 
@@ -141,20 +121,14 @@ namespace NailArtHub.Pages
                     var altZhCity = zhCity.Contains("台") ? zhCity.Replace("台", "臺") : zhCity.Replace("臺", "台");
                     shopQuery = shopQuery.Where(s => s.Address != null && (s.Address.Contains(zhCity) || s.Address.Contains(altZhCity)));
                 }
-                else
-                {
-                    shopQuery = shopQuery.Where(s => s.Address != null && s.Address.Contains(SelectedCity));
-                }
+                else shopQuery = shopQuery.Where(s => s.Address != null && s.Address.Contains(SelectedCity));
             }
 
             if (!string.IsNullOrEmpty(SelectedDistrict))
             {
                 string cleanInputDist = SelectedDistrict.ToLower().Replace("district", "").Trim();
                 var targetDistrict = regions.SelectMany(r => r.Districts).FirstOrDefault(d => d.En.ToLower().Contains(cleanInputDist) || d.Zh.Contains(cleanInputDist));
-                if (targetDistrict != null)
-                {
-                    shopQuery = shopQuery.Where(s => s.Address != null && s.Address.Contains(targetDistrict.Zh));
-                }
+                if (targetDistrict != null) shopQuery = shopQuery.Where(s => s.Address != null && s.Address.Contains(targetDistrict.Zh));
             }
 
             if (SelectedTagId.HasValue)
@@ -186,10 +160,7 @@ namespace NailArtHub.Pages
                 };
                 using (Process process = Process.Start(start)) { await process.WaitForExitAsync(); }
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"爬蟲失敗: {ex.Message}");
-            }
+            catch (Exception ex) { Debug.WriteLine($"爬蟲失敗: {ex.Message}"); }
         }
     }
 }

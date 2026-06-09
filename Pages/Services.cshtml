@@ -263,15 +263,18 @@
 </div>
 
 <script>
+    function getCultureParam() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('culture') || "";
+    }
     function submitSearch() {
         const form = document.getElementById("filterForm");
         const hiddenInput = document.getElementById("hiddenTagId");
-
-        if (hiddenInput) {
-            hiddenInput.value = "";
-        }
+        if (hiddenInput) hiddenInput.value = "";
+        appendCultureToForm(form);
         form.submit();
     }
+
     function submitWithTag(tagId) {
         const form = document.getElementById("filterForm");
         const hiddenInput = document.getElementById("hiddenTagId");
@@ -284,7 +287,21 @@
         if (hiddenInput) {
             hiddenInput.value = tagId;
         }
-
+        appendCultureToForm(form);
         form.submit();
     }
+    function appendCultureToForm(form) {
+        const culture = getCultureParam();
+        if (culture) {
+            let input = form.querySelector('input[name="culture"]');
+            if (!input) {
+                input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "culture";
+                form.appendChild(input);
+            }
+            input.value = culture;
+        }
+    }
+
 </script>

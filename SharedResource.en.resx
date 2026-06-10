@@ -147,6 +147,9 @@
   <data name="All_StylesLabel" xml:space="preserve">
     <value>ALL STYLES</value>
   </data>
+  <data name="coding" xml:space="preserve">
+    <value>Converting coffee into code...</value>
+  </data>
   <data name="ECpay" xml:space="preserve">
     <value>EC Pay Trade No</value>
   </data>
@@ -226,7 +229,7 @@
     <value>Learn more about our mission</value>
   </data>
   <data name="Milestone_Goal" xml:space="preserve">
-    <value>Current Goal: Welcoming our first 50 premium nail salons to collaborate on optimizing platform stability and service excellence.</value>
+    <value>Current Goal: Welcoming our first 100 premium nail salons to collaborate on optimizing platform stability and service excellence.</value>
   </data>
   <data name="Milestone_Title" xml:space="preserve">
     <value>Platform Evolution Milestones</value>

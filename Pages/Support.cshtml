@@ -23,7 +23,7 @@
             .milestone-section,
             .plans-section {
                 max-width: 750px;
-                margin: 0 auto 80px auto;
+                margin: 0 auto 40px auto;
             }
 
             .support-title {
@@ -144,7 +144,7 @@
             .progress-bar-fill {
                 background-color: #1A1A1A;
                 height: 100%;
-                width: 50%; /* 根據進度調整百分比 */
+                width: 50%;
                 transition: width 0.5s ease-in-out;
             }
 
@@ -178,13 +178,11 @@
                 margin: 0;
             }
 
-            /* 方案選擇區塊標題 */
             .plans-section-title {
                 text-align: center;
                 margin-bottom: 40px;
             }
 
-            /* 贊助方案卡片 - 移除死板的大外框，改成獨立大器的卡片元件 */
             .plan-card {
                 background: #FFFDFB;
                 border: 1px solid #EAE5DC;
@@ -195,7 +193,7 @@
 
                 .plan-card:hover {
                     border-color: #1A1A1A;
-                    box-shadow: 0 5px 15px rgba(26,26,26,0.02); /* 極輕微的陰影增加懸浮高級感 */
+                    box-shadow: 0 5px 15px rgba(26,26,26,0.02);
                 }
 
             .plan-header {
@@ -227,7 +225,6 @@
                 margin-bottom: 30px;
             }
 
-            /* 按鈕樣式 - 完全繼承首頁/表單的俐落寬扁設計 */
             .btn-link {
                 display: inline-block;
                 background-color: #1A1A1A;
@@ -274,11 +271,39 @@
                 </div>
             </div>
             <!-- Here to put my hard work pic or screen shoot of code -->
+            <section class="developer-showcase" style="position: relative; margin-top: 20px;">
+                <div style="border: 1px solid #EAE5DC; border-radius: 4px; overflow: hidden; background: #FFFDFB; line-height: 0;">
+                    <img src="~/images/workspace.jpg" alt="Developer at work" style="width: 100%; max-width: 100%; height: auto; display: block; opacity: 0.95;" />
+                </div>
+
+                <div style="position: absolute; bottom: 20px; right: 20px; background: rgba(255, 253, 251, 0.9); border: 1px solid #EAE5DC; padding: 12px 20px; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); backdrop-filter: blur(4px);">
+                    <span style="font-family: 'Montserrat', 'Noto Sans TC', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 1px; color: #1A1A1A; display: flex; align-items: center; gap: 8px;">
+                        <span id="rainbow-dot" style="width: 6px; height: 6px; background-color: #FF5F56; border-radius: 50%; display: inline-block; animation: blink 6s infinite ease-in-out;"></span>
+                        ✨ @Localizer["coding"]...
+                    </span>
+                </div>
+            </section>
+
+            <style>
+                            @@keyframes blink {
+                                0% {
+                                    opacity: 0.3;
+                                }
+
+                                50% {
+                                    opacity: 1;
+                                }
+
+                                100% {
+                                    opacity: 0.3;
+                                }
+                            }
+            </style>
         </section>
 
         <section class="milestone-section">
             <div class="milestone-header">
-                <span class="milestone-title-text">>@Localizer["Milestone_Title"]</span>
+                <span class="milestone-title-text">@Localizer["Milestone_Title"]</span>
                 <span class="milestone-version">@Localizer["Milestone_V2"]</span>
             </div>
 
@@ -311,9 +336,10 @@
                     <span class="plan-price">NTD 150 / @Localizer["Month"]</span>
                 </div>
                 <p>@Localizer["Plan_Monthly_Desc"]</p>
-                <a href="#" class="btn-link">@Localizer["Plan_Monthly_Btn"]</a>
+                <a href="https://www.patreon.com/Nail_Art_Hub" class="btn-link">@Localizer["Plan_Monthly_Btn"]</a>
             </div>
         </section>
 
     </div>
+
 </body>

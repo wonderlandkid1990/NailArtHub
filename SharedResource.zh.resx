@@ -147,6 +147,9 @@
   <data name="All_StylesLabel" xml:space="preserve">
     <value>所有風格</value>
   </data>
+  <data name="coding" xml:space="preserve">
+    <value>努力產扣中</value>
+  </data>
   <data name="ECpay" xml:space="preserve">
     <value>綠界交易編號 (Trade No)</value>
   </data>
@@ -226,7 +229,7 @@
     <value>了解更多關於我們的開發初衷</value>
   </data>
   <data name="Milestone_Goal" xml:space="preserve">
-    <value>當前目標：募集首批 50 家優秀美甲沙龍進駐，以協助平台健全優化及穩定服務。</value>
+    <value>當前目標：募集首批 100 家優秀美甲沙龍進駐，以協助平台健全優化及穩定服務。</value>
   </data>
   <data name="Milestone_Title" xml:space="preserve">
     <value>平台優化里程碑</value>

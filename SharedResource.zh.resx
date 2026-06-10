@@ -225,6 +225,21 @@
   <data name="LearnMoreLabel" xml:space="preserve">
     <value>了解更多關於我們的開發初衷</value>
   </data>
+  <data name="Milestone_Goal" xml:space="preserve">
+    <value>當前目標：募集首批 50 家優秀美甲沙龍進駐，以協助平台健全優化及穩定服務。</value>
+  </data>
+  <data name="Milestone_Title" xml:space="preserve">
+    <value>平台優化里程碑</value>
+  </data>
+  <data name="Milestone_V1" xml:space="preserve">
+    <value>1.0 基礎架構上線 (現階段)</value>
+  </data>
+  <data name="Milestone_V2" xml:space="preserve">
+    <value>2.0 預約管理系統</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>月</value>
+  </data>
   <data name="No_studios_found" xml:space="preserve">
     <value>未找到符合目前篩選條件的工作室。</value>
   </data>
@@ -242,6 +257,27 @@
   </data>
   <data name="Partner_Studios" xml:space="preserve">
     <value>沙龍夥伴</value>
+  </data>
+  <data name="Plans_Title" xml:space="preserve">
+    <value>選擇您的支持方案</value>
+  </data>
+  <data name="Plan_Monthly_Btn" xml:space="preserve">
+    <value>前往 PATREON 訂閱支持</value>
+  </data>
+  <data name="Plan_Monthly_Desc" xml:space="preserve">
+    <value>一杯咖啡的支持～成為我們的核心初衷支持者。未來將享有「進階預約自動化功能」的免費測試與終身優惠資格。</value>
+  </data>
+  <data name="Plan_Monthly_Title" xml:space="preserve">
+    <value>微型訂閱方案</value>
+  </data>
+  <data name="Plan_OneTime_Btn" xml:space="preserve">
+    <value>透過 綠界科技 安全贊助</value>
+  </data>
+  <data name="Plan_OneTime_Desc" xml:space="preserve">
+    <value>適合想加入體驗首批的店主，或是純粹認同我們理念的贊助者。這筆費用將全數用於補貼平台前期的上架與基礎維護。</value>
+  </data>
+  <data name="Plan_OneTime_Title" xml:space="preserve">
+    <value>一次性研發支持</value>
   </data>
   <data name="Process_Subtitle" xml:space="preserve">
     <value>簡單 3 步驟，精準掌握指尖潮流</value>
@@ -270,6 +306,12 @@
   <data name="Step3_Desc" xml:space="preserve">
     <value>直接為您串聯在地美甲師在 Instagram 上的精彩作品集，將最優質的在地沙龍，第一時間完美呈現在您眼前。</value>
   </data>
+  <data name="Story_P1" xml:space="preserve">
+    <value>歡迎來到 NailArtHub！我是這個美學資源整合工具的獨立開發者。身為一個熱愛美學與純粹乾淨設計的人，我常常想：如果台灣能有一個專屬於美甲與沙龍、沒有雜亂廣告、充滿高級感的視覺美學空間，該有多好？</value>
+  </data>
+  <data name="Story_P2" xml:space="preserve">
+    <value>為了這個初衷，我開始動手打造下一代代碼，從資料庫的企劃到一對一的人性化介面。NailArtHub 不只是一個平台，更是我想連結時尚與美學群體的禮物。你的每一份支持，都將直接轉化為更穩定的伺服器運維費，以及下一階段「沙龍管理工具」的研發資金。</value>
+  </data>
   <data name="SubmitApplicationLabel" xml:space="preserve">
     <value>提交申請</value>
   </data>
@@ -284,6 +326,9 @@
   </data>
   <data name="SupportPlanTitle" xml:space="preserve">
     <value>支持 NailArtHub 開發計畫</value>
+  </data>
+  <data name="Support_Title" xml:space="preserve">
+    <value>與我一起打造 NailArtHub</value>
   </data>
   <data name="TermAgreementText" xml:space="preserve">
     <value>我同意提交上述店家資訊以供 NAH 平台審核。我保證所提供之所有營運內容及美甲作品圖片均屬實且無侵權情事。若發生任何第三方智慧財產權糾紛，申請人應承擔全部法律責任；NAH 對於提交或彙整之內容概不承擔任何法律責任。</value>

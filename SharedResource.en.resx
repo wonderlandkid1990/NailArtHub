@@ -225,6 +225,21 @@
   <data name="LearnMoreLabel" xml:space="preserve">
     <value>Learn more about our mission</value>
   </data>
+  <data name="Milestone_Goal" xml:space="preserve">
+    <value>Current Goal: Welcoming our first 50 premium nail salons to collaborate on optimizing platform stability and service excellence.</value>
+  </data>
+  <data name="Milestone_Title" xml:space="preserve">
+    <value>Platform Evolution Milestones</value>
+  </data>
+  <data name="Milestone_V1" xml:space="preserve">
+    <value>1.0 Core Architecture Live (Current Stage)</value>
+  </data>
+  <data name="Milestone_V2" xml:space="preserve">
+    <value>2.0 Booking &amp; Management System</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>month</value>
+  </data>
   <data name="No_studios_found" xml:space="preserve">
     <value>No studios found matching the current filters.</value>
   </data>
@@ -242,6 +257,27 @@
   </data>
   <data name="Partner_Studios" xml:space="preserve">
     <value>Partner Studios</value>
+  </data>
+  <data name="Plans_Title" xml:space="preserve">
+    <value>Choose Your Support Plan</value>
+  </data>
+  <data name="Plan_Monthly_Btn" xml:space="preserve">
+    <value>Support via PATREON</value>
+  </data>
+  <data name="Plan_Monthly_Desc" xml:space="preserve">
+    <value>The support of a cup of coffee. Become one of our founding visionaries. You will receive exclusive access to beta test our "Advanced Booking Automation" features and lifetime loyalty benefits.</value>
+  </data>
+  <data name="Plan_Monthly_Title" xml:space="preserve">
+    <value>Micro-Subscription Plan</value>
+  </data>
+  <data name="Plan_OneTime_Btn" xml:space="preserve">
+    <value>Secure Sponsorship via Ecpay</value>
+  </data>
+  <data name="Plan_OneTime_Desc" xml:space="preserve">
+    <value>Perfect for salon owners wishing to experience the first wave, or patrons who share our vision. This contribution will fully fund early-stage deployment and essential platform maintenance.</value>
+  </data>
+  <data name="Plan_OneTime_Title" xml:space="preserve">
+    <value>One-Time Development Support</value>
   </data>
   <data name="Process_Subtitle" xml:space="preserve">
     <value>Master the Fingertip Trends in 3 Simple Steps</value>
@@ -270,6 +306,12 @@
   <data name="Step3_Desc" xml:space="preserve">
     <value>Directly connects you to local nail artists' portfolios on Instagram, bringing the best local salons right to your screen.</value>
   </data>
+  <data name="Story_P1" xml:space="preserve">
+    <value>Welcome to NailArtHub! I am the independent developer of this aesthetic resource integration tool. As someone who deeply loves aesthetics and pure, clean design, I often find myself thinking: wouldn't it be wonderful if Taiwan could have a dedicated visual art space for nails and salons—one free of cluttered ads and full of premium elegance?</value>
+  </data>
+  <data name="Story_P2" xml:space="preserve">
+    <value>Driven by this vision, I began crafting the next generation of code—from database design to an intuitive, personalized user experience. NailArtHub is more than just a platform; it is a gift dedicated to connecting the fashion and aesthetic communities. Your support will go directly towards stable server operations and funding the research and development of our next phase: "Salon Management Tools".</value>
+  </data>
   <data name="SubmitApplicationLabel" xml:space="preserve">
     <value>Submit Application</value>
   </data>
@@ -284,6 +326,9 @@
   </data>
   <data name="SupportPlanTitle" xml:space="preserve">
     <value>Support the NailArtHub Project</value>
+  </data>
+  <data name="Support_Title" xml:space="preserve">
+    <value>Build NailArtHub with Me</value>
   </data>
   <data name="TermAgreementText" xml:space="preserve">
     <value>I agree to submit the business information above for NAH platform review. I certify that all provided operational content and nail art imagery are accurate and non-infringing. The applicant shall bear full legal responsibility for any third-party intellectual property disputes; NAH assumes no liability arising from the submitted or aggregated content.</value>

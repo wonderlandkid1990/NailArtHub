@@ -1,0 +1,319 @@
+﻿@page
+@model NailArtHub.Pages.SupportModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<NailArtHub.SharedResource> Localizer
+@{
+    ViewData["Title"] = "Support Us - NailArtHub";
+}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<head>
+    <style>
+            .support-page {
+                background-color: #FAF6F0;
+                min-height: 100vh;
+                font-family: 'Montserrat', sans-serif;
+                padding: 60px;
+                color: #1A1A1A;
+            }
+
+            .story-section,
+            .developer-showcase,
+            .milestone-section,
+            .plans-section {
+                max-width: 750px;
+                margin: 0 auto 80px auto;
+            }
+
+            .support-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 3rem;
+                text-align: center;
+                margin-bottom: 50px;
+                letter-spacing: 1px;
+            }
+
+            :lang(zh) .support-title,
+            :lang(zh) .plans-section-title {
+                font-family: "PMingLiU-ExtB", "MingLiU", "Microsoft JhengHei", "Songti TC", "Noto Serif TC", serif !important;
+                font-weight: 700 !important;
+                font-size: 3rem !important;
+                letter-spacing: 2px !important;
+                color: #1A1A1A !important;
+            }
+
+            .story-content {
+                font-family: 'Montserrat', 'Noto Sans TC', sans-serif !important;
+                font-weight: 300 !important;
+                letter-spacing: 1px !important;
+                line-height: 2;
+                font-size: 1rem;
+                color: #333333;
+                text-align: justify;
+            }
+
+                .story-content p {
+                    margin-bottom: 24px;
+                }
+
+            .code-window {
+                background: #FFFDFB;
+                border: 1px solid #EAE5DC;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-top: 30px;
+            }
+
+            .window-header {
+                background: #F4EFE6;
+                padding: 12px 20px;
+                border-bottom: 1px solid #EAE5DC;
+                display: flex;
+                align-items: center;
+            }
+
+            .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin-right: 8px;
+                display: inline-block;
+            }
+
+                .dot.red {
+                    background: #E06C75;
+                }
+
+                .dot.yellow {
+                    background: #E5C07B;
+                }
+
+                .dot.green {
+                    background: #98C379;
+                }
+
+            .window-title {
+                font-size: 0.8rem;
+                color: #777;
+                font-family: monospace;
+                margin-left: 10px;
+            }
+
+            .code-content {
+                padding: 30px;
+                background: #FFFDFB;
+                font-family: 'Courier New', Courier, monospace;
+                color: #777;
+                font-size: 0.95rem;
+            }
+
+            .milestone-section {
+                background: #FFFDFB;
+                border: 1px solid #EAE5DC;
+                padding: 40px;
+            }
+
+            .milestone-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 15px;
+            }
+
+            .milestone-title-text {
+                font-weight: 600;
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+
+            .milestone-version {
+                font-size: 0.85rem;
+                color: #777;
+                font-weight: 300;
+            }
+
+            .progress-bar-bg {
+                background-color: #EAE5DC;
+                height: 8px;
+                width: 100%;
+                position: relative;
+                margin: 20px 0;
+            }
+
+            .progress-bar-fill {
+                background-color: #1A1A1A;
+                height: 100%;
+                width: 50%; /* 根據進度調整百分比 */
+                transition: width 0.5s ease-in-out;
+            }
+
+            .progress-percent {
+                position: absolute;
+                right: 0;
+                top: -25px;
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+
+            .milestone-meta {
+                margin-top: 20px;
+                font-family: 'Noto Sans TC', sans-serif;
+                font-size: 0.9rem;
+            }
+
+            .meta-item {
+                color: #666;
+                display: block;
+                margin-bottom: 10px;
+                font-weight: 300;
+            }
+
+            .meta-notice {
+                color: #1A1A1A;
+                font-weight: 400;
+                background: #FAF6F0;
+                padding: 12px 15px;
+                border-left: 2px solid #1A1A1A;
+                margin: 0;
+            }
+
+            /* 方案選擇區塊標題 */
+            .plans-section-title {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            /* 贊助方案卡片 - 移除死板的大外框，改成獨立大器的卡片元件 */
+            .plan-card {
+                background: #FFFDFB;
+                border: 1px solid #EAE5DC;
+                padding: 40px;
+                margin-bottom: 30px;
+                transition: all 0.3s ease;
+            }
+
+                .plan-card:hover {
+                    border-color: #1A1A1A;
+                    box-shadow: 0 5px 15px rgba(26,26,26,0.02); /* 極輕微的陰影增加懸浮高級感 */
+                }
+
+            .plan-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #FAF6F0;
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+            }
+
+            .plan-card h3 {
+                font-size: 1.2rem;
+                font-weight: 500 !important;
+                margin: 0;
+            }
+
+            .plan-price {
+                font-family: 'Playfair Display', serif;
+                font-weight: 600;
+                font-size: 1.25rem;
+            }
+
+            .plan-card p {
+                font-weight: 300 !important;
+                line-height: 1.7;
+                color: #555;
+                font-size: 0.95rem;
+                margin-bottom: 30px;
+            }
+
+            /* 按鈕樣式 - 完全繼承首頁/表單的俐落寬扁設計 */
+            .btn-link {
+                display: inline-block;
+                background-color: #1A1A1A;
+                color: #FAF6F0;
+                text-decoration: none;
+                padding: 15px 35px;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 500;
+                transition: background-color 0.3s;
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+            }
+
+                .btn-link:hover {
+                    background-color: #404040;
+                    color: #FAF6F0;
+                }
+    </style>
+    </head>
+    <body>
+    <div class="support-page">
+
+        <section class="story-section">
+            <h1 class="support-title">@Localizer["Support_Title"]</h1>
+            <div class="story-content">
+                <p>@Localizer["Story_P1"]</p>
+                <p>@Localizer["Story_P2"]</p>
+            </div>
+        </section>
+
+        <section class="developer-showcase">
+            <div class="code-window">
+                <div class="window-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="window-title">NailArtHub_Development.cs</span>
+                </div>
+                <div class="code-content">
+                    <code>// Current status: Developing with love and passion...</code>
+                </div>
+            </div>
+            <!-- Here to put my hard work pic or screen shoot of code -->
+        </section>
+
+        <section class="milestone-section">
+            <div class="milestone-header">
+                <span class="milestone-title-text">>@Localizer["Milestone_Title"]</span>
+                <span class="milestone-version">@Localizer["Milestone_V2"]</span>
+            </div>
+
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill"></div>
+                <span class="progress-percent">50%</span>
+            </div>
+
+            <div class="milestone-meta">
+                <span class="meta-item">⚡@Localizer["Milestone_V1"]</span>
+                <p class="meta-notice">💡@Localizer["Milestone_Goal"]</p>
+            </div>
+        </section>
+
+        <section class="plans-section">
+            <h2 class="plans-section-title">@Localizer["Plans_Title"]</h2>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h3>✨@Localizer["Plan_OneTime_Title"]</h3>
+                    <span class="plan-price">NTD 200</span>
+                </div>
+                <p>@Localizer["Plan_OneTime_Desc"]</p>
+                <a href="#" class="btn-link">@Localizer["Plan_OneTime_Btn"]</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h3>🌙@Localizer["Plan_Monthly_Title"]</h3>
+                    <span class="plan-price">NTD 150 / @Localizer["Month"]</span>
+                </div>
+                <p>@Localizer["Plan_Monthly_Desc"]</p>
+                <a href="#" class="btn-link">@Localizer["Plan_Monthly_Btn"]</a>
+            </div>
+        </section>
+
+    </div>
+</body>

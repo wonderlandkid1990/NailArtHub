@@ -147,6 +147,24 @@
   <data name="All_StylesLabel" xml:space="preserve">
     <value>ALL STYLES</value>
   </data>
+  <data name="ECpay" xml:space="preserve">
+    <value>EC Pay Trade No</value>
+  </data>
+  <data name="Error_Address" xml:space="preserve">
+    <value>Please enter the address</value>
+  </data>
+  <data name="Error_Location" xml:space="preserve">
+    <value>Please select the location</value>
+  </data>
+  <data name="Error_OwnerName" xml:space="preserve">
+    <value>Please enter your name</value>
+  </data>
+  <data name="Error_ShopName" xml:space="preserve">
+    <value>Please enter the shop name</value>
+  </data>
+  <data name="Error_TradeNo" xml:space="preserve">
+    <value>Please put the trade number</value>
+  </data>
   <data name="ExploreLabel" xml:space="preserve">
     <value>Bacl to Explore</value>
   </data>
@@ -192,6 +210,9 @@
   <data name="HowItWorksLabel" xml:space="preserve">
     <value>How It Works</value>
   </data>
+  <data name="IGpost" xml:space="preserve">
+    <value>Paste featured public Instagram post URL for preview card.</value>
+  </data>
   <data name="InstaLabel" xml:space="preserve">
     <value>INSTAGRAM URL</value>
   </data>
@@ -200,6 +221,9 @@
   </data>
   <data name="Join_us" xml:space="preserve">
     <value>Join us!</value>
+  </data>
+  <data name="LearnMoreLabel" xml:space="preserve">
+    <value>Learn more about our mission</value>
   </data>
   <data name="No_studios_found" xml:space="preserve">
     <value>No studios found matching the current filters.</value>
@@ -254,6 +278,12 @@
   </data>
   <data name="SubmittedSuccessfulLabel" xml:space="preserve">
     <value>Thank you for your submission!</value>
+  </data>
+  <data name="SupportPlanDesc" xml:space="preserve">
+    <value>Welcome to NailArtHub! We’re building this space together. To support our ongoing development and keep the platform ad-free, we invite you to contribute a one-time setup &amp; listing fee of NT$200.</value>
+  </data>
+  <data name="SupportPlanTitle" xml:space="preserve">
+    <value>Support the NailArtHub Project</value>
   </data>
   <data name="TermAgreementText" xml:space="preserve">
     <value>I agree to submit the business information above for NAH platform review. I certify that all provided operational content and nail art imagery are accurate and non-infringing. The applicant shall bear full legal responsibility for any third-party intellectual property disputes; NAH assumes no liability arising from the submitted or aggregated content.</value>

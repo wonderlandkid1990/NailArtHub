@@ -11,21 +11,28 @@
             public string City { get; set; }
             public string District { get; set; }
 
-            [Required(ErrorMessage = "Please enter the shop name")]
+            [Required(ErrorMessageResourceName = "Error_ShopName",
+                      ErrorMessageResourceType = typeof(SharedResource))]
             public string ShopName { get; set; }
 
-            [Required(ErrorMessage = "Please enter your name")]
+            [Required(ErrorMessageResourceName = "Error_OwnerName",
+                      ErrorMessageResourceType = typeof(SharedResource))]
             public string OwnerName { get; set; }
 
-            [Required(ErrorMessage = "Please enter the address")]
+            [Required(ErrorMessageResourceName = "Error_Address",
+                      ErrorMessageResourceType = typeof(SharedResource))]
             public string Address { get; set; }
 
-            [Required(ErrorMessage = "Please select the location")]
+            [Required(ErrorMessageResourceName = "Error_Location",
+                      ErrorMessageResourceType = typeof(SharedResource))]
             public string Location { get; set; }
 
             public string InstagramUrl { get; set; }
             public string? PinterestUrl { get; set; }
 
+            [Required(ErrorMessageResourceName = "Error_TradeNo",
+                      ErrorMessageResourceType = typeof(SharedResource))]
+            public string PaymentProofCode { get; set; }
             public string? SelectedTagsString { get; set; }
 
             public DateTime ApplyDate { get; set; } = DateTime.Now;

@@ -32,6 +32,8 @@ namespace NailArtHub.Pages
 
         [BindProperty]
         public List<int> SelectedTagIds { get; set; }
+        [BindProperty]
+        public string PaymentProofCode { get; set; }
 
         public bool IsSuccess { get; set; } = false;
 

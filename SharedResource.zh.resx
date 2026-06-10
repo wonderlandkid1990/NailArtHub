@@ -147,6 +147,24 @@
   <data name="All_StylesLabel" xml:space="preserve">
     <value>所有風格</value>
   </data>
+  <data name="ECpay" xml:space="preserve">
+    <value>綠界交易編號 (Trade No)</value>
+  </data>
+  <data name="Error_Address" xml:space="preserve">
+    <value>請輸入地址</value>
+  </data>
+  <data name="Error_Location" xml:space="preserve">
+    <value>請選擇地區</value>
+  </data>
+  <data name="Error_OwnerName" xml:space="preserve">
+    <value>請輸入負責人姓名</value>
+  </data>
+  <data name="Error_ShopName" xml:space="preserve">
+    <value>請輸入店名</value>
+  </data>
+  <data name="Error_TradeNo" xml:space="preserve">
+    <value>請請輸入綠界交易編號</value>
+  </data>
   <data name="ExploreLabel" xml:space="preserve">
     <value>回到探索</value>
   </data>
@@ -192,6 +210,9 @@
   <data name="HowItWorksLabel" xml:space="preserve">
     <value>體驗指南</value>
   </data>
+  <data name="IGpost" xml:space="preserve">
+    <value>請貼上精選公開 Instagram 貼文的連結以展示作品於預覽卡片。</value>
+  </data>
   <data name="InstaLabel" xml:space="preserve">
     <value>Instagram 連結</value>
   </data>
@@ -200,6 +221,9 @@
   </data>
   <data name="Join_us" xml:space="preserve">
     <value>成為夥伴</value>
+  </data>
+  <data name="LearnMoreLabel" xml:space="preserve">
+    <value>了解更多關於我們的開發初衷</value>
   </data>
   <data name="No_studios_found" xml:space="preserve">
     <value>未找到符合目前篩選條件的工作室。</value>
@@ -254,6 +278,12 @@
   </data>
   <data name="SubmittedSuccessfulLabel" xml:space="preserve">
     <value>提交成功</value>
+  </data>
+  <data name="SupportPlanDesc" xml:space="preserve">
+    <value>歡迎加入 NailArtHub！我們正致力於打造一個更棒的美學空間。為了支持平台的持續優化與穩定運作，我們邀請您共同負擔 NT$200 的一次性系統支持與上架費用。</value>
+  </data>
+  <data name="SupportPlanTitle" xml:space="preserve">
+    <value>支持 NailArtHub 開發計畫</value>
   </data>
   <data name="TermAgreementText" xml:space="preserve">
     <value>我同意提交上述店家資訊以供 NAH 平台審核。我保證所提供之所有營運內容及美甲作品圖片均屬實且無侵權情事。若發生任何第三方智慧財產權糾紛，申請人應承擔全部法律責任；NAH 對於提交或彙整之內容概不承擔任何法律責任。</value>

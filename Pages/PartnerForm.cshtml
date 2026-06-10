@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
+<head>
 <style>
     .services-style-page {
         background-color: #FAF6F0;
@@ -117,7 +117,8 @@
         border-color: #1A1A1A;
     }
 </style>
-
+</head>
+<body>
 <div class="services-style-page">
     <div class="container" style="padding: 0;">
 
@@ -141,6 +142,22 @@
 
             <form method="post" class="form-container animate__animated animate__fadeIn">
                 <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+                    <div class="mb-4">
+                        <label class="form-label style-label" style="font-size: 0.9rem; letter-spacing: 1px; font-weight: 600; color: #1A1A1A;">
+                            ✨ @Localizer["SupportPlanTitle"]
+                        </label>
+
+                        <div class="custom-input" style="height: auto; line-height: 1.6; color: #555; font-size: 0.85rem; padding: 20px;">
+                            <p class="mb-3" style="font-weight: 300;">
+                                @Localizer["SupportPlanDesc"]
+                            </p>
+                            <a href="/Support" target="_blank" style="color: #1A1A1A; text-decoration: underline; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem;">
+                                → @Localizer["LearnMoreLabel"]
+                            </a>
+                        </div>
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
 
                 <div class="mb-4">
                     <label asp-for="ApplyForm.ShopName" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["ShopNameLabel"]</label>
@@ -172,8 +189,13 @@
 
                 <div class="mb-4">
                     <label asp-for="ApplyForm.PinterestUrl" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["InstaPostLabel"]</label>
-                    <input asp-for="ApplyForm.PinterestUrl" class="custom-input" placeholder="Paste featured public Instagram post URL for preview card." />
+                        <input asp-for="ApplyForm.PinterestUrl" class="custom-input" placeholder="@Localizer["IGpost"]" />
                     <span asp-validation-for="ApplyForm.PinterestUrl" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                        <label asp-for="ApplyForm.PaymentProofCode" class="form-label style-label" style="font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; color: #555;">@Localizer["ECpay"]</label>
+                        <input asp-for="ApplyForm.PaymentProofCode" class="custom-input" placeholder="ex：260610xxxxxxx" />
+                    <span asp-validation-for="ApplyForm.PaymentProofCode" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-4">
@@ -213,3 +235,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+</body>

@@ -18,6 +18,6 @@ namespace NailArtHub.Models
 
         public string SourceUrl { get; set; }
 
-        public string CrawledAt { get; set; }
+        public DateTime? CrawledAt { get; set; }
     }
 }

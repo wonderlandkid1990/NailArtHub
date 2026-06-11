@@ -14,5 +14,11 @@ namespace NailArtHub.Data
         public DbSet<Shop> Shops { get; set; }
         public DbSet<NailTag> NailTags { get; set; }
         public DbSet<NailTrend> NailTrends { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<NailTrend>().ToTable("NailTrends");
+        }
     }
 }

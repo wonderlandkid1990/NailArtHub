@@ -1,6 +1,7 @@
 import sys
 import time
 import sqlite3
+import pyodbc
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service 
@@ -11,9 +12,17 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.edge.options import Options
 
 def connect_to_existing_db():
-    db_path = r"C:\Users\honlo\Documents\NailArtHub\NailArtHub.db"
-    print(f"Connecting to database: {db_path}")
-    conn = sqlite3.connect(db_path, timeout=30)
+    conn_str = (
+        "DRIVER={ODBC Driver 17 for SQL Server};"
+        "SERVER=sql6034.site4now.net;"
+        "DATABASE=db_aca7c2_nail;"
+        "UID=db_aca7c2_nail_admin;"
+        "PWD=Aliceyu19901103;"
+        "Timeout=30;"
+    )
+    print("Connecting to Cloud SQL Server: sql6034.site4now.net...")
+    
+    conn = pyodbc.connect(conn_str)
     return conn
 
 # if len(sys.argv) > 1:
@@ -75,12 +84,12 @@ try:
             source_url = driver.current_url 
             crawled_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            cursor.execute("SELECT 1 FROM NailTrend WHERE ImageUrl = ?", (img_url,))
+            cursor.execute("SELECT 1 FROM NailTrends WHERE ImageUrl = ?", (img_url,))
             if cursor.fetchone() is None:
                 
                 clean_tag = target_tag.lower().replace(" ", "").replace("#", "")
                 cursor.execute('''
-                    INSERT INTO NailTrend (Tag, Title, ImageUrl, SourceUrl, CrawledAt)
+                    INSERT INTO [NailTrends] (Tag, Title, ImageUrl, SourceUrl, CrawledAt)
                     VALUES (?, ?, ?, ?, ?)
                 ''', (clean_tag, title, img_url, source_url, crawled_at))
                 saved_count += 1

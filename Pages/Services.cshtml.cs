@@ -56,6 +56,12 @@ namespace NailArtHub.Pages
                     await _context.SaveChangesAsync();
 
                     string cleaned = currentTag.TagName.ToLower().Trim().Replace(" ", "").Replace("#", "");
+                    int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower().Replace(" ", "").Replace("#", "") == cleaned);
+                    if (trendCount < 3)
+                    {
+                        await RunPythonCrawlerAsync(cleaned);
+                        AllTags = await _context.NailTags.OrderByDescending(t => t.ViewCount).Take(10).ToListAsync();
+                    }
                     query = query.Where(t => t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "") == cleaned);
                     CurrentDisplayTag = currentTag.TagName.ToUpper();
                     AllTags = AllTags.OrderByDescending(t => t.ViewCount).ToList();
@@ -171,7 +177,7 @@ namespace NailArtHub.Pages
                 string scriptPath = @"C:\Users\honlo\Documents\NailArtHub\import_sqlite3.py";
                 ProcessStartInfo start = new ProcessStartInfo
                 {
-                    FileName = @"c:\Users\honlo\anaconda3\python.exe",
+                    FileName = @"C:\Users\honlo\.local\bin\python3.14.exe",
                     Arguments = $"\"{scriptPath}\" \"{tagToSearch}\"",
                     UseShellExecute = false,
                     CreateNoWindow = true

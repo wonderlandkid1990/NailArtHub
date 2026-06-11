@@ -125,7 +125,7 @@
         @if (Model.IsSuccess)
         {
             <div class="form-container text-center animate__animated animate__fadeIn" style="padding: 60px 40px;">
-                <div class="mb-4" style="font-size: 3rem;">✨</div>
+                <div class="mb-4" style="font-size: 3rem;"></div>
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px;">Thank You</h3>
                 <p style="color: #666; font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px;">
                     @Localizer["SubmittedSuccessfulLabel"]<br />
@@ -144,7 +144,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
                     <div class="mb-4">
                         <label class="form-label style-label" style="font-size: 0.9rem; letter-spacing: 1px; font-weight: 600; color: #1A1A1A;">
-                            ✨ @Localizer["SupportPlanTitle"]
+                            @Localizer["SupportPlanTitle"]
                         </label>
 
                         <div class="custom-input" style="height: auto; line-height: 1.6; color: #555; font-size: 0.85rem; padding: 20px;">

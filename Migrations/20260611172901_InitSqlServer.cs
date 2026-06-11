@@ -5,7 +5,7 @@
 namespace NailArtHub.Migrations
 {
     /// <inheritdoc />
-    public partial class addpayment : Migration
+    public partial class InitSqlServer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

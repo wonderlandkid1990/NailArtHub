@@ -25,28 +25,70 @@ namespace NailArtHub.Pages
         [BindProperty(SupportsGet = true)]
         public string SelectedDistrict { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public int? SelectedTagId { get; set; }
+
         [BindProperty]
         public NewApply ApplyForm { get; set; }
 
         public List<NailTag> AvailableTags { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public List<int> SelectedTagIds { get; set; }
+
         [BindProperty]
         public string PaymentProofCode { get; set; }
 
         public bool IsSuccess { get; set; } = false;
 
+        public List<Shop> DisplayShops { get; set; }
+
         public async Task OnGetAsync()
         {
-            AvailableTags = await _context.NailTags.AsNoTracking().ToListAsync();
+            AvailableTags = await _context.NailTags
+                                 .OrderByDescending(t => t.ViewCount)
+                                 .Take(20)
+                                 .ToListAsync();
+
+            if (SelectedTagId.HasValue)
+            {
+                var clickedTag = AvailableTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
+                if (clickedTag != null)
+                {
+                    clickedTag.ViewCount += 1;
+                    _context.Entry(clickedTag).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            var shopQuery = _context.Shops
+                .Include(s => s.ShopTagBridges)
+                .ThenInclude(b => b.NailTag)
+                .AsQueryable();
+
+            if (SelectedTagId.HasValue)
+            {
+                shopQuery = shopQuery.Where(s => s.ShopTagBridges.Any(b => b.NailTagId == SelectedTagId.Value));
+            }
+
+            DisplayShops = await shopQuery.ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            int maxAllowedTags = 3;
+            if (SelectedTagIds != null && SelectedTagIds.Count > maxAllowedTags)
+            {
+                ModelState.AddModelError(string.Empty, _localizer["MaxTagsExceededError"]);
+            }
+
             if (!ModelState.IsValid)
             {
-                AvailableTags = await _context.NailTags.AsNoTracking().ToListAsync();
+                AvailableTags = await _context.NailTags
+                                             .AsNoTracking()
+                                             .OrderByDescending(t => t.ViewCount)
+                                             .Take(20)
+                                             .ToListAsync();
                 return Page();
             }
 

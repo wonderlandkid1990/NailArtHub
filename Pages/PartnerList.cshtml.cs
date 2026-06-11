@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NailArtHub.Data;
 using NailArtHub.Models;
 using NailArtHub.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace NailArtHub.Pages
             _context = context;
             _regionService = regionService;
         }
+
         public IActionResult OnPostSetLanguage(string culture, string returnUrl)
         {
             if (!string.IsNullOrEmpty(culture))
@@ -37,6 +39,7 @@ namespace NailArtHub.Pages
             }
             return RedirectToPage("/Index");
         }
+
         [BindProperty(SupportsGet = true)]
         public string SelectedCity { get; set; }
 
@@ -51,7 +54,21 @@ namespace NailArtHub.Pages
 
         public async Task OnGetAsync()
         {
-            AllTags = await _context.NailTags.OrderBy(t => t.TagName).ToListAsync();
+            AllTags = await _context.NailTags
+                                   .OrderByDescending(t => t.ViewCount)
+                                   .Take(20)
+                                   .ToListAsync();
+
+            if (SelectedTagId.HasValue)
+            {
+                var clickedTag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
+                if (clickedTag != null)
+                {
+                    clickedTag.ViewCount += 1;
+                    _context.Entry(clickedTag).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+            }
 
             var shopQuery = _context.Shops
                 .Include(s => s.ShopTagBridges)

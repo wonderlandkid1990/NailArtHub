@@ -42,6 +42,46 @@
         color: #1A1A1A !important;
     }
 
+    .tag-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin: 0 auto 40px auto;
+    }
+
+    .tag-pill-btn {
+        background-color: #FFFDFB;
+        border: 1px solid #EAE5DC;
+        padding: 8px 15px;
+        border-radius: 30px;
+        white-space: nowrap;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+        font-weight: 500;
+        user-select: none;
+        display: inline-block;
+        line-height: 1.2;
+    }
+
+    :lang(zh) .tag-pill-btn {
+        font-family: 'Montserrat', 'Noto Sans TC', sans-serif !important;
+        font-weight: 300 !important;
+        letter-spacing: 1px !important;
+    }
+
+    .tag-pill-btn.active {
+        background-color: #1A1A1A;
+        color: #FAF6F0;
+        border-color: #1A1A1A;
+    }
+
+    :lang(zh) .tag-pill-btn.active {
+        font-weight: 400 !important;
+    }
+
     .section-subtitle {
         font-family: 'Playfair Display', serif;
         font-size: 1.6rem;
@@ -72,18 +112,8 @@
         overflow: hidden;
     }
 
-        .result-card-shop:hover {
-            transform: translateY(-3px);
-        }
-
-    .tag-pill-btn {
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: all 0.3s;
-        border: 1px solid #ddd;
-        font-family: 'Montserrat', 'Noto Sans TC', sans-serif !important;
-        font-weight: 300 !important;
-        letter-spacing: 1px !important;
+    .result-card-shop:hover {
+        transform: translateY(-3px);
     }
 
     .join-us-btn {
@@ -103,7 +133,9 @@
     }
 
     :lang(zh) .join-us-btn {
+        font-family: 'Montserrat', 'Noto Sans TC', sans-serif !important;
         font-weight: 300 !important;
+        letter-spacing: 2px !important;
     }
 
     .join-us-btn:hover {
@@ -119,15 +151,12 @@
     <form method="get" id="locationForm">
         <input type="hidden" id="hiddenTagId" name="SelectedTagId" value="@Model.SelectedTagId" />
 
-        <div class="tag-container" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; justify-content: center; font-family: 'Montserrat', sans-serif;">
+        <div class="tag-container">
             @{
                 bool isAllSelected = Model.SelectedTagId == null;
             }
-            <label class="tag-pill @(isAllSelected ? "active" : "")"
-                   onclick="submitWithTag('')"
-                   style="padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; cursor: pointer; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; transition: all 0.3s; display: inline-block;
-                background-color: @(isAllSelected ? "#1A1A1A" : "#FFFFFF");
-                color: @(isAllSelected ? "#FFFFFF" : "#1A1A1A"); user-select: none;">
+            <label class="tag-pill-btn @(isAllSelected ? "active" : "")"
+                    onclick="submitWithTag('')">
                 @Localizer["All_StylesLabel"]
             </label>
 
@@ -135,11 +164,8 @@
             {
                 bool isSelected = Model.SelectedTagId == tag.Id;
 
-                <label class="tag-pill @(isSelected ? "active" : "")"
-                       onclick="submitWithTag('@tag.Id')"
-                       style="padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.3s; display: inline-block;
-                    background-color: @(isSelected ? "#1A1A1A" : "#FFFFFF");
-                    color: @(isSelected ? "#FFFFFF" : "#1A1A1A"); user-select: none;">
+                <label class="tag-pill-btn @(isSelected ? "active" : "")"
+                       onclick="submitWithTag('@tag.Id')">
                     # @tag.TagName
                 </label>
             }
@@ -168,14 +194,14 @@
                     {
                         <div class="col">
                             <div class="card h-100 result-card-shop">
-                                <div style="width: 100%; height: 240px; overflow: hidden; position: relative; border-bottom: 1px solid #EAE5DC; background-color: #FFFDFB;">
+                                <div style="width: 100%; height: 260px; overflow: hidden; position: relative; border-bottom: 1px solid #EAE5DC; background-color: #FFFDFB;">
                                     @if (!string.IsNullOrEmpty(shop.PinterestUrl))
                                     {
                                         var cleanedUrl = shop.PinterestUrl.Trim();
                                         if (cleanedUrl.Contains("?")) { cleanedUrl = cleanedUrl.Split('?')[0]; }
                                         if (!cleanedUrl.EndsWith("/")) { cleanedUrl += "/"; }
 
-                                        <div style="margin-top: -65px; width: 100%; height: 320px; overflow: hidden;">
+                                        <div style="margin-top: -130px; width: 100%; height: 390px; overflow: hidden;">
                                             <blockquote class="instagram-media" data-instgrm-permalink="@cleanedUrl" data-instgrm-version="14" style="background: transparent; border:0; margin:0; padding:0; width:100%;"></blockquote>
                                         </div>
                                     }
@@ -249,5 +275,5 @@
         }
         }
     </script>
-                   }
-        </body>
+}
+</body>

@@ -44,7 +44,6 @@
         flex-wrap: wrap;
         gap: 12px;
         justify-content: center;
-        max-width: 900px;
         margin: 0 auto 40px auto;
     }
 
@@ -169,7 +168,7 @@
                 @Localizer["All_StylesLabel"]
             </div>
 
-            @foreach (var tag in Model.AllTags.Take(6))
+            @foreach (var tag in Model.AllTags.Take(7))
             {
                 bool isSelected = Model.SelectedTagId.HasValue && Model.SelectedTagId.Value == tag.Id;
                 <div class="tag-pill @(isSelected ? "active" : "")" onclick="submitWithTag('@tag.Id')" >

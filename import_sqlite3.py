@@ -82,7 +82,7 @@ try:
                 cursor.execute('''
                     INSERT INTO NailTrend (Tag, Title, ImageUrl, SourceUrl, CrawledAt)
                     VALUES (?, ?, ?, ?, ?)
-                ''', (target_tag, title, img_url, source_url, crawled_at))
+                ''', (clean_tag, title, img_url, source_url, crawled_at))
                 saved_count += 1
                 print(f"Successfully got img No. {saved_count} : {title[:20]}...")
                 

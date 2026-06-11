@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using NailArtHub.Data;
 using NailArtHub.Models;
 using NailArtHub.Services;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
-using System;
+using System.Linq;
+using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace NailArtHub.Pages
 {
@@ -38,76 +39,79 @@ namespace NailArtHub.Pages
 
         public async Task OnGetAsync()
         {
-            AllTags = await _context.NailTags.ToListAsync();
-           
-            if (!string.IsNullOrEmpty(SearchQuery))
+            AllTags = await _context.NailTags
+                                   .OrderByDescending(t => t.ViewCount)
+                                   .Take(10)
+                                   .ToListAsync();
+            IQueryable<NailTrend> query = _context.NailTrends;
+            if (SelectedTagId.HasValue)
+            {
+                SearchQuery = null;
+
+                var currentTag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
+                if (currentTag != null)
+                {
+                    currentTag.ViewCount += 1;
+                    _context.Entry(currentTag).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+
+                    string cleaned = currentTag.TagName.ToLower().Trim().Replace(" ", "").Replace("#", "");
+                    query = query.Where(t => t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "") == cleaned);
+                    CurrentDisplayTag = currentTag.TagName.ToUpper();
+                    AllTags = AllTags.OrderByDescending(t => t.ViewCount).ToList();
+                }
+            }
+
+            else if(!string.IsNullOrEmpty(SearchQuery))
             {
                 string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
                 var existingTag = AllTags.FirstOrDefault(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == q);
                 int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower().Replace(" ", "").Replace("#", "") == q);
                 CurrentDisplayTag = SearchQuery.ToUpper().Replace("#", "");
 
-                SelectedTagId = null;
-
-                string cleanedSearch = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
                 if (existingTag == null || trendCount < 3)
                 {
                     if (existingTag == null)
                     {
-                        _context.NailTags.Add(new NailTag { TagName = q, ViewCount = 1 });
+                        var newTag = new NailTag { TagName = q, ViewCount = 1 };
+                        _context.NailTags.Add(newTag);
                         await _context.SaveChangesAsync();
-                        await RunPythonCrawlerAsync(cleanedSearch);
+
+                        await RunPythonCrawlerAsync(q);
                         AllTags = await _context.NailTags.ToListAsync();
                     }
                     else
                     {
                         existingTag.ViewCount += 1;
                         await _context.SaveChangesAsync();
+                        await RunPythonCrawlerAsync(q);
                     }
-                    await RunPythonCrawlerAsync(q);
                 }
-            }
-            IQueryable<NailTrend> query = _context.NailTrends;
-
-            if (!string.IsNullOrEmpty(SearchQuery))
-            {
-                string q = SearchQuery.Trim().ToLower();
-
-                query = _context.NailTrends.Where(t =>
-                    t.Tag.ToLower() == q ||
-                    t.Tag.ToLower().Contains("#" + q)
-                );
-
-                CurrentDisplayTag = SearchQuery.ToUpper();
-                SelectedTagId = null;
-            }
-            else if (SelectedTagId.HasValue)
-            {
-                var currentTag = AllTags.FirstOrDefault(t => t.Id == SelectedTagId.Value);
-                if (currentTag != null)
+                else
                 {
-                    string cleaned = currentTag.TagName.ToLower().Replace(" ", "").Replace("#", "");
-                    query = query.Where(t => t.Tag.ToLower().Replace(" ", "").Replace("#", "") == cleaned);
-                    CurrentDisplayTag = currentTag.TagName.ToUpper();
+                    existingTag.ViewCount += 1;
+                    await _context.SaveChangesAsync();
+                    AllTags = AllTags.OrderByDescending(t => t.ViewCount).ToList();
                 }
+                query = query.Where(t =>
+            t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "") == q
+            );
             }
+
             else
             {
                 CurrentDisplayTag = "All_StylesLabel";
-                var topTagNames = await _context.NailTags
-                    .OrderByDescending(t => t.ViewCount)
-                    .Take(10)
-                    .Select(t => t.TagName.ToLower().Trim())
-                    .ToListAsync();
-
+                var topTagNames = AllTags.Take(10)
+                                         .Select(t => t.TagName.ToLower().Trim().Replace(" ", "").Replace("#", ""))
+                                         .ToList();
                 var randomTrends = new List<NailTrend>();
                 var random = new Random();
 
                 foreach (var tagName in topTagNames)
                 {
                     var tagItems = await _context.NailTrends
-                        .Where(t => t.Tag.ToLower().Trim() == tagName)
-                        .Take(5)
+                        .Where(t => t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "") == tagName)
+                        .Take(9)
                         .ToListAsync();
 
                     if (tagItems.Any())

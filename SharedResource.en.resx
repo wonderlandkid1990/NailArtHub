@@ -228,6 +228,9 @@
   <data name="LearnMoreLabel" xml:space="preserve">
     <value>Learn more about our mission</value>
   </data>
+  <data name="MaxTagsExceededError" xml:space="preserve">
+    <value>For basic listings, you can select up to 3 style tags only.</value>
+  </data>
   <data name="Milestone_Goal" xml:space="preserve">
     <value>Current Goal: Welcoming our first 100 premium nail salons to collaborate on optimizing platform stability and service excellence.</value>
   </data>

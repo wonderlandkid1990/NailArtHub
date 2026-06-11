@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using NailArtHub.Data;
 using NailArtHub.Models;
 using NailArtHub.Models.NailArtHub.Models;
@@ -13,10 +14,12 @@ namespace NailArtHub.Pages
     public class PartnerFormModel : PageModel
     {
         private readonly AppDbContext _context;
+        private readonly IStringLocalizer<PartnerFormModel> _localizer;
 
-        public PartnerFormModel(AppDbContext context)
+        public PartnerFormModel(AppDbContext context, IStringLocalizer<PartnerFormModel> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -76,10 +79,10 @@ namespace NailArtHub.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            int maxAllowedTags = 3;
+            int maxAllowedTags = 3; // Tags limit number
             if (SelectedTagIds != null && SelectedTagIds.Count > maxAllowedTags)
             {
-                ModelState.AddModelError(string.Empty, _localizer["MaxTagsExceededError"]);
+                ModelState.AddModelError(string.Empty, _localizer["MaxTagsExceededError", maxAllowedTags]);
             }
 
             if (!ModelState.IsValid)

@@ -229,7 +229,7 @@
     <value>了解更多關於我們的開發初衷</value>
   </data>
   <data name="MaxTagsExceededError" xml:space="preserve">
-    <value>初階上架最多只能選取 3 個風格標籤喔！</value>
+    <value>初階上架最多只能選取 {0} 個風格標籤喔！</value>
   </data>
   <data name="Milestone_Goal" xml:space="preserve">
     <value>當前目標：募集首批 100 家優秀美甲沙龍進駐，以協助平台健全優化及穩定服務。</value>

@@ -47,5 +47,5 @@ app.UseRequestLocalization();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
+app.UseStaticFiles();
 app.Run();

@@ -154,7 +154,7 @@
     <value>EC Pay Trade No</value>
   </data>
   <data name="Error_Address" xml:space="preserve">
-    <value>Please enter the address</value>
+    <value>Please enter the full address</value>
   </data>
   <data name="Error_Location" xml:space="preserve">
     <value>Please select the location</value>

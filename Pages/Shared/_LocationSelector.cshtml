@@ -37,7 +37,7 @@
     </div>
 
     <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <select id="globalCitySelect" name="SelectedCity"
+        <select class="form-select js-real-city-select" id="globalCitySelect" name="SelectedCity"
                 style="flex: 1; min-width: 140px; height: 42px; border: 1px solid #222222; border-radius: 4px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #1A1A1A; background: #ffffff; cursor: pointer; outline: none;">
             <option id="defaultCityOpt" value="">All Cities</option>
             @foreach (var r in regions)
@@ -53,7 +53,7 @@
             }
         </select>
 
-        <select id="globalDistrictSelect" name="SelectedDistrict"
+        <select class="form-select js-real-dist-select" id="globalDistrictSelect" name="SelectedDistrict"
                 style="flex: 1; min-width: 140px; height: 42px; border: 1px solid #e2dcd5; border-radius: 4px; padding: 0 12px; font-size: 14px; color: #666; background: #ffffff; cursor: pointer; outline: none;">
             <option id="defaultDistOpt" value="">All Districts</option>
         </select>

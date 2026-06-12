@@ -23,10 +23,10 @@ namespace NailArtHub.Pages
         }
 
         [BindProperty(SupportsGet = true)]
-        public string SelectedCity { get; set; }
+        public string? SelectedCity { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string SelectedDistrict { get; set; }
+        public string? SelectedDistrict { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int? SelectedTagId { get; set; }
@@ -79,7 +79,50 @@ namespace NailArtHub.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            int maxAllowedTags = 3; // Tags limit number
+            string cityFromForm = Request.Form["SelectedCity"].FirstOrDefault()
+                               ?? Request.Form["City"].FirstOrDefault()
+                               ?? Request.Form["ApplyForm.City"].FirstOrDefault()
+                               ?? SelectedCity;
+
+            string districtFromForm = Request.Form["SelectedDistrict"].FirstOrDefault()
+                                   ?? Request.Form["District"].FirstOrDefault()
+                                   ?? Request.Form["ApplyForm.District"].FirstOrDefault()
+                                   ?? SelectedDistrict;
+
+            string paymentCodeFromForm = Request.Form["PaymentProofCode"].FirstOrDefault()
+                                      ?? Request.Form["ApplyForm.PaymentProofCode"].FirstOrDefault()
+                                      ?? Request.Form["TradeNo"].FirstOrDefault()
+                                      ?? Request.Form["ApplyForm.TradeNo"].FirstOrDefault()
+                                      ?? PaymentProofCode;
+            if (string.IsNullOrEmpty(cityFromForm))
+            {
+                ModelState.AddModelError("SelectedCity", "The SelectedCity field is required.");
+            }
+            if (string.IsNullOrEmpty(districtFromForm))
+            {
+                ModelState.AddModelError("SelectedDistrict", "The SelectedDistrict field is required.");
+            }
+            if (ApplyForm != null)
+            {
+                string baseAddress = ApplyForm.Address ?? "";
+                string combinedAddress = $"{cityFromForm}{districtFromForm}{baseAddress}";
+                string cleanAddress = System.Text.RegularExpressions.Regex.Replace(combinedAddress, @"^[a-zA-Z\s']+", "").Trim();
+
+                ApplyForm.Address = cleanAddress;
+                ApplyForm.City = System.Text.RegularExpressions.Regex.Replace(cityFromForm ?? "", @"^[a-zA-Z\s']+", "").Trim();
+                ApplyForm.District = System.Text.RegularExpressions.Regex.Replace(districtFromForm ?? "", @"^[a-zA-Z\s']+", "").Trim();
+                ApplyForm.PaymentProofCode = paymentCodeFromForm;
+                ApplyForm.Location = "Pending";
+            }
+
+            ModelState.Remove("ApplyForm.City");
+            ModelState.Remove("ApplyForm.District");
+            ModelState.Remove("ApplyForm.Address");
+            ModelState.Remove("ApplyForm.Location");
+            ModelState.Remove("ApplyForm.PaymentProofCode");
+            ModelState.Remove("PaymentProofCode");
+
+            int maxAllowedTags = 3;
             if (SelectedTagIds != null && SelectedTagIds.Count > maxAllowedTags)
             {
                 ModelState.AddModelError(string.Empty, _localizer["MaxTagsExceededError", maxAllowedTags]);
@@ -100,17 +143,29 @@ namespace NailArtHub.Pages
                 ApplyForm.SelectedTagsString = string.Join(",", SelectedTagIds);
             }
 
-            ApplyForm.City = SelectedCity;
-            ApplyForm.District = SelectedDistrict;
-
             ApplyForm.ApplyDate = System.DateTime.Now;
             ApplyForm.Status = "Pending";
 
-            _context.NewApplies.Add(ApplyForm);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.NewApplies.Add(ApplyForm);
+                await _context.SaveChangesAsync();
 
-            IsSuccess = true;
-            return Page();
+                IsSuccess = true;
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                var innerMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                ModelState.AddModelError(string.Empty, "寫入發生異常: " + innerMessage);
+
+                AvailableTags = await _context.NailTags
+                                             .AsNoTracking()
+                                             .OrderByDescending(t => t.ViewCount)
+                                             .Take(20)
+                                             .ToListAsync();
+                return Page();
+            }
         }
     }
 }

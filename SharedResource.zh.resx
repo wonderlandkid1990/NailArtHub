@@ -154,7 +154,7 @@
     <value>綠界交易編號 (Trade No)</value>
   </data>
   <data name="Error_Address" xml:space="preserve">
-    <value>請輸入地址</value>
+    <value>請輸入完整地址</value>
   </data>
   <data name="Error_Location" xml:space="preserve">
     <value>請選擇地區</value>

@@ -121,7 +121,6 @@
 <body>
 <div class="services-style-page">
     <div class="container" style="padding: 0;">
-
         @if (Model.IsSuccess)
         {
             <div class="form-container text-center animate__animated animate__fadeIn" style="padding: 60px 40px;">
@@ -173,6 +172,8 @@
 
                 <div class="form-group mb-3">
                     @await Html.PartialAsync("_LocationSelector")
+                        <input type="hidden" id="hiddenCity" name="SelectedCity" value="@Model.SelectedCity" />
+                        <input type="hidden" id="hiddenDistrict" name="SelectedDistrict" value="@Model.SelectedDistrict" />
                 </div>
 
                 <div class="mb-4">
@@ -234,36 +235,130 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-        <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    const maxTags = 3; //Change the limet
-                    const checkboxes = document.querySelectorAll('.style-checkbox');
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const maxTags = 3;
+        const checkboxes = document.querySelectorAll('.style-checkbox');
 
-                    checkboxes.forEach(checkbox => {
-                        checkbox.addEventListener('change', function() {
-                            // Count the choice
-                            const checkedCount = document.querySelectorAll('.style-checkbox:checked').length;
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checkedCount = document.querySelectorAll('.style-checkbox:checked').length;
 
-                            if (checkedCount >= maxTags) {
-                                // If full block others
-                                checkboxes.forEach(cb => {
-                                    if (!cb.checked) {
-                                        cb.disabled = true;
-                                        document.querySelector(`label[for="${cb.id}"]`).style.opacity = '0.5';
-                                        document.querySelector(`label[for="${cb.id}"]`).style.cursor = 'not-allowed';
-                                    }
-                                });
-                            } else {
-                                // If not full return normal status
-                                checkboxes.forEach(cb => {
-                                    cb.disabled = false;
-                                    document.querySelector(`label[for="${cb.id}"]`).style.opacity = '1';
-                                    document.querySelector(`label[for="${cb.id}"]`).style.cursor = 'pointer';
-                                });
+                if (checkedCount >= maxTags) {
+                    checkboxes.forEach(cb => {
+                        if (!cb.checked) {
+                            cb.disabled = true;
+                            const label = document.querySelector(`label[for="${cb.id}"]`);
+                            if (label) {
+                                label.style.opacity = '0.5';
+                                label.style.cursor = 'not-allowed';
                             }
-                        });
+                        }
                     });
+                } else {
+                    checkboxes.forEach(cb => {
+                        cb.disabled = false;
+                        const label = document.querySelector(`label[for="${cb.id}"]`);
+                        if (label) {
+                            label.style.opacity = '1';
+                            label.style.cursor = 'pointer';
+                        }
+                    });
+                }
+            });
+        });
+
+        function bindLocationSync() {
+            const citySelect = document.querySelector('.js-real-city-select') || document.getElementById('globalCitySelect');
+            const distSelect = document.querySelector('.js-real-dist-select') || document.getElementById('globalDistrictSelect');
+            
+            const hiddenCity = document.getElementById('hiddenCity');
+            const hiddenDistrict = document.getElementById('hiddenDistrict');
+
+            if (!citySelect || !distSelect) {
+                console.error("❌ 找不到下拉選單元素，請檢查 _LocationSelector.cshtml 的 ID 或 Class 是否正確。");
+                return;
+            }
+
+            console.log("✅ 成功對齊選單元素，進入穩健防禦模式...");
+
+            function getChineseCity() {
+                const opt = citySelect.options[citySelect.selectedIndex];
+                if (!opt || !opt.value) return "";
+                return opt.getAttribute("data-zh") || opt.text;
+            }
+
+            function getChineseDistrict() {
+                const opt = distSelect.options[distSelect.selectedIndex];
+                if (!opt || !opt.value) return "";
+                return opt.text; 
+            }
+
+            citySelect.addEventListener('change', function (e) {
+                e.stopPropagation(); 
+                
+                setTimeout(() => {
+                    const c = getChineseCity();
+                    const d = getChineseDistrict();
+                    if (hiddenCity) hiddenCity.value = c;
+                    if (hiddenDistrict) hiddenDistrict.value = d;
+                    console.log("👉【縣市變更】已同步中文，等待使用者選擇行政區...", c, d);
+                }, 100);
+            });
+
+            distSelect.addEventListener('change', function (e) {
+                e.stopPropagation();
+                
+                const d = getChineseDistrict();
+                if (hiddenDistrict) hiddenDistrict.value = d;
+                console.log("👉【行政區變更】已同步中文:", d);
+            });
+
+            setTimeout(() => {
+                const c = getChineseCity();
+                const d = getChineseDistrict();
+                if (hiddenCity) hiddenCity.value = c;
+                if (hiddenDistrict) hiddenDistrict.value = d;
+            }, 300);
+
+            const form = citySelect.closest('form');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    const finalCity = getChineseCity();
+                    const finalDist = getChineseDistrict();
+
+                    console.log("偵測到表單送出動作，進行最終檢查...", finalCity, finalDist);
+
+                    if (!finalCity || !finalDist || 
+                        finalCity.includes("所有") || finalDist.includes("所有") || 
+                        finalCity.includes("選擇") || finalDist.includes("選擇") ||
+                        finalCity.includes("All") || finalDist.includes("All")) {
+                        
+                        e.preventDefault();
+                        e.stopPropagation();
+                        alert("請務必選擇正確的縣市與行政區！");
+                        return false;
+                    }
+
+                    if (hiddenCity) hiddenCity.value = finalCity;
+                    if (hiddenDistrict) hiddenDistrict.value = finalDist;
+
+                    const currentCityOpt = citySelect.options[citySelect.selectedIndex];
+                    if (currentCityOpt) {
+                        currentCityOpt.value = finalCity; 
+                    }
+                    const currentDistOpt = distSelect.options[distSelect.selectedIndex];
+                    if (currentDistOpt) {
+                        currentDistOpt.value = finalDist;
+                    }
+
+                    console.log("🚀【安全放行】實體與隱藏欄位皆已鎖死，準備送往後端產生綠界付款碼！");
                 });
-        </script>
+            }
+        }
+
+        setTimeout(bindLocationSync, 800);
+    });
+    </script>
 }
 </body>

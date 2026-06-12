@@ -20,16 +20,13 @@ namespace NailArtHub.Pages.Admin
             _context = context;
         }
 
-        // For panding data
         public List<NewApply> PendingApplications { get; set; }
 
-        // Massage agter suscessed
         [TempData]
         public string Message { get; set; }
 
         public async Task OnGetAsync()
         {
-            // Only pull "Pending" application, from new to old
             PendingApplications = await _context.NewApplies
                 .Where(a => a.Status == "Pending")
                 .OrderByDescending(a => a.ApplyDate)
@@ -37,7 +34,6 @@ namespace NailArtHub.Pages.Admin
                 .ToListAsync();
         }
 
-        // Approve
         public async Task<IActionResult> OnPostApproveAsync(int id)
         {
             var application = await _context.NewApplies.FindAsync(id);
@@ -46,10 +42,22 @@ namespace NailArtHub.Pages.Admin
                 return NotFound();
             }
 
-            // Upload status
             application.Status = "Approved";
 
-            // Copy application data and build new shop info
+            string currentAddress = application.Address ?? "";
+            string detectedCity = application.City;
+            string detectedDistrict = application.District;
+
+            if (string.IsNullOrEmpty(detectedCity) && currentAddress.Length >= 3)
+            {
+                detectedCity = currentAddress.Substring(0, 3);
+            }
+
+            if (string.IsNullOrEmpty(detectedDistrict) && currentAddress.Length >= 6)
+            {
+                detectedDistrict = currentAddress.Substring(3, 3);
+            }
+
             var newShop = new Shop
             {
                 ShopName = application.ShopName,
@@ -58,12 +66,13 @@ namespace NailArtHub.Pages.Admin
                 Location = application.Location,
                 InstagramUrl = application.InstagramUrl,
                 PinterestUrl = application.PinterestUrl ?? "",
-                IsAgreed = true
+                IsAgreed = true,
+
+                City = detectedCity,
+                District = detectedDistrict
             };
 
-            // Add new shop to Shops table
             _context.Shops.Add(newShop);
-
             await _context.SaveChangesAsync();
 
             if (!string.IsNullOrEmpty(application.SelectedTagsString))
@@ -84,7 +93,6 @@ namespace NailArtHub.Pages.Admin
                     }
                 }
 
-                // Put all bridge to DB
                 await _context.SaveChangesAsync();
             }
 
@@ -92,7 +100,6 @@ namespace NailArtHub.Pages.Admin
             return RedirectToPage();
         }
 
-        // Reject
         public async Task<IActionResult> OnPostRejectAsync(int id)
         {
             var application = await _context.NewApplies.FindAsync(id);
@@ -101,12 +108,26 @@ namespace NailArtHub.Pages.Admin
                 return NotFound();
             }
 
-            // Only update status to Rejected, no move data
             application.Status = "Rejected";
             await _context.SaveChangesAsync();
 
             Message = $"Rejected the application of 「{application.ShopName}」";
             return RedirectToPage();
+        }
+        public string DbContextEntryValue(int applyId, string columnName)
+        {
+            try
+            {
+                var entity = _context.NewApplies.Local.FirstOrDefault(x => x.Id == applyId)
+                             ?? _context.NewApplies.FirstOrDefault(x => x.Id == applyId);
+
+                if (entity != null)
+                {
+                    return _context.Entry(entity).Property(columnName).CurrentValue?.ToString() ?? "";
+                }
+            }
+            catch { }
+            return "";
         }
     }
 }

@@ -27,7 +27,7 @@
     @if (Model.PendingApplications == null || !Model.PendingApplications.Any())
     {
         <div class="text-center p-5 bg-white" style="border: 1px solid #eaeaea; border-radius: 2px;">
-            <p style="color: #999; font-size: 14px; letter-spacing: 1px; margin: 0;">There's no new application.'</p>
+            <p style="color: #999; font-size: 14px; letter-spacing: 1px; margin: 0;">There's no new application.</p>
         </div>
     }
     else
@@ -91,6 +91,35 @@
                                 <div class="row g-4 small text-muted" style="line-height: 1.8;">
                                     <div class="col-md-6">
                                         <div class="mb-2"><strong style="color: #333;">ADDRESS:</strong> <br /> @app.Address</div>
+
+                                        <div class="mb-2">
+                                            <strong style="color: #333;">ECPAY PAYMENT CODE:</strong> <br />
+                                            @{
+                                                string ecpayCode = "";
+                                                try
+                                                {
+                                                    ecpayCode = Model.DbContextEntryValue(app.Id, "PaymentProofCode");
+                                                }
+                                                catch
+                                                {
+                                                    ecpayCode = (app as dynamic).PaymentProofCode?.ToString()
+                                                             ?? (app as dynamic).PaymentProofcode?.ToString()
+                                                             ?? (app as dynamic).paymentProofCode?.ToString() ?? "";
+                                                }
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(ecpayCode))
+                                            {
+                                                <span class="badge bg-secondary" style="font-weight: 500; border-radius: 2px; padding: 4px 8px; font-size: 12px; background-color: #6c757d; color: #fff;">
+                                                    @ecpayCode
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger" style="font-weight: 500;">⚠️ No Code Provided</span>
+                                            }
+                                        </div>
+
                                         <div class="mb-2">
                                             <strong style="color: #333;">INSTAGRAM:</strong> <br />
                                             @if (!string.IsNullOrEmpty(app.InstagramUrl))
@@ -99,7 +128,6 @@
                                             }
                                             else
                                             {
-
                                                 <span>None</span>
                                             }
                                         </div>
@@ -111,7 +139,6 @@
                                             }
                                             else
                                             {
-
                                                 <span>None</span>
                                             }
                                         </div>

@@ -236,10 +236,15 @@
 
                 @if (Model.FeaturedShops != null && Model.FeaturedShops.Any())
                 {
+                        @using System.Text.RegularExpressions
                     @foreach (var shop in Model.FeaturedShops)
                     {
                         <div class="salon-card">
                             <h4 style="font-weight: 600; margin-bottom: 5px;">@shop.ShopName</h4>
+                                @{
+                                    string cleanAddress = shop.Address ?? "";
+                                    cleanAddress = Regex.Replace(cleanAddress, @"^[a-zA-Z\s']+", "").Trim();
+                                }
                             <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">📍 @shop.Address</p>
                             @if (shop.ShopTagBridges != null && shop.ShopTagBridges.Any())
                             {
@@ -303,6 +308,24 @@
             input.value = culture;
         }
     }
+            document.addEventListener("DOMContentLoaded", function() {
+                const citySelect = document.getElementById("SelectedCity") || document.querySelector("select[name='SelectedCity']");
+                const distSelect = document.getElementById("SelectedDistrict") || document.querySelector("select[name='SelectedDistrict']");
+                const form = document.getElementById("filterForm");
+
+                if (citySelect) {
+                    citySelect.addEventListener("change", function() {
+                        appendCultureToForm(form);
+                        form.submit();
+                    });
+                }
+                if (distSelect) {
+                    distSelect.addEventListener("change", function() {
+                        appendCultureToForm(form);
+                        form.submit();
+                    });
+                }
+            });
 
 </script>
 </body>

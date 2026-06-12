@@ -361,3 +361,18 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Hide configuration file
+appsettings.json
+
+# Hide compiled output
+bin/
+obj/
+
+# Hide local user settings
+.vs/
+.vscode/
+
+# Hide database files
+*.db
+*.sqlite

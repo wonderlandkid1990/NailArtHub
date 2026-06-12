@@ -14,13 +14,46 @@ namespace NailArtHub.Pages.Admin
     public class ReviewModel : PageModel
     {
         private readonly AppDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public ReviewModel(AppDbContext context)
+        public ReviewModel(AppDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
+        }
+
+        public IActionResult OnPostVerifyPassword(string adminPassword)
+        {
+            string correctPassword = _configuration["AdminSettings:SecretPassword"];
+
+            if (string.IsNullOrEmpty(correctPassword))
+            {
+                Message = "System Error: Admin password is not configured in settings.";
+                return RedirectToPage();
+            }
+
+            if (adminPassword == correctPassword)
+            {
+                HttpContext.Session.SetString("AdminLogin", "Success");
+                Message = "Welcome back, Admin!";
+            }
+            else
+            {
+                Message = "Invalid password. Access denied.";
+            }
+
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Remove("AdminLogin");
+            Message = "Logged out successfully.";
+            return RedirectToPage();
         }
 
         public List<NewApply> PendingApplications { get; set; }
+        public List<NewApply> AllApplications { get; set; }
 
         [TempData]
         public string Message { get; set; }
@@ -29,6 +62,11 @@ namespace NailArtHub.Pages.Admin
         {
             PendingApplications = await _context.NewApplies
                 .Where(a => a.Status == "Pending")
+                .OrderByDescending(a => a.ApplyDate)
+                .AsNoTracking()
+                .ToListAsync();
+
+            AllApplications = await _context.NewApplies
                 .OrderByDescending(a => a.ApplyDate)
                 .AsNoTracking()
                 .ToListAsync();
@@ -44,9 +82,9 @@ namespace NailArtHub.Pages.Admin
 
             application.Status = "Approved";
 
+            string detectedCity = application.City?.Trim();
+            string detectedDistrict = application.District?.Trim();
             string currentAddress = application.Address ?? "";
-            string detectedCity = application.City;
-            string detectedDistrict = application.District;
 
             if (string.IsNullOrEmpty(detectedCity) && currentAddress.Length >= 3)
             {
@@ -58,16 +96,20 @@ namespace NailArtHub.Pages.Admin
                 detectedDistrict = currentAddress.Substring(3, 3);
             }
 
+            if (!string.IsNullOrEmpty(detectedCity) && !detectedCity.Contains("市") && !detectedCity.Contains("縣"))
+            {
+                detectedCity = "";
+            }
+
             var newShop = new Shop
             {
                 ShopName = application.ShopName,
                 OwnerName = application.OwnerName,
                 Address = application.Address,
-                Location = application.Location,
+                Location = !string.IsNullOrEmpty(detectedCity) ? detectedCity : "未設定",
                 InstagramUrl = application.InstagramUrl,
                 PinterestUrl = application.PinterestUrl ?? "",
                 IsAgreed = true,
-
                 City = detectedCity,
                 District = detectedDistrict
             };
@@ -113,21 +155,6 @@ namespace NailArtHub.Pages.Admin
 
             Message = $"Rejected the application of 「{application.ShopName}」";
             return RedirectToPage();
-        }
-        public string DbContextEntryValue(int applyId, string columnName)
-        {
-            try
-            {
-                var entity = _context.NewApplies.Local.FirstOrDefault(x => x.Id == applyId)
-                             ?? _context.NewApplies.FirstOrDefault(x => x.Id == applyId);
-
-                if (entity != null)
-                {
-                    return _context.Entry(entity).Property(columnName).CurrentValue?.ToString() ?? "";
-                }
-            }
-            catch { }
-            return "";
         }
     }
 }

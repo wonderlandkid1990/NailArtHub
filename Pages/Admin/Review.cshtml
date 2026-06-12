@@ -2,170 +2,234 @@
 @model NailArtHub.Pages.Admin.ReviewModel
 @{
     ViewData["Title"] = "Admin Review Panel";
+    bool IsAdmin = HttpContext.Session.GetString("AdminLogin") == "Success";
 }
 
 <div class="container mt-5 mb-5" style="max-width: 1000px; font-family: 'Noto Sans TC', sans-serif;">
 
-    <div class="d-flex justify-content-between align-items-center mb-5 border-bottom pb-3">
-        <div>
-            <h2 style="font-weight: 300; letter-spacing: 2px; color: #1a1a1a; margin: 0;">ADMIN REVIEW</h2>
-            <p style="color: #888; font-size: 13px; margin: 5px 0 0 0; letter-spacing: 0.5px;">Admin Review Panel</p>
-        </div>
-        <span class="badge" style="background-color: #1a1a1a; color: #fff; font-weight: 400; border-radius: 2px; padding: 6px 12px; font-size: 12px; letter-spacing: 1px;">
-            @Model.PendingApplications.Count PENDING
-        </span>
-    </div>
-
-    @if (!string.IsNullOrEmpty(Model.Message))
+    @if (!IsAdmin)
     {
-        <div class="alert alert-dismissible fade show small mb-4 animate__animated animate__fadeIn" role="alert" style="background-color: #fafafa; border: 1px solid #1a1a1a; border-radius: 2px; color: #1a1a1a; letter-spacing: 0.5px;">
-            ✨ @Model.Message
-            <button type="submit" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="font-size: 10px;"></button>
-        </div>
-    }
+        <!-- Before verfity -->
+        <div class="mx-auto text-center animate__animated animate__fadeIn" style="max-width: 400px; margin-top: 100px; padding: 40px 30px; border: 1px solid #1a1a1a; border-radius: 2px; background-color: #fff;">
+            <h3 style="font-weight: 300; letter-spacing: 2px; color: #1a1a1a;" class="mb-2">ADMIN ACCESS</h3>
+            <p class="text-muted small mb-4" style="letter-spacing: 0.5px;">此頁面包含敏感資料，請輸入管理員密碼</p>
 
-    @if (Model.PendingApplications == null || !Model.PendingApplications.Any())
-    {
-        <div class="text-center p-5 bg-white" style="border: 1px solid #eaeaea; border-radius: 2px;">
-            <p style="color: #999; font-size: 14px; letter-spacing: 1px; margin: 0;">There's no new application.</p>
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <div class="alert alert-danger small py-2 mb-3" style="border-radius: 2px; font-size: 12px;">
+                    @Model.Message
+                </div>
+            }
+
+            <form method="post" asp-page-handler="VerifyPassword">
+                <div class="mb-3">
+                    <input type="password" name="adminPassword" class="form-control form-control-sm text-center" placeholder="Enter Admin Password" style="border-radius: 2px; border: 1px solid #ced4da; letter-spacing: 2px;" autofocus required />
+                </div>
+                <button type="submit" class="btn btn-sm w-100" style="background-color: #1a1a1a; color: #fff; border-radius: 2px; letter-spacing: 1px; padding: 8px;">
+                    VERIFY UNLOCK
+                </button>
+            </form>
         </div>
     }
     else
     {
-        <div class="table-responsive bg-white animate__animated animate__fadeIn" style="border: 1px solid #eaeaea; border-radius: 2px; box-shadow: 0 2px 10px rgba(0,0,0,0.01);">
-            <table class="table align-middle mb-0" style="font-size: 14px;">
-                <thead style="background-color: #fafafa; border-bottom: 1px solid #eaeaea;">
-                    <tr>
-                        <th style="font-weight: 500; color: #555; padding: 15px; width: 25%; font-size: 12px; letter-spacing: 1px;">SHOP NAME</th>
-                        <th style="font-weight: 500; color: #555; padding: 15px; width: 15%; font-size: 12px; letter-spacing: 1px;">OWNER</th>
-                        <th style="font-weight: 500; color: #555; padding: 15px; width: 15%; font-size: 12px; letter-spacing: 1px;">LOCATION</th>
-                        <th style="font-weight: 500; color: #555; padding: 15px; width: 20%; font-size: 12px; letter-spacing: 1px;">APPLY DATE</th>
-                        <th style="font-weight: 500; color: #555; padding: 15px; width: 25%; font-size: 12px; letter-spacing: 1px; text-align: right;">ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var app in Model.PendingApplications)
-                    {
-                        <tr style="border-bottom: 1px solid #f5f5f5; transition: background-color 0.2s;">
-                            <td style="padding: 15px;">
-                                <div style="font-weight: 500; color: #1a1a1a;">@app.ShopName</div>
-                                <button class="btn p-0 btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#details_@app.Id" aria-expanded="false" style="font-size: 12px; color: #888; letter-spacing: 0.5px;">
-                                    View full profile ↓
-                                </button>
-                            </td>
-                            <td style="padding: 15px; color: #666;">@app.OwnerName</td>
-                            <td style="padding: 15px; color: #666;"><span class="badge bg-light text-dark font-weight-normal border" style="border-radius: 2px; padding: 4px 8px; font-size: 11px;">@app.Location</span></td>
-                            <td style="padding: 15px; font-size: 13px;">
-                                @if (!string.IsNullOrEmpty(app.InstagramUrl))
-                                {
-                                    <a href="@app.InstagramUrl" target="_blank" style="color: #1a1a1a; text-decoration: underline; font-weight: 400; letter-spacing: 0.5px;">
-                                        Visit Instagram ↗
-                                    </a>
-                                }
-                                else
-                                {
-                                    <span class="text-muted" style="font-size: 12px; letter-spacing: 0.5px;">Not Provided</span>
-                                }
-                            </td>
-                            <td style="padding: 15px; color: #888; font-size: 13px;">@app.ApplyDate.ToString("yyyy-MM-dd HH:mm")</td>
-
-                            <td style="padding: 15px; text-align: right;">
-                                <div class="d-flex justify-content-end gap-2">
-                                    <form method="post" asp-page-handler="Approve" asp-route-id="@app.Id" onsubmit="return confirm('Are you sure for this approvemt and upload to the Shop list?');">
-                                        <button type="submit" class="btn btn-sm" style="background-color: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; border-radius: 2px; font-size: 12px; letter-spacing: 1px; padding: 5px 15px; transition: all 0.3s;">
-                                            APPROVE
-                                        </button>
-                                    </form>
-
-                                    <form method="post" asp-page-handler="Reject" asp-route-id="@app.Id" onsubmit="return confirm('Are you sure to reject it？');">
-                                        <button type="submit" class="btn btn-sm btn-light" style="color: #666; border: 1px solid #ced4da; border-radius: 2px; font-size: 12px; letter-spacing: 1px; padding: 5px 15px; transition: all 0.3s;">
-                                            REJECT
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr class="collapse" id="details_@app.Id" style="background-color: #fafafa;">
-                            <td colspan="5" style="padding: 20px 30px; border-bottom: 1px solid #eaeaea;">
-                                <div class="row g-4 small text-muted" style="line-height: 1.8;">
-                                    <div class="col-md-6">
-                                        <div class="mb-2"><strong style="color: #333;">ADDRESS:</strong> <br /> @app.Address</div>
-
-                                        <div class="mb-2">
-                                            <strong style="color: #333;">ECPAY PAYMENT CODE:</strong> <br />
-                                            @{
-                                                string ecpayCode = "";
-                                                try
-                                                {
-                                                    ecpayCode = Model.DbContextEntryValue(app.Id, "PaymentProofCode");
-                                                }
-                                                catch
-                                                {
-                                                    ecpayCode = (app as dynamic).PaymentProofCode?.ToString()
-                                                             ?? (app as dynamic).PaymentProofcode?.ToString()
-                                                             ?? (app as dynamic).paymentProofCode?.ToString() ?? "";
-                                                }
-                                            }
-
-                                            @if (!string.IsNullOrEmpty(ecpayCode))
-                                            {
-                                                <span class="badge bg-secondary" style="font-weight: 500; border-radius: 2px; padding: 4px 8px; font-size: 12px; background-color: #6c757d; color: #fff;">
-                                                    @ecpayCode
-                                                </span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-danger" style="font-weight: 500;">⚠️ No Code Provided</span>
-                                            }
-                                        </div>
-
-                                        <div class="mb-2">
-                                            <strong style="color: #333;">INSTAGRAM:</strong> <br />
-                                            @if (!string.IsNullOrEmpty(app.InstagramUrl))
-                                            {
-                                                <a href="@app.InstagramUrl" target="_blank" style="color: #1a1a1a; text-decoration: underline;">@app.InstagramUrl</a>
-                                            }
-                                            else
-                                            {
-                                                <span>None</span>
-                                            }
-                                        </div>
-                                        <div>
-                                            <strong style="color: #333;">PINTEREST:</strong> <br />
-                                            @if (!string.IsNullOrEmpty(app.PinterestUrl))
-                                            {
-                                                <a href="@app.PinterestUrl" target="_blank" style="color: #1a1a1a; text-decoration: underline;">@app.PinterestUrl</a>
-                                            }
-                                            else
-                                            {
-                                                <span>None</span>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="p-3 bg-white" style="border: 1px solid #eee; border-radius: 2px;">
-                                            <strong style="color: #333; display: block; margin-bottom: 8px; font-size: 11px; letter-spacing: 1px;">SELECTED STYLES ID:</strong>
-                                            @if (!string.IsNullOrEmpty(app.SelectedTagsString))
-                                            {
-                                                var tags = app.SelectedTagsString.Split(',');
-                                                foreach (var t in tags)
-                                                {
-                                                    <span class="badge bg-dark me-1" style="font-weight: 400; border-radius: 2px; padding: 3px 6px; font-size: 11px;"># TAG_ID_@t</span>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <span class="text-muted">No tags selected.</span>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <!-- After verfity -->
+        <div class="d-flex justify-content-between align-items-center mb-5 border-bottom pb-3">
+            <div>
+                <h2 style="font-weight: 300; letter-spacing: 2px; color: #1a1a1a; margin: 0;">ADMIN REVIEW Panel</h2>
+                <p style="color: #888; font-size: 13px; margin: 5px 0 0 0; letter-spacing: 0.5px;">管理員審核與店家總清單</p>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <!-- logout -->
+                <form method="post" asp-page-handler="Logout" style="margin: 0;">
+                    <button type="submit" class="btn btn-link text-muted p-0 small text-decoration-none" style="font-size: 12px;">Logout ⏏</button>
+                </form>
+                <span class="badge" style="background-color: #1a1a1a; color: #fff; font-weight: 400; border-radius: 2px; padding: 6px 12px; font-size: 12px; letter-spacing: 1px;">
+                    @Model.PendingApplications?.Count PENDING
+                </span>
+            </div>
         </div>
+
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="alert alert-dismissible fade show small mb-4 animate__animated animate__fadeIn" role="alert" style="background-color: #fafafa; border: 1px solid #1a1a1a; border-radius: 2px; color: #1a1a1a; letter-spacing: 0.5px;">
+                @Model.Message
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="font-size: 10px;"></button>
+            </div>
+        }
+
+        <h4 class="mb-3" style="font-weight: 400; color: #1a1a1a; letter-spacing: 1px;">待處理審核</h4>
+
+        @if (Model.PendingApplications == null || !Model.PendingApplications.Any())
+        {
+            <div class="text-center p-4 bg-white mb-5" style="border: 1px solid #eaeaea; border-radius: 2px;">
+                <p style="color: #999; font-size: 14px; letter-spacing: 1px; margin: 0;">目前沒有新的申請需要審核。</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive bg-white mb-5 animate__animated animate__fadeIn" style="border: 1px solid #eaeaea; border-radius: 2px; box-shadow: 0 2px 10px rgba(0,0,0,0.01);">
+                <table class="table align-middle mb-0" style="font-size: 14px;">
+                    <thead style="background-color: #fafafa; border-bottom: 1px solid #eaeaea;">
+                        <tr>
+                            <th style="font-weight: 500; color: #555; padding: 15px; width: 22%; font-size: 12px; letter-spacing: 1px;">SHOP NAME</th>
+                            <th style="font-weight: 500; color: #555; padding: 15px; width: 12%; font-size: 12px; letter-spacing: 1px;">OWNER</th>
+                            <th style="font-weight: 500; color: #555; padding: 15px; width: 15%; font-size: 12px; letter-spacing: 1px;">ECPAY CODE</th>
+                            <th style="font-weight: 500; color: #555; padding: 15px; width: 15%; font-size: 12px; letter-spacing: 1px;">APPLY DATE</th>
+                            <th style="font-weight: 500; color: #555; padding: 15px; width: 23%; font-size: 12px; letter-spacing: 1px; text-align: right;">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var app in Model.PendingApplications)
+                        {
+                            <tr style="border-bottom: 1px solid #f5f5f5; transition: background-color 0.2s;">
+                                <td style="padding: 15px;">
+                                    <div style="font-weight: 500; color: #1a1a1a;">@app.ShopName</div>
+                                    <button class="btn p-0 btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#details_@app.Id" aria-expanded="false" style="font-size: 12px; color: #888; letter-spacing: 0.5px;">
+                                        View full profile ↓
+                                    </button>
+                                </td>
+                                <td style="padding: 15px; color: #666;">@app.OwnerName</td>
+
+                                <td style="padding: 15px;">
+                                    @if (!string.IsNullOrEmpty(app.PaymentProofCode))
+                                    {
+                                        <span class="badge" style="font-weight: 500; border-radius: 2px; padding: 5px 10px; font-size: 12px; background-color: #6c757d; color: #fff; letter-spacing: 0.5px;">
+                                            @app.PaymentProofCode
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger" style="font-weight: 500; font-size: 12px;">⚠️ No Code</span>
+                                    }
+                                </td>
+
+                                <td style="padding: 15px; color: #888; font-size: 13px;">@app.ApplyDate.ToString("yyyy-MM-dd HH:mm")</td>
+
+                                <td style="padding: 15px; text-align: right;">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <form method="post" asp-page-handler="Approve" asp-route-id="@app.Id" onsubmit="return confirm('Are you sure for this approvemt and upload to the Shop list?');">
+                                            <button type="submit" class="btn btn-sm" style="background-color: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; border-radius: 2px; font-size: 12px; letter-spacing: 1px; padding: 5px 15px; transition: all 0.3s;">
+                                                APPROVE
+                                            </button>
+                                        </form>
+
+                                        <form method="post" asp-page-handler="Reject" asp-route-id="@app.Id" onsubmit="return confirm('Are you sure to reject it？');">
+                                            <button type="submit" class="btn btn-sm btn-light" style="color: #666; border: 1px solid #ced4da; border-radius: 2px; font-size: 12px; letter-spacing: 1px; padding: 5px 15px; transition: all 0.3s;">
+                                                REJECT
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="collapse" id="details_@app.Id" style="background-color: #fafafa;">
+                                <td colspan="5" style="padding: 20px 30px; border-bottom: 1px solid #eaeaea;">
+                                    <div class="row g-4 small text-muted" style="line-height: 1.8;">
+                                        <div class="col-md-6">
+                                            <div class="mb-2"><strong style="color: #333;">ADDRESS:</strong> <br /> @app.Address</div>
+                                            <div class="mb-2">
+                                                <strong style="color: #333;">INSTAGRAM:</strong> <br />
+                                                @if (!string.IsNullOrEmpty(app.InstagramUrl))
+                                                {
+                                                    <a href="@app.InstagramUrl" target="_blank" style="color: #1a1a1a; text-decoration: underline;">@app.InstagramUrl</a>
+                                                }
+                                                else
+                                                {
+                                                    <span>None</span>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="p-3 bg-white" style="border: 1px solid #eee; border-radius: 2px;">
+                                                <strong style="color: #333; display: block; margin-bottom: 8px; font-size: 11px; letter-spacing: 1px;">SELECTED STYLES ID:</strong>
+                                                @if (!string.IsNullOrEmpty(app.SelectedTagsString))
+                                                {
+                                                    var tags = app.SelectedTagsString.Split(',');
+                                                    foreach (var t in tags)
+                                                    {
+                                                        <span class="badge bg-dark me-1" style="font-weight: 400; border-radius: 2px; padding: 3px 6px; font-size: 11px;"># TAG_ID_@t</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">No tags selected.</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <hr class="my-5" style="border-top: 1px dashed #ccc;" />
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 style="font-weight: 400; color: #1a1a1a; letter-spacing: 1px; margin: 0;">所有歷史登記紀錄 (Shop 清單)</h4>
+            <small class="text-muted">可用於核對地址、電話或修改有誤資料</small>
+        </div>
+
+        @if (Model.AllApplications == null || !Model.AllApplications.Any())
+        {
+            <div class="text-center p-4 bg-white" style="border: 1px solid #eaeaea; border-radius: 2px;">
+                <p style="color: #999; font-size: 14px; letter-spacing: 1px; margin: 0;">暫無任何登記紀錄。</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive bg-white animate__animated animate__fadeIn" style="border: 1px solid #eaeaea; border-radius: 2px; box-shadow: 0 2px 10px rgba(0,0,0,0.01);">
+                <table class="table align-middle mb-0" style="font-size: 13px;">
+                    <thead style="background-color: #fcfcfc; border-bottom: 1px solid #eaeaea;">
+                        <tr>
+                            <th style="font-weight: 500; color: #555; padding: 12px 15px; width: 25%;">SHOP NAME</th>
+                            <th style="font-weight: 500; color: #555; padding: 12px 15px; width: 15%;">OWNER</th>
+                            <th style="font-weight: 500; color: #555; padding: 12px 15px; width: 25%;">ADDRESS</th>
+                            <th style="font-weight: 500; color: #555; padding: 12px 15px; width: 15%; text-align: center;">STATUS</th>
+                            <th style="font-weight: 500; color: #555; padding: 12px 15px; width: 20%; text-align: right;">MANAGEMENT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var shop in Model.AllApplications)
+                        {
+                            <tr style="border-bottom: 1px solid #f9f9f9;">
+                                <td style="padding: 12px 15px;">
+                                    <div style="font-weight: 500; color: #333;">@shop.ShopName</div>
+                                    <small class="text-muted" style="font-size: 11px;">ECPAY: @(string.IsNullOrEmpty(shop.PaymentProofCode) ? "無" : shop.PaymentProofCode)</small>
+                                </td>
+                                <td style="padding: 12px 15px; color: #666;">@shop.OwnerName</td>
+                                <td style="padding: 12px 15px; color: #666; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="@shop.Address">
+                                    @shop.Address
+                                </td>
+
+                                <td style="padding: 12px 15px; text-align: center;">
+                                    @if (shop.Status == "Approved" || shop.Status == "Success")
+                                    {
+                                        <span class="badge bg-success" style="font-weight: 400; border-radius: 2px; padding: 4px 8px; font-size: 11px;">Approved</span>
+                                    }
+                                    else if (shop.Status == "Rejected" || shop.Status == "Fail")
+                                    {
+                                        <span class="badge bg-danger" style="font-weight: 400; border-radius: 2px; padding: 4px 8px; font-size: 11px;">Rejected</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark" style="font-weight: 400; border-radius: 2px; padding: 4px 8px; font-size: 11px;">Pending</span>
+                                    }
+                                </td>
+
+                                <td style="padding: 12px 15px; text-align: right;">
+                                    <a asp-page="./Edit" asp-route-id="@shop.Id" class="btn btn-sm btn-outline-secondary" style="font-size: 11px; padding: 2px 8px; border-radius: 2px; letter-spacing: 0.5px;">
+                                        修正資料
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
     }
 </div>

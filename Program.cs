@@ -3,7 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using NailArtHub.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 // ===  System Language (zh / en) === 
 var supportedCultures = new[] { "zh", "en" };
 builder.Services.Configure<RequestLocalizationOptions>(options => {
@@ -37,7 +41,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseSession();
 app.UseRequestLocalization();
 
 app.UseAuthorization();

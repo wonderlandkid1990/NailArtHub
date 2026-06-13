@@ -11,8 +11,8 @@ using NailArtHub.Data;
 namespace NailArtHub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260613050838_ForceUpdateSchema")]
-    partial class ForceUpdateSchema
+    [Migration("20260613053945_InitialSchema")]
+    partial class InitialSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

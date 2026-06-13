@@ -29,7 +29,7 @@ builder.Services.AddRazorPages()
     var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NailArtHub.db");
 Console.WriteLine("The DB path now：" + dbPath );
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite($"Data Source={dbPath}"));
+    options.UseSqlServer("Data Source=SQL6034.site4now.net;Initial Catalog=db_aca7c2_nail;User Id=db_aca7c2_nail_admin;Password=Aliceyu19901103;Encrypt=True;TrustServerCertificate=True;"));
 
 builder.Services.AddScoped<NailArtHub.Services.RegionService>();
 

@@ -33,4 +33,13 @@
     </None>
   </ItemGroup>
 
+<ItemGroup>
+  <None Update="*.db">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Update="wwwroot\data\taiwan-regions.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+
 </Project>

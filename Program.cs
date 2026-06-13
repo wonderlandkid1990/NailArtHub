@@ -26,8 +26,9 @@ builder.Services.AddLocalization();
 builder.Services.AddRazorPages()
                 .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix);
 
+    var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NailArtHub.db");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite($"Data Source={dbPath}"));
 
 builder.Services.AddScoped<NailArtHub.Services.RegionService>();
 

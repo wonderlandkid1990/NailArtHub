@@ -85,13 +85,7 @@ namespace NailArtHub.Pages
                         _context.NailTags.Add(new NailTag { TagName = q, ViewCount = 1 });
                         await _context.SaveChangesAsync();
                     }
-
                     await RunPythonCrawlerAsync(q);
-
-                    TempData["IsCrawling"] = false;
-
-                    Response.Redirect(Url.Page("Services", new { SearchQuery = q }));
-                    return;
                 }
                 else
                 {

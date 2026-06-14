@@ -281,6 +281,10 @@
         return urlParams.get('culture') || "";
     }
     function submitSearch() {
+        const overlay = document.getElementById("loading-overlay");
+        if (overlay) {
+            overlay.style.display = "flex";
+        }
         const form = document.getElementById("filterForm");
         const hiddenInput = document.getElementById("hiddenTagId");
         if (hiddenInput) hiddenInput.value = "";

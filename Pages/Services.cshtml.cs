@@ -177,7 +177,17 @@ namespace NailArtHub.Pages
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 };
-                using (Process process = Process.Start(start)) { await process.WaitForExitAsync(); }
+                using (Process process = Process.Start(start))
+                {
+                    string error = await process.StandardError.ReadToEndAsync();
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    await process.WaitForExitAsync();
+
+                    if (process.ExitCode != 0)
+                    {
+                        Debug.WriteLine($"爬蟲錯誤輸出: {error}");
+                    }
+                }
             }
             catch (Exception ex) { Debug.WriteLine($"爬蟲失敗: {ex.Message}"); }
         }

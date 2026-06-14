@@ -150,6 +150,24 @@
   <data name="coding" xml:space="preserve">
     <value>Converting coffee into code...</value>
   </data>
+  <data name="ContactUsContent" xml:space="preserve">
+    <value>If you have any questions regarding this Privacy Policy, please feel free to contact us via the "Contact Us" link at the bottom of the page.</value>
+  </data>
+  <data name="ContactUsLabel" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="DataCollectionContent" xml:space="preserve">
+    <value>When you search on NailArtHub or contact us, we may collect your contact information (such as your email address). We use this data solely for responding to inquiries, optimizing your website experience, and necessary site management.</value>
+  </data>
+  <data name="DataCollectionTitle" xml:space="preserve">
+    <value>Data Collection and Use</value>
+  </data>
+  <data name="DataProtectionContent" xml:space="preserve">
+    <value>We implement appropriate security measures to protect your personal data against unauthorized access, modification, or disclosure. We will never sell, rent, or exchange your personal data with any third party.</value>
+  </data>
+  <data name="DataProtectionTitle" xml:space="preserve">
+    <value>Data Protection</value>
+  </data>
   <data name="ECpay" xml:space="preserve">
     <value>EC Pay Trade No</value>
   </data>
@@ -225,6 +243,9 @@
   <data name="Join_us" xml:space="preserve">
     <value>Join us!</value>
   </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>Last updated</value>
+  </data>
   <data name="LearnMoreLabel" xml:space="preserve">
     <value>Learn more about our mission</value>
   </data>
@@ -285,6 +306,12 @@
   <data name="Plan_OneTime_Title" xml:space="preserve">
     <value>One-Time Development Support</value>
   </data>
+  <data name="PrivacyIntro" xml:space="preserve">
+    <value>NailArtHub takes your privacy seriously. To ensure you can use our services with peace of mind, we have established this Privacy Policy to explain how we collect, use, and protect your personal data.</value>
+  </data>
+  <data name="PrivacyPolicyTitle" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
   <data name="Process_Subtitle" xml:space="preserve">
     <value>Master the Fingertip Trends in 3 Simple Steps</value>
   </data>
@@ -341,6 +368,12 @@
   </data>
   <data name="TermAgreementText" xml:space="preserve">
     <value>I agree to submit the business information above for NAH platform review. I certify that all provided operational content and nail art imagery are accurate and non-infringing. The applicant shall bear full legal responsibility for any third-party intellectual property disputes; NAH assumes no liability arising from the submitted or aggregated content.</value>
+  </data>
+  <data name="ThirdPartyPaymentContent" xml:space="preserve">
+    <value>If you engage in any financial transactions on our site, your payment details will be processed through trusted third-party payment platforms such as ECPay. We do not directly store your full credit card numbers or bank account information.</value>
+  </data>
+  <data name="ThirdPartyPaymentTitle" xml:space="preserve">
+    <value>Third-Party Payment Information</value>
   </data>
   <data name="Trending_Inspirations" xml:space="preserve">
     <value>Trending Inspirations</value>

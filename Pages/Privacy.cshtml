@@ -1,8 +1,63 @@
 ﻿@page
-@model PrivacyModel
+@model NailArtHub.Pages.PrivacyModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<NailArtHub.SharedResource> Localizer
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = Localizer["PrivacyPolicyTitle"];
 }
-<h1>@ViewData["Title"]</h1>
+<style>
+    .services-page {
+        background-color: #FAF6F0;
+        min-height: 100vh;
+        padding: 60px 20px;
+        color: #1A1A1A;
+    }
 
-<p>Use this page to detail your site's privacy policy.</p>
+    .page-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .result-card {
+        background: #FFFDFB;
+        border: 1px solid #EAE5DC;
+        padding: 40px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .section-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.6rem;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #EAE5DC;
+        padding-bottom: 10px;
+    }
+</style>
+<div class="services-page">
+    <div class="container">
+        <h1 class="page-title">@ViewData["Title"]</h1>
+        <hr />
+        <div class="result-card">
+            <p>@Localizer["PrivacyIntro"]</p>
+
+            <h3 class="section-subtitle">1. @Localizer["DataCollectionTitle"]</h3>
+            <p>@Localizer["DataCollectionContent"]</p>
+
+            <h3 class="section-subtitle">2. @Localizer["DataProtectionTitle"]</h3>
+            <p>@Localizer["DataProtectionContent"]</p>
+
+            <h3 class="section-subtitle">3. @Localizer["ThirdPartyPaymentTitle"]</h3>
+            <p>@Localizer["ThirdPartyPaymentContent"]</p>
+
+            <h3 class="section-subtitle">4. @Localizer["ContactUsLabel"]</h3>
+            <p>@Localizer["ContactUsContent"]</p>
+
+            <p style="margin-top: 40px; color: #888; font-size: 0.9em; text-align: center;">
+                @Localizer["LastUpdated"]: 2026/06/14
+            </p>
+        </div>
+    </div>
+</div>

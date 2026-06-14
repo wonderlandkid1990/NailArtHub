@@ -150,6 +150,24 @@
   <data name="coding" xml:space="preserve">
     <value>努力產扣中</value>
   </data>
+  <data name="ContactUsContent" xml:space="preserve">
+    <value>若您對本隱私權政策有任何疑問，歡迎隨時透過網站下方的「聯絡我」連結與我們聯繫。</value>
+  </data>
+  <data name="ContactUsLabel" xml:space="preserve">
+    <value>聯絡我們</value>
+  </data>
+  <data name="DataCollectionContent" xml:space="preserve">
+    <value>當您在 NailArtHub 進行搜尋或聯繫我們時，我們可能會蒐集您的聯繫資訊（如電子郵件）。我們僅將這些資料用於提供服務回覆、優化網站體驗及必要的網站管理。</value>
+  </data>
+  <data name="DataCollectionTitle" xml:space="preserve">
+    <value>資料蒐集與使用</value>
+  </data>
+  <data name="DataProtectionContent" xml:space="preserve">
+    <value>我們採取適當的安全措施保護您的個人資料，防止未經授權的存取、修改或洩漏。我們不會將您的個人資料出售、出租或交換給任何第三方。</value>
+  </data>
+  <data name="DataProtectionTitle" xml:space="preserve">
+    <value>資料保護</value>
+  </data>
   <data name="ECpay" xml:space="preserve">
     <value>綠界交易編號 (Trade No)</value>
   </data>
@@ -225,6 +243,9 @@
   <data name="Join_us" xml:space="preserve">
     <value>成為夥伴</value>
   </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>最後更新日期</value>
+  </data>
   <data name="LearnMoreLabel" xml:space="preserve">
     <value>了解更多關於我們的開發初衷</value>
   </data>
@@ -285,6 +306,12 @@
   <data name="Plan_OneTime_Title" xml:space="preserve">
     <value>一次性研發支持</value>
   </data>
+  <data name="PrivacyIntro" xml:space="preserve">
+    <value>NailArtHub 非常重視您的隱私權。為了讓您能夠安心使用我們的服務，我們特別制訂本隱私權政策，說明我們如何蒐集、使用及保護您的個人資料。</value>
+  </data>
+  <data name="PrivacyPolicyTitle" xml:space="preserve">
+    <value>隱私權政策</value>
+  </data>
   <data name="Process_Subtitle" xml:space="preserve">
     <value>簡單 3 步驟，精準掌握指尖潮流</value>
   </data>
@@ -341,6 +368,12 @@
   </data>
   <data name="TermAgreementText" xml:space="preserve">
     <value>我同意提交上述店家資訊以供 NAH 平台審核。我保證所提供之所有營運內容及美甲作品圖片均屬實且無侵權情事。若發生任何第三方智慧財產權糾紛，申請人應承擔全部法律責任；NAH 對於提交或彙整之內容概不承擔任何法律責任。</value>
+  </data>
+  <data name="ThirdPartyPaymentContent" xml:space="preserve">
+    <value>若您與本站進行任何金流交易，您的付款資訊將透過綠界科技 (ECPay) 等受信任的第三方支付平台處理，我們不會直接儲存您的完整信用卡號或銀行帳戶資訊。</value>
+  </data>
+  <data name="ThirdPartyPaymentTitle" xml:space="preserve">
+    <value>第三方支付資訊</value>
   </data>
   <data name="Trending_Inspirations" xml:space="preserve">
     <value>熱門風格靈感</value>

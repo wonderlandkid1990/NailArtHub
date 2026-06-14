@@ -211,9 +211,20 @@
                                             <span style="font-size: 0.8rem; color: #bbb; letter-spacing: 1px;">NAH SELECTED</span>
                                         </div>
                                     }
-                                    <span class="position-absolute top-0 start-0 m-3" style="background-color: #FFFDFB; color: #1A1A1A; font-size: 11px; font-weight: 500; border: 1px solid #EAE5DC; padding: 4px 8px; z-index: 9;">
-                                        📍 @shop.Location
-                                    </span>
+                                        <span class="position-absolute top-0 start-0 m-3" style="background-color: #FFFDFB; color: #1A1A1A; font-size: 11px; font-weight: 500; border: 1px solid #EAE5DC; padding: 4px 8px; z-index: 9;">
+                                            @if (!string.IsNullOrEmpty(shop.City))
+                                            {
+                                                <span>📍 @shop.City @shop.District</span>
+                                            }
+                                            else if (!string.IsNullOrEmpty(shop.Location) && shop.Location != "Pending")
+                                            {
+                                                <span>📍 @shop.Location</span>
+                                            }
+                                            else
+                                            {
+                                                <span>📍 未定</span>
+                                            }
+                                        </span>
                                 </div>
 
                                 <div class="card-body p-4">

@@ -73,25 +73,30 @@ namespace NailArtHub.Pages
                 string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
                 var existingTag = await _context.NailTags
                 .FirstOrDefaultAsync(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == q);
+                int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower().Replace(" ", "").Replace("#", "") == q);
 
-                if (existingTag == null)
+                if (existingTag == null || trendCount == 0)
                 {
-                    var newTag = new NailTag { TagName = q, ViewCount = 1 };
-                    _context.NailTags.Add(newTag);
-                    await _context.SaveChangesAsync();
+                    TempData["IsCrawling"] = true;
+                    TempData["TargetTag"] = SearchQuery;
+
+                    if (existingTag == null)
+                    {
+                        _context.NailTags.Add(new NailTag { TagName = q, ViewCount = 1 });
+                        await _context.SaveChangesAsync();
+                    }
+
                     await RunPythonCrawlerAsync(q);
+
+                    TempData["IsCrawling"] = false;
+
+                    Response.Redirect(Url.Page("Services", new { SearchQuery = q }));
+                    return;
                 }
                 else
                 {
                     existingTag.ViewCount += 1;
                     await _context.SaveChangesAsync();
-                    int trendCount = await _context.NailTrends.CountAsync(t =>
-                        t.Tag.ToLower().Replace(" ", "").Replace("#", "") == q);
-
-                    if (trendCount < 3)
-                    {
-                        await RunPythonCrawlerAsync(q);
-                    }
                 }
                 query = query.Where(t =>
             t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "") == q
@@ -168,13 +173,15 @@ namespace NailArtHub.Pages
         {
             try
             {
-                string scriptPath = @"C:\Users\honlo\Documents\NailArtHub\import_sqlite3.py";
+                string scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "scripts", "import_sqlite3.py");
                 ProcessStartInfo start = new ProcessStartInfo
                 {
-                    FileName = @"C:\Users\honlo\.local\bin\python3.14.exe",
+                    FileName = "python3",
                     Arguments = $"\"{scriptPath}\" \"{tagToSearch}\"",
                     UseShellExecute = false,
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
                 };
                 using (Process process = Process.Start(start)) { await process.WaitForExitAsync(); }
             }

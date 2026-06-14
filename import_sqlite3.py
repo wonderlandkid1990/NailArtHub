@@ -4,12 +4,20 @@ import sqlite3
 import pyodbc
 from datetime import datetime
 from selenium import webdriver
-from selenium.webdriver.edge.service import Service 
-from webdriver_manager.microsoft import EdgeChromiumDriverManager 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.edge.options import Options
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from webdriver_manager.chrome import ChromeDriverManager
+
+chrome_options = ChromeOptions()
+chrome_options.add_argument("--headless=new")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+
+print("Starting Chrome Driver for cloud environment...")
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+driver.set_page_load_timeout(20)
 
 def connect_to_existing_db():
     conn_str = (

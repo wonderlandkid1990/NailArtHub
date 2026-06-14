@@ -288,6 +288,9 @@
   <data name="Process_Subtitle" xml:space="preserve">
     <value>簡單 3 步驟，精準掌握指尖潮流</value>
   </data>
+  <data name="SearchingLabel" xml:space="preserve">
+    <value>正在為您搜尋</value>
+  </data>
   <data name="Selected_Studios" xml:space="preserve">
     <value>篩選結果</value>
   </data>
@@ -341,5 +344,11 @@
   </data>
   <data name="Trending_Inspirations" xml:space="preserve">
     <value>熱門風格靈感</value>
+  </data>
+  <data name="TrendyLabel" xml:space="preserve">
+    <value>的最新美學趨勢...</value>
+  </data>
+  <data name="WaitingLabel" xml:space="preserve">
+    <value>這需要大約 15 秒的時間，請稍候片刻。</value>
   </data>
 </root>

@@ -288,6 +288,9 @@
   <data name="Process_Subtitle" xml:space="preserve">
     <value>Master the Fingertip Trends in 3 Simple Steps</value>
   </data>
+  <data name="SearchingLabel" xml:space="preserve">
+    <value>Searching for the latest trends of</value>
+  </data>
   <data name="Selected_Studios" xml:space="preserve">
     <value>Selected Studios</value>
   </data>
@@ -341,5 +344,11 @@
   </data>
   <data name="Trending_Inspirations" xml:space="preserve">
     <value>Trending Inspirations</value>
+  </data>
+  <data name="TrendyLabel" xml:space="preserve">
+    <value>for you...</value>
+  </data>
+  <data name="WaitingLabel" xml:space="preserve">
+    <value>This will take about 15 seconds, please wait a moment.</value>
   </data>
 </root>

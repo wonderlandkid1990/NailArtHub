@@ -71,33 +71,27 @@ namespace NailArtHub.Pages
             else if(!string.IsNullOrEmpty(SearchQuery))
             {
                 string q = SearchQuery.Trim().ToLower().Replace(" ", "").Replace("#", "");
-                var existingTag = AllTags.FirstOrDefault(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == q);
-                int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower().Replace(" ", "").Replace("#", "") == q);
-                CurrentDisplayTag = SearchQuery.ToUpper().Replace("#", "");
+                var existingTag = await _context.NailTags
+                .FirstOrDefaultAsync(t => t.TagName.ToLower().Replace(" ", "").Replace("#", "") == q);
 
-                if (existingTag == null || trendCount < 3)
+                if (existingTag == null)
                 {
-                    if (existingTag == null)
-                    {
-                        var newTag = new NailTag { TagName = q, ViewCount = 1 };
-                        _context.NailTags.Add(newTag);
-                        await _context.SaveChangesAsync();
-
-                        await RunPythonCrawlerAsync(q);
-                        AllTags = await _context.NailTags.ToListAsync();
-                    }
-                    else
-                    {
-                        existingTag.ViewCount += 1;
-                        await _context.SaveChangesAsync();
-                        await RunPythonCrawlerAsync(q);
-                    }
+                    var newTag = new NailTag { TagName = q, ViewCount = 1 };
+                    _context.NailTags.Add(newTag);
+                    await _context.SaveChangesAsync();
+                    await RunPythonCrawlerAsync(q);
                 }
                 else
                 {
                     existingTag.ViewCount += 1;
                     await _context.SaveChangesAsync();
-                    AllTags = AllTags.OrderByDescending(t => t.ViewCount).ToList();
+                    int trendCount = await _context.NailTrends.CountAsync(t =>
+                        t.Tag.ToLower().Replace(" ", "").Replace("#", "") == q);
+
+                    if (trendCount < 3)
+                    {
+                        await RunPythonCrawlerAsync(q);
+                    }
                 }
                 query = query.Where(t =>
             t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "") == q

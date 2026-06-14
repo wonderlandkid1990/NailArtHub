@@ -89,7 +89,6 @@ namespace NailArtHub.Pages
                 var alternativeZhCity = zhCity.Contains("台") ? zhCity.Replace("台", "臺") :
                                         zhCity.Contains("臺") ? zhCity.Replace("臺", "台") : zhCity;
 
-                // 關鍵修改：優先比對 City 欄位，如果沒填才去搜 Address
                 shopQuery = shopQuery.Where(s =>
                     s.City == zhCity ||
                     s.City == alternativeZhCity ||
@@ -103,7 +102,6 @@ namespace NailArtHub.Pages
                 var targetDistrict = regions.SelectMany(r => r.Districts).FirstOrDefault(d => d.En == SelectedDistrict);
                 var zhDistrict = targetDistrict?.Zh ?? SelectedDistrict;
 
-                // 關鍵修改：比對 District 欄位
                 shopQuery = shopQuery.Where(s =>
                     s.District == zhDistrict ||
                     s.Address.Contains(zhDistrict)

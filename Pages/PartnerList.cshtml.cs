@@ -85,40 +85,32 @@ namespace NailArtHub.Pages
             if (!string.IsNullOrEmpty(SelectedCity))
             {
                 var targetCity = regions.FirstOrDefault(r => r.CityEn == SelectedCity);
+                var zhCity = targetCity?.CityZh ?? SelectedCity;
+                var alternativeZhCity = zhCity.Contains("台") ? zhCity.Replace("台", "臺") :
+                                        zhCity.Contains("臺") ? zhCity.Replace("臺", "台") : zhCity;
 
-                if (targetCity != null)
-                {
-                    var zhCity = targetCity.CityZh;
-
-                    var alternativeZhCity = zhCity.Contains("台") ? zhCity.Replace("台", "臺") :
-                                zhCity.Contains("臺") ? zhCity.Replace("臺", "台") : zhCity;
-
-                    shopQuery = shopQuery.Where(s => s.Address.Contains(zhCity) || s.Address.Contains(alternativeZhCity));
-                }
-                else
-                {
-                    shopQuery = shopQuery.Where(s => s.Address.Contains(SelectedCity));
-                }
+                // 關鍵修改：優先比對 City 欄位，如果沒填才去搜 Address
+                shopQuery = shopQuery.Where(s =>
+                    s.City == zhCity ||
+                    s.City == alternativeZhCity ||
+                    s.Address.Contains(zhCity) ||
+                    s.Address.Contains(alternativeZhCity)
+                );
             }
 
             if (!string.IsNullOrEmpty(SelectedDistrict))
             {
-                var targetDistrict = regions
-                    .SelectMany(r => r.Districts)
-                    .FirstOrDefault(d => d.En == SelectedDistrict);
+                var targetDistrict = regions.SelectMany(r => r.Districts).FirstOrDefault(d => d.En == SelectedDistrict);
+                var zhDistrict = targetDistrict?.Zh ?? SelectedDistrict;
 
-                if (targetDistrict != null)
-                {
-                    var zhDistrict = targetDistrict.Zh;
-                    shopQuery = shopQuery.Where(s => s.Address.Contains(zhDistrict));
-                }
-                else
-                {
-                    shopQuery = shopQuery.Where(s => s.Address.Contains(SelectedDistrict));
-                }
+                // 關鍵修改：比對 District 欄位
+                shopQuery = shopQuery.Where(s =>
+                    s.District == zhDistrict ||
+                    s.Address.Contains(zhDistrict)
+                );
             }
 
-            DisplayShops = await shopQuery.ToListAsync();
+            DisplayShops = await shopQuery.Distinct().ToListAsync();
         }
     }
 }

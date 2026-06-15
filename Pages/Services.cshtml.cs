@@ -167,29 +167,22 @@ namespace NailArtHub.Pages
         {
             try
             {
-                string scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "scripts", "import_sqlite3.py");
-                ProcessStartInfo start = new ProcessStartInfo
+                using (var client = new System.Net.Http.HttpClient())
                 {
-                    FileName = "python3",
-                    Arguments = $"\"{scriptPath}\" \"{tagToSearch}\"",
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                };
-                using (Process process = Process.Start(start))
-                {
-                    string error = await process.StandardError.ReadToEndAsync();
-                    string output = await process.StandardOutput.ReadToEndAsync();
-                    await process.WaitForExitAsync();
+                    string url = $"https://nailarthub-pyapi-1e343ac07cd7.herokuapp.com/crawl?tag={tagToSearch}";
+                    var response = await client.GetAsync(url);
 
-                    if (process.ExitCode != 0)
+                    if (response.IsSuccessStatusCode)
                     {
-                        Debug.WriteLine($"爬蟲錯誤輸出: {error}");
+                        Debug.WriteLine("雲端 Python 爬蟲觸發並成功寫入資料庫！");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"爬蟲 API 回報錯誤: {response.StatusCode}");
                     }
                 }
             }
-            catch (Exception ex) { Debug.WriteLine($"爬蟲失敗: {ex.Message}"); }
+            catch (Exception ex) { Debug.WriteLine($"呼叫爬蟲 API 失敗: {ex.Message}"); }
         }
     }
 }

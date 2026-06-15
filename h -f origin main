@@ -1,0 +1,72 @@
+[33m817d1ac[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix python -11
+[33m474ccaf[m Chabge Dockfile
+[33mf174e5a[m Fix python -10
+[33mfa1df74[m Fix python -9
+[33m31208e6[m Fix python -8
+[33m2683af1[m Fix python -7
+[33mb0d892f[m Fix python -6
+[33mdaf8743[m Fix python -5
+[33mce4af7b[m Fix python -4
+[33mfab185d[m Fix python -3
+[33m5ce5475[m Change function of Services.cs
+[33m65bfab0[m Fixed python -2
+[33m9c63cb8[m Fixed python-1
+[33mede4814[m Merge branch 'main' of https://github.com/wonderlandkid1990/NailArtHub
+[33mc835287[m Add Contact Us info and Privacy page.
+[33mcf5db06[m Update requirements.txt
+[33m0e31c7a[m SubmitSearch function change
+[33m2515647[m Merge branch 'main' of https://github.com/wonderlandkid1990/NailArtHub
+[33m1f95ae7[m RunPythonCrawlerAsync changes
+[33m7cc8fc4[m Create requirements.txt
+[33m8db8876[m Fix double tags.
+[33m99b1e13[m PartnerList fix-2
+[33mcd2afff[m Change PartnerList issue.
+[33m20cfa1e[m Fix DB connection
+[33mecdebd3[m Fix Migrations
+[33m56c0262[m Fix database schema missing issue
+[33m7b9c224[m Layot ->Services test
+[33m154c827[m Add Migration.
+[33m38e801f[m Change .db
+[33md841f75[m DB path fixed
+[33m25fc545[m Fix press logo change language problem.
+[33m4d9dc84[m Add app.UseStaticFiles
+[33m3929634[m Program.cs change
+[33m8790dd7[m Downgrade framework to net8.0-2
+[33md70bc44[m Downgrade framework to net8.0
+[33m0687756[m Fix Dockerfile extension
+[33m5e734af[m Add Dockerfile
+[33ma3afda7[m Admin page security and history data.
+[33m3f2d7e9[m Fixed location data anylize.
+[33m5ed7614[m Move the DB to cloud and reconnect the cloud DB.
+[33m09b4c44[m Add icon.
+[33m95a6605[m Tags limit and Top tags rank fixed.
+[33macfd5ce[m Patrone adding.
+[33m779ce1b[m Add support page.
+[33m099b054[m Add setup & listing fee info to form.
+[33meea3a36[m Fixed all issue V2.
+[33m55b881c[m Fixed random tags.
+[33m40ca70d[m Fixed the issue.
+[33m73baee5[m Fixed switching tags and search.
+[33mbde9e57[m Fixed all issue V1.20260609
+[33me9a8165[m Fix tag location line up $ each search result is linked to the corresponding tag.
+[33mb55d479[m Add the search bar back.
+[33medb817c[m Fully translate web and fixed title location.
+[33m45f2dbb[m Services page translate.
+[33m91fb93b[m Change Index page fonts for ZH.
+[33mcfcb68d[m ZH/EN button
+[33mabb758c[m Change the location filter, and make it united to locationseletor.
+[33m956c93a[m Style line up.
+[33m37e6161[m Add Admin page.
+[33m242e245[m Add salon application function.
+[33m6ecca8f[m Search & Tags fixed up.
+[33maf7a733[m Adjust logo.
+[33m59f17af[m Add Logo.
+[33m107b2bf[m Fix tags & reach python script.
+[33mcce3bdf[m Fixed tags & python.
+[33md462216[m Add tags function.
+[33m3d7bba7[m Add python scraping.
+[33mfea09c7[m Add Services page.
+[33m4eb2273[m Rolling effect & About section
+[33m5f0d6ce[m Change style
+[33m145f128[m Add project files.
+[33mfd2f92c[m Add .gitattributes and .gitignore.

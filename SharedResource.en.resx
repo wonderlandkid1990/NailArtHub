@@ -285,6 +285,9 @@
   <data name="Partner_Studios" xml:space="preserve">
     <value>Partner Studios</value>
   </data>
+  <data name="PaymentLink" xml:space="preserve">
+    <value>Go to pay/ Get Trade NO.</value>
+  </data>
   <data name="Plans_Title" xml:space="preserve">
     <value>Choose Your Support Plan</value>
   </data>
@@ -358,7 +361,7 @@
     <value>Thank you for your submission!</value>
   </data>
   <data name="SupportPlanDesc" xml:space="preserve">
-    <value>Welcome to NailArtHub! We’re building this space together. To support our ongoing development and keep the platform ad-free, we invite you to contribute a one-time setup &amp; listing fee of NT$200.</value>
+    <value>Welcome to NailArtHub! We’re building this space together. To support our ongoing development and keep the platform ad-free, we invite you to contribute a one-time setup &amp; listing fee of NT$300.</value>
   </data>
   <data name="SupportPlanTitle" xml:space="preserve">
     <value>Support the NailArtHub Project</value>

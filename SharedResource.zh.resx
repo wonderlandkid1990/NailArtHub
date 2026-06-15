@@ -285,6 +285,9 @@
   <data name="Partner_Studios" xml:space="preserve">
     <value>沙龍夥伴</value>
   </data>
+  <data name="PaymentLink" xml:space="preserve">
+    <value>點此去刷卡/取得編號</value>
+  </data>
   <data name="Plans_Title" xml:space="preserve">
     <value>選擇您的支持方案</value>
   </data>
@@ -358,7 +361,7 @@
     <value>提交成功</value>
   </data>
   <data name="SupportPlanDesc" xml:space="preserve">
-    <value>歡迎加入 NailArtHub！我們正致力於打造一個更棒的美學空間。為了支持平台的持續優化與穩定運作，我們邀請您共同負擔 NT$200 的一次性系統支持與上架費用。</value>
+    <value>歡迎加入 NailArtHub！我們正致力於打造一個更棒的美學空間。為了支持平台的持續優化與穩定運作，我們邀請您共同負擔 NT$300 的一次性系統支持與上架費用。</value>
   </data>
   <data name="SupportPlanTitle" xml:space="preserve">
     <value>支持 NailArtHub 開發計畫</value>

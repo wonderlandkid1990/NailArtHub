@@ -56,7 +56,7 @@ namespace NailArtHub.Pages
         {
             AllTags = await _context.NailTags
                                    .OrderByDescending(t => t.ViewCount)
-                                   .Take(20)
+                                   .Take(18)
                                    .ToListAsync();
 
             if (SelectedTagId.HasValue)

@@ -70,7 +70,7 @@ def run_crawler(target_tag):
                 source_url = driver.current_url 
                 crawled_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-                cursor.execute("SELECT 1 FROM NailTrends WHERE ImageUrl = ?", (img_url,))
+                cursor.execute("SELECT 1 FROM NailTrends WHERE ImageUrl = %s", (img_url,))
                 if cursor.fetchone() is None:
                     clean_tag = target_tag.lower().replace(" ", "").replace("#", "")
                     cursor.execute('''

@@ -75,7 +75,7 @@ def run_crawler(target_tag):
                     clean_tag = target_tag.lower().replace(" ", "").replace("#", "")
                     cursor.execute('''
                         INSERT INTO [NailTrends] (Tag, Title, ImageUrl, SourceUrl, CrawledAt)
-                        VALUES (?, ?, ?, ?, ?)
+                        VALUES (%s, %s, %s, %s, %s)
                     ''', (clean_tag, title, img_url, source_url, crawled_at))
                     saved_count += 1
                     print(f"Successfully got img No. {saved_count} : {title[:20]}...")

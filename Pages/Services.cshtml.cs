@@ -59,6 +59,8 @@ namespace NailArtHub.Pages
                     int trendCount = await _context.NailTrends.CountAsync(t => t.Tag.ToLower().Replace(" ", "").Replace("#", "") == cleaned);
                     if (trendCount < 3)
                     {
+                        TempData["IsCrawling"] = true;
+                        TempData["TargetTag"] = currentTag.TagName;
                         await RunPythonCrawlerAsync(cleaned);
                         AllTags = await _context.NailTags.OrderByDescending(t => t.ViewCount).Take(10).ToListAsync();
                     }
@@ -92,9 +94,7 @@ namespace NailArtHub.Pages
                     existingTag.ViewCount += 1;
                     await _context.SaveChangesAsync();
                 }
-                query = query.Where(t =>
-            t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "") == q
-            );
+                query = query.Where(t => t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "") == q);
             }
 
             else
@@ -103,6 +103,9 @@ namespace NailArtHub.Pages
                 var topTagNames = AllTags.Take(10)
                                          .Select(t => t.TagName.ToLower().Trim().Replace(" ", "").Replace("#", ""))
                                          .ToList();
+                var allTopTrends = await _context.NailTrends
+                                         .Where(t => topTagNames.Contains(t.Tag.ToLower().Trim().Replace(" ", "").Replace("#", "")))
+                                         .ToListAsync();
                 var randomTrends = new List<NailTrend>();
                 var random = new Random();
 
@@ -169,6 +172,7 @@ namespace NailArtHub.Pages
             {
                 using (var client = new System.Net.Http.HttpClient())
                 {
+                    client.Timeout = TimeSpan.FromSeconds(60);
                     string url = $"https://nailarthub-pyapi-1e343ac07cd7.herokuapp.com/crawl?tag={tagToSearch}";
                     var response = await client.GetAsync(url);
 

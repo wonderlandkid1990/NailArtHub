@@ -293,6 +293,10 @@
     }
 
     function submitWithTag(tagId) {
+        const overlay = document.getElementById("loading-overlay");
+        if (overlay && tagId !== "") {
+            overlay.style.display = "flex";
+       }
         const form = document.getElementById("filterForm");
         const hiddenInput = document.getElementById("hiddenTagId");
         const searchInput = document.querySelector('input[name="SearchQuery"]');

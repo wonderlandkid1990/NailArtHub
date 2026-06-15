@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 def connect_to_existing_db():
     conn_str = (
-        "DRIVER={ODBC Driver 17 for SQL Server};"
+        "DRIVER={FreeTDS};TDS_Version=7.4;"
         "SERVER=sql6034.site4now.net;"
         "DATABASE=db_aca7c2_nail;"
         "UID=db_aca7c2_nail_admin;"

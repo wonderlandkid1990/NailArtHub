@@ -275,55 +275,80 @@
     </form>
 </div>
 
-<script>
-    function getCultureParam() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('culture') || "";
-    }
-    function submitSearch() {
-        const overlay = document.getElementById("loading-overlay");
-        if (overlay) {
-            overlay.style.display = "flex";
-        }
-        const form = document.getElementById("filterForm");
-        const hiddenInput = document.getElementById("hiddenTagId");
-        if (hiddenInput) hiddenInput.value = "";
-        appendCultureToForm(form);
-        form.submit();
-    }
-
-    function submitWithTag(tagId) {
-        const overlay = document.getElementById("loading-overlay");
-        if (overlay && tagId !== "") {
-            overlay.style.display = "flex";
-       }
-        const form = document.getElementById("filterForm");
-        const hiddenInput = document.getElementById("hiddenTagId");
-        const searchInput = document.querySelector('input[name="SearchQuery"]');
-
-        if (searchInput) {
-            searchInput.value = "";
-        }
-
-        if (hiddenInput) {
-            hiddenInput.value = tagId;
-        }
-        appendCultureToForm(form);
-        form.submit();
-    }
-    function appendCultureToForm(form) {
-        const culture = getCultureParam();
-        if (culture) {
-            let input = form.querySelector('input[name="culture"]');
-            if (!input) {
-                input = document.createElement("input");
-                input.type = "hidden";
-                input.name = "culture";
-                form.appendChild(input);
+    <script>
+            function getCultureParam() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('culture') || "";
             }
-            input.value = culture;
-        }
-    }
+
+            async function handleAjaxSubmit(form, tagId = null) {
+                const overlay = document.getElementById("loading-overlay");
+                if (overlay) {
+                    overlay.style.display = "flex";
+
+                const hiddenInput = document.getElementById("hiddenTagId");
+                if (hiddenInput) {
+                    hiddenInput.value = tagId !== null ? tagId : "";
+                }
+
+                const searchInput = document.querySelector('input[name="SearchQuery"]');
+                if (tagId && searchInput) {
+                    searchInput.value = "";
+                }
+
+                appendCultureToForm(form);
+
+                const formData = new FormData(form);
+                const url = form.action || window.location.href;
+
+                try {
+                    const queryString = new URLSearchParams(formData).toString();
+
+                    const response = await fetch(`${url}?${queryString}`, {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        console.error("後端回傳錯誤");
+                        if (overlay) overlay.style.display = "none";
+                        alert("搜尋失敗，請稍後再試一次！");
+                    }
+                } catch (error) {
+                    console.error("網路連線發生錯誤:", error);
+                    if (overlay) overlay.style.display = "none";
+                    alert("系統忙碌中，請稍後再試！");
+                }
+            }
+
+            function submitSearch() {
+                const form = document.getElementById("filterForm");
+                handleAjaxSubmit(form, null);
+            }
+
+            function submitWithTag(tagId) {
+                const form = document.getElementById("filterForm");
+                handleAjaxSubmit(form, tagId);
+            }
+
+            function appendCultureToForm(form) {
+                const culture = getCultureParam();
+                if (culture) {
+                    let input = form.querySelector('input[name="culture"]');
+                    if (!input) {
+                        input = document.createElement("input");
+                        input.type = "hidden";
+                        input.name = "culture";
+                        form.appendChild(input);
+                    }
+                    input.value = culture;
+                }
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
                 const citySelect = document.getElementById("SelectedCity") || document.querySelector("select[name='SelectedCity']");
                 const distSelect = document.getElementById("SelectedDistrict") || document.querySelector("select[name='SelectedDistrict']");
@@ -331,17 +356,14 @@
 
                 if (citySelect) {
                     citySelect.addEventListener("change", function() {
-                        appendCultureToForm(form);
-                        form.submit();
+                        handleAjaxSubmit(form, document.getElementById("hiddenTagId")?.value || "");
                     });
                 }
                 if (distSelect) {
                     distSelect.addEventListener("change", function() {
-                        appendCultureToForm(form);
-                        form.submit();
+                        handleAjaxSubmit(form, document.getElementById("hiddenTagId")?.value || "");
                     });
                 }
             });
-
-</script>
+    </script>
 </body>

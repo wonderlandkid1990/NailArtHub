@@ -1,7 +1,7 @@
 import os
 import sys
 import time
-import pyodbc
+import pymssql
 from datetime import datetime
 from flask import Flask, request, jsonify
 from selenium import webdriver
@@ -15,16 +15,14 @@ from webdriver_manager.chrome import ChromeDriverManager
 app = Flask(__name__)
 
 def connect_to_existing_db():
-    conn_str = (
-        "DRIVER={FreeTDS};TDS_Version=7.4;"
-        "SERVER=sql6034.site4now.net;"
-        "DATABASE=db_aca7c2_nail;"
-        "UID=db_aca7c2_nail_admin;"
-        "PWD=Aliceyu19901103;"
-        "Timeout=30;"
+    print("Connecting to Cloud SQL Server via pymssql...")
+    conn = pymssql.connect(
+        server='sql6034.site4now.net',
+        user='db_aca7c2_nail_admin',
+        password='Aliceyu19901103',
+        database='db_aca7c2_nail',
+        timeout=30
     )
-    print("Connecting to Cloud SQL Server: sql6034.site4now.net...")
-    conn = pyodbc.connect(conn_str)
     return conn
 
 def run_crawler(target_tag):

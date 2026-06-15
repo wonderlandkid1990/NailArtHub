@@ -292,7 +292,10 @@
                 if (hiddenInput) hiddenInput.value = "";
 
                 appendCultureToForm(form);
-                form.submit();
+
+                setTimeout(function() {
+                    form.submit();
+                }, 50);
             }
 
             function submitWithTag(tagId) {
@@ -314,7 +317,10 @@
                 }
 
                 appendCultureToForm(form);
-                form.submit();
+
+                setTimeout(function() {
+                    form.submit();
+                }, 50);
             }
 
             function appendCultureToForm(form) {
@@ -330,7 +336,7 @@
                     input.value = culture;
                 }
             }
-            // --- End the waiting page ---
+
             window.addEventListener("pageshow", function(event) {
                 const overlay = document.getElementById("loading-overlay");
                 if (overlay) {
@@ -348,7 +354,7 @@
                         const overlay = document.getElementById("loading-overlay");
                         if (overlay) overlay.style.display = "flex";
                         appendCultureToForm(form);
-                        form.submit();
+                        setTimeout(function() { form.submit(); }, 50);
                     });
                 }
                 if (distSelect) {
@@ -356,7 +362,7 @@
                         const overlay = document.getElementById("loading-overlay");
                         if (overlay) overlay.style.display = "flex";
                         appendCultureToForm(form);
-                        form.submit();
+                        setTimeout(function() { form.submit(); }, 50);
                     });
                 }
             });

@@ -50,7 +50,7 @@ namespace NailArtHub.Pages
         {
             AvailableTags = await _context.NailTags
                                  .OrderByDescending(t => t.ViewCount)
-                                 .Take(20)
+                                 .Take(18)
                                  .ToListAsync();
 
             if (SelectedTagId.HasValue)
@@ -133,7 +133,7 @@ namespace NailArtHub.Pages
                 AvailableTags = await _context.NailTags
                                              .AsNoTracking()
                                              .OrderByDescending(t => t.ViewCount)
-                                             .Take(20)
+                                             .Take(18)
                                              .ToListAsync();
                 return Page();
             }
@@ -162,7 +162,7 @@ namespace NailArtHub.Pages
                 AvailableTags = await _context.NailTags
                                              .AsNoTracking()
                                              .OrderByDescending(t => t.ViewCount)
-                                             .Take(20)
+                                             .Take(18)
                                              .ToListAsync();
                 return Page();
             }

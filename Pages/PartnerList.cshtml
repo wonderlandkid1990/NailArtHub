@@ -142,6 +142,105 @@
         background-color: #1A1A1A;
         color: #FAF6F0;
     }
+            /* --- 📱phone version --- */
+            @@media screen and (max-width: 768px) {
+                .services-page {
+                    padding: 30px 16px 60px 16px !important;
+                    min-height: auto !important;
+                }
+
+                :lang(zh) .page-title,
+                .page-title {
+                    font-size: 2.0rem !important;
+                    line-height: 1.4 !important;
+                    margin-bottom: 30px !important;
+                    text-align: center !important;
+                }
+
+                .tag-container {
+                    gap: 8px !important;
+                    margin-bottom: 25px !important;
+                    padding: 0 4px !important;
+                }
+
+                .tag-pill-btn {
+                    font-size: 0.78rem !important;
+                    padding: 5px 12px !important;
+                    border-radius: 20px !important;
+                    background-color: #FFFDFB !important;
+                    border: 1px solid #EFEBE4 !important;
+                    color: #555555 !important;
+                    letter-spacing: 0.5px !important;
+                    line-height: 1.2 !important;
+                }
+
+                .results-layout {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    width: 100% !important;
+                    gap: 20px !important;
+                }
+
+                input[type="text"], select, .form-control, .custom-input {
+                    width: 100% !important;
+                    height: 40px !important;
+                    font-size: 0.9rem !important;
+                    border: 1px solid #EAE5DC !important;
+                    border-radius: 4px !important;
+                    padding: 0 12px !important;
+                }
+
+                .col {
+                    flex: 0 0 calc(50% - 4px) !important;
+                    max-width: calc(50% - 4px) !important;
+                    padding: 0 !important;
+                }
+
+                .result-card-shop > div:first-child {
+                    height: 200px !important;
+                    overflow: hidden !important;
+                    position: relative !important;
+                }
+
+                .result-card-shop blockquote {
+                    margin: -50px auto 0 auto !important;
+                    width: 100% !important;
+                    transform: scale(0.85) !important;
+                    transform-origin: top center !important;
+                }
+
+                .result-card-shop iframe {
+                    display: block !important;
+                    margin: 0 auto !important;
+                }
+
+                .result-card-shop .position-absolute {
+                    font-size: 0.6rem !important;
+                    padding: 2px !important;
+                    top: 2px !important;
+                    left: 2px !important;
+                    z-index: 99 !important;
+                }
+
+                .result-card, .result-card-shop, .salon-card {
+                    width: 100% !important;
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    padding: 20px !important;
+                }
+
+                .card-body {
+                    text-align: left !important;
+                    padding: 8px !important;
+                }
+
+                .join-us-btn, .btn-submit {
+                    width: 100% !important;
+                    float: none !important;
+                    margin-top: 15px !important;
+                    margin-bottom: 15px !important;
+                }
+            }
 </style>
 </head>
 <body>

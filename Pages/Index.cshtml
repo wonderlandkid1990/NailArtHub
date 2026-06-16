@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <head>
-    <style>
+     <style>
 
             .nailsy-hero {
                 background-color: #FAF6F0;
@@ -190,6 +190,72 @@
 
                 display: inline-block;
                 margin-left: 12px;
+            }
+            /* --- 📱phone version --- */
+            @@media screen and (max-width: 768px) {
+                .nailsy-hero {
+                    flex-direction: column !important;
+                    padding: 40px 20px 20px 20px !important;
+                    min-height: auto !important;
+                }
+
+                .hero-text-side {
+                    width: 100% !important;
+                    padding-right: 0 !important;
+                    text-align: center !important;
+                    margin-bottom: 30px;
+                }
+
+                :lang(zh) .hero-title, .hero-title {
+                    font-size: 2.5rem !important;
+                    line-height: 1.2 !important;
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    letter-spacing: 0.5px !important;
+                }
+
+                    :lang(zh) .hero-title em {
+                        font-size: 3.2rem !important;
+                        margin-left: 0px !important;
+                    }
+
+                .hero-description {
+                    font-size: 1.1rem !important;
+                    line-height: 1.5 !important;
+                    margin: 20px auto 30px auto !important;
+                }
+
+                .reveal-on-scroll h2,
+                .features-section h2 {
+                    font-size: 2.2rem !important;
+                    text-align: center !important;
+                    margin: 30px 0 20px 0 !important;
+                }
+
+                .feature-container {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    width: 100% !important;
+                    gap: 20px !important;
+                    padding: 0 20px !important;
+                }
+
+                .feature-card {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    margin: 0 !important;
+                }
+
+                .nailsy-hero p,
+                .reveal-on-scroll p,
+                .about-section p {
+                    font-size: 1.0rem !important;
+                    line-height: 1.6 !important;
+                    color: #555555 !important;
+                    text-align: center !important;
+                    margin-bottom: 15px !important;
+                }
             }
     </style>
 </head>

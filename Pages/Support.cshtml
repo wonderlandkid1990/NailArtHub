@@ -245,6 +245,45 @@
                     background-color: #404040;
                     color: #FAF6F0;
                 }
+            /* --- 📱phone version --- */
+            @@media screen and (max-width: 768px) {
+                .support-title,
+                .plans-section-title,
+                :lang(zh) .support-title,
+                :lang(zh) .plans-section-title {
+                    font-size: 2rem !important;
+                    margin-bottom: 20px !important;
+                }
+
+                .milestone-section, .plan-card {
+                    padding: 20px !important;
+                }
+
+                .plan-header {
+                    flex-direction: column !important;
+                    align-items: flex-start !important;
+                    gap: 10px !important;
+                }
+
+                .btn-link {
+                    padding: 12px 20px !important;
+                    font-size: 0.85rem !important;
+                }
+            }
+
+            @@keyframes blink {
+                0% {
+                    opacity: 0.3;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+
+                100% {
+                    opacity: 0.3;
+                }
+            }
     </style>
     </head>
     <body>
@@ -283,22 +322,6 @@
                     </span>
                 </div>
             </section>
-
-            <style>
-                            @@keyframes blink {
-                                0% {
-                                    opacity: 0.3;
-                                }
-
-                                50% {
-                                    opacity: 1;
-                                }
-
-                                100% {
-                                    opacity: 0.3;
-                                }
-                            }
-            </style>
         </section>
 
         <section class="milestone-section">

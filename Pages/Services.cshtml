@@ -155,6 +155,250 @@
         margin-bottom: 20px;
         border-radius: 4px;
     }
+            /* --- 📱phone version --- */
+            @@media screen and (max-width: 768px) {
+                .page-title {
+                    font-size: 2.0rem !important;
+                    line-height: 1.4 !important;
+                    margin-bottom: 30px !important;
+                    text-align: center !important;
+                }
+
+                .services-page {
+                    padding: 30px 16px 60px 16px !important;
+                    min-height: auto !important;
+                }
+
+                :lang(zh) .page-title,
+                .page-title {
+                    font-size: 2.0rem !important;
+                    line-height: 1.4 !important;
+                    margin-bottom: 30px !important;
+                    text-align: center !important;
+                }
+
+                .services-page input[type="text"],
+                .services-page select,
+                .services-page .form-control {
+                    height: 40px !important;
+                    font-size: 0.85rem !important;
+                    border: 1px solid #EAE5DC !important;
+                    border-radius: 4px !important;
+                    padding: 0 10px !important;
+                }
+
+                .tag-container {
+                    gap: 8px !important;
+                    margin-bottom: 25px !important;/
+                    padding: 0 4px !important;
+                }
+
+                .tag-pill {
+                    font-size: 0.78rem !important;
+                    padding: 5px 12px !important;
+                    border-radius: 20px !important;
+                    background-color: #FFFDFB !important;
+                    border: 1px solid #EFEBE4 !important;
+                    color: #555555 !important;
+                    letter-spacing: 0.5px !important;
+                    line-height: 1.2 !important;
+                }
+
+                :lang(zh) .tag-pill {
+                    font-family: 'Montserrat', 'Noto Sans TC', sans-serif !important;
+                    font-weight: 300 !important;
+                    letter-spacing: 0.8px !important;
+                }
+
+                .tag-pill.active {
+                    background-color: #1A1A1A !important;
+                    color: #FAF6F0 !important;
+                    border-color: #1A1A1A !important;
+                }
+
+                :lang(zh) .tag-pill.active {
+                    font-weight: 400 !important;
+                }
+                .results-layout {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    gap: 35px !important;
+                }
+
+                .left-results-side {
+                    order: 2 !important;
+                    width: 100% !important;
+                    white-space: normal !important;
+                }
+
+                .right-salon-side {
+                    order: 1 !important;
+                    width: 100% !important;
+                    display: block !important;
+                    overflow: visible !important;
+                }
+
+                    .right-salon-side .section-subtitle {
+                        font-size: 1.25rem !important;
+                        text-align: center !important;
+                        margin-bottom: 25px !important;
+                        padding-bottom: 8px !important;
+                        white-space: normal !important;
+                    }
+
+                .join-us-btn {
+                    display: block !important;
+                    float: right !important;
+                    width: 90px !important;
+                    height: 32px !important;
+                    line-height: 30px !important;
+                    font-size: 0.78rem !important;
+                    padding: 0 !important;
+                    margin-top: 20px !important;
+                    margin-right: 15px !important;
+                    margin-bottom: -54px !important;
+                    background-color: #FFFDFB !important;
+                    border: 1px solid #1A1A1A !important;
+                    border-radius: 4px !important;
+                    text-align: center !important;
+                    box-sizing: border-box !important;
+                    position: relative !important;
+                    z-index: 99 !important;
+                }
+
+                .right-salon-side div[style*="background-color"] {
+                    display: block !important;
+                    clear: both !important;
+                    padding: 15px !important;
+                    margin-bottom: 20px !important;
+                    width: 100% !important;
+                    box-sizing: border-box !important;
+                    background-color: #FFFDFB !important;
+                    border: 1px solid #EAE5DC !important;
+                    border-radius: 4px !important;
+                }
+
+                    .right-salon-side div[style*="background-color"] p {
+                        display: block !important;
+                        padding-right: 100px !important;
+                        margin-bottom: 12px !important;
+                        font-size: 0.85rem !important;
+                        text-align: left !important;
+                        white-space: normal !important;
+                        width: 100% !important;
+                    }
+
+                    .right-salon-side div[style*="background-color"] select {
+                        display: block !important;
+                        width: 100% !important;
+                        height: 38px !important;
+                        margin-bottom: 8px !important;
+                    }
+
+                        .right-salon-side div[style*="background-color"] select:last-child {
+                            margin-bottom: 0 !important;
+                        }
+
+                .salon-card {
+                    display: inline-block !important;
+                    vertical-align: top !important;
+                    white-space: normal !important;
+                    width: 44vw !important;
+                    height: auto !important;
+                    max-width: 170px !important;
+                    min-height: 125px !important;
+                    margin-right: 12px !important;
+                    margin-bottom: 8px !important;
+                    padding: 10px 12px !important;
+                    border-radius: 6px !important;
+                    box-sizing: border-box !important;
+                    background: #FFFDFB !important;
+                    border: 1px solid #C49A45 !important;
+                }
+
+                .salon-card-link {
+                    cursor: pointer;
+                    transition: opacity 0.2s ease;
+                }
+
+                    .salon-card-link:hover .salon-card {
+                        border-color: #1A1A1A !important;
+                        background-color: #FFFDFB !important;
+                    }
+
+                .right-salon-side {
+                    overflow-x: auto !important;
+                    overflow-y: hidden !important;
+                    white-space: nowrap !important;
+                    -webkit-overflow-scrolling: touch !important;
+                    padding-bottom: 12px !important;
+                }
+
+                    .right-salon-side div[style*="background-color"] {
+                        white-space: normal !important;
+                    }
+
+                .salon-card h4 {
+                    font-size: 0.88rem !important;
+                    font-weight: 600 !important;
+                    margin-bottom: 4px !important;
+                    text-align: left !important;
+                    white-space: nowrap !important;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis !important;
+                }
+
+                .salon-card p {
+                    font-size: 0.75rem !important;
+                    color: #666666 !important;
+                    text-align: left !important;
+                    line-height: 1.3 !important;
+                    margin-bottom: 6px !important;
+                    display: -webkit-box !important;
+                    -webkit-line-clamp: 2 !important;
+                    -webkit-box-orient: vertical !important;
+                    overflow: hidden !important;
+                }
+
+                .salon-card span {
+                    display: inline-block !important;
+                    font-size: 0.65rem !important;
+                    padding: 1px 5px !important;
+                    margin-right: 3px !important;
+                    margin-bottom: 3px !important;
+                    background: #EAE5DC !important;
+                }
+
+                .right-salon-side::-webkit-scrollbar {
+                    height: 4px !important;
+                }
+
+                .right-salon-side::-webkit-scrollbar-track {
+                    background: #EAE5DC !important;
+                    border-radius: 10px !important;
+                }
+
+                .right-salon-side::-webkit-scrollbar-thumb {
+                    background: #C49A45 !important;
+                    border-radius: 10px !important;
+                }
+                @@media screen and (max-width: 768px) {
+                    .salon-card-link {
+                        display: inline-block !important;
+                        vertical-align: top !important;
+                    }
+
+                .left-results-side {
+                    white-space: normal !important;
+                }
+
+                .result-card {
+                    white-space: normal !important;
+                    width: 100% !important;
+                    display: block !important;
+                }
+            }
+            }
 </style>
 </head>
 <body>
@@ -244,26 +488,31 @@
 
                 @if (Model.FeaturedShops != null && Model.FeaturedShops.Any())
                 {
-                        @using System.Text.RegularExpressions
+                    @using System.Text.RegularExpressions
                     @foreach (var shop in Model.FeaturedShops)
                     {
-                        <div class="salon-card">
-                            <h4 style="font-weight: 600; margin-bottom: 5px;">@shop.ShopName</h4>
-                                @{
-                                    string cleanAddress = shop.Address ?? "";
-                                    cleanAddress = Regex.Replace(cleanAddress, @"^[a-zA-Z\s']+", "").Trim();
-                                }
-                            <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">📍 @shop.Address</p>
-                            @if (shop.ShopTagBridges != null && shop.ShopTagBridges.Any())
-                            {
-                                @foreach (var bridge in shop.ShopTagBridges)
+                        string targetLink = !string.IsNullOrEmpty(shop.InstagramUrl) ? shop.InstagramUrl : "javascript:void(0);";
+                        string openMethod = !string.IsNullOrEmpty(shop.InstagramUrl) ? "_blank" : "_self";
+            
+                        <a href="@targetLink" target="@openMethod" rel="noopener noreferrer" class="salon-card-link" style="text-decoration: none; display: block; color: inherit;">
+                            <div class="salon-card">
+                                <h4 style="font-weight: 600; margin-bottom: 5px;">@shop.ShopName</h4>
+                                    @{
+                                        string cleanAddress = shop.Address ?? "";
+                                        cleanAddress = Regex.Replace(cleanAddress, @"^[a-zA-Z\s']+", "").Trim();
+                                    }
+                                <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">📍 @shop.Address</p>
+                                @if (shop.ShopTagBridges != null && shop.ShopTagBridges.Any())
                                 {
-                                    <span style="background: #EAE5DC; padding: 3px 8px; font-size: 0.75rem; margin-right: 5px;">
-                                        #@bridge.NailTag?.TagName
-                                    </span>
+                                    @foreach (var bridge in shop.ShopTagBridges)
+                                    {
+                                        <span style="background: #EAE5DC; padding: 3px 8px; font-size: 0.75rem; margin-right: 5px;">
+                                            #@bridge.NailTag?.TagName
+                                        </span>
+                                    }
                                 }
-                            }
-                        </div>
+                            </div>
+                        </a>
                     }
                 }
                 else

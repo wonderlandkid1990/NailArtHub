@@ -116,6 +116,51 @@
     .form-tag-pill:hover {
         border-color: #1A1A1A;
     }
+            /* --- 📱phone version --- */
+            @@media screen and (max-width: 768px) {
+                services-page {
+                    padding: 30px 16px 60px 16px !important;
+                    min-height: auto !important;
+                }
+
+                :lang(zh) .page-title,
+                .page-title {
+                    font-size: 2.0rem !important;
+                    line-height: 1.4 !important;
+                    margin-bottom: 30px !important;
+                    text-align: center !important;
+                }
+
+                .results-layout {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    width: 100% !important;
+                    gap: 20px !important;
+                }
+
+                input[type="text"], select, .form-control, .custom-input {
+                    width: 100% !important;
+                    height: 40px !important;
+                    font-size: 0.9rem !important;
+                    border: 1px solid #EAE5DC !important;
+                    border-radius: 4px !important;
+                    padding: 0 12px !important;
+                }
+                .form-container {
+                    padding: 20px !important;
+                    border: none !important;
+                }
+
+                .custom-input {
+                    padding: 10px 15px !important;
+                    font-size: 0.85rem !important;
+                }
+
+                .btn-submit {
+                    padding: 12px !important;
+                    font-size: 0.85rem !important;
+                }
+            }
 </style>
 </head>
 <body>

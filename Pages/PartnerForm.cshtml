@@ -118,7 +118,7 @@
     }
             /* --- 📱phone version --- */
             @@media screen and (max-width: 768px) {
-                services-page {
+                .services-style-page {
                     padding: 30px 16px 60px 16px !important;
                     min-height: auto !important;
                 }
@@ -140,27 +140,32 @@
 
                 input[type="text"], select, .form-control, .custom-input {
                     width: 100% !important;
-                    height: 40px !important;
+                    height: auto !important;
                     font-size: 0.9rem !important;
                     border: 1px solid #EAE5DC !important;
                     border-radius: 4px !important;
-                    padding: 0 12px !important;
+                    padding: 12px 12px !important;
+                    box-sizing: border-box !important;
                 }
+
                 .form-container {
-                    padding: 20px !important;
-                    border: none !important;
+                    display: block !important;
+                    width: 100% !important;
+                    padding: 24px 20px !important;
+                    box-sizing: border-box !important;
                 }
 
                 .custom-input {
-                    padding: 10px 15px !important;
+                    padding: 12px 15px !important;
                     font-size: 0.85rem !important;
                 }
 
                 .btn-submit {
-                    padding: 12px !important;
-                    font-size: 0.85rem !important;
+                    padding: 14px !important;
+                    font-size: 0.9rem !important;
+                    width: 100% !important;
                 }
-            }
+                }
 </style>
 </head>
 <body>

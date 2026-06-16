@@ -157,20 +157,12 @@
     }
             /* --- 📱phone version --- */
             @@media screen and (max-width: 768px) {
-                .page-title {
-                    font-size: 2.0rem !important;
-                    line-height: 1.4 !important;
-                    margin-bottom: 30px !important;
-                    text-align: center !important;
-                }
-
                 .services-page {
                     padding: 30px 16px 60px 16px !important;
                     min-height: auto !important;
                 }
 
-                :lang(zh) .page-title,
-                .page-title {
+                .page-title, :lang(zh) .page-title {
                     font-size: 2.0rem !important;
                     line-height: 1.4 !important;
                     margin-bottom: 30px !important;
@@ -189,7 +181,7 @@
 
                 .tag-container {
                     gap: 8px !important;
-                    margin-bottom: 25px !important;/
+                    margin-bottom: 25px !important;
                     padding: 0 4px !important;
                 }
 
@@ -219,6 +211,7 @@
                 :lang(zh) .tag-pill.active {
                     font-weight: 400 !important;
                 }
+
                 .results-layout {
                     display: flex !important;
                     flex-direction: column !important;
@@ -229,6 +222,12 @@
                     order: 2 !important;
                     width: 100% !important;
                     white-space: normal !important;
+                }
+
+                .result-card {
+                    white-space: normal !important;
+                    width: 100% !important;
+                    display: flex !important;
                 }
 
                 .right-salon-side {
@@ -248,22 +247,17 @@
 
                 .join-us-btn {
                     display: block !important;
-                    float: right !important;
-                    width: 90px !important;
-                    height: 32px !important;
-                    line-height: 30px !important;
-                    font-size: 0.78rem !important;
+                    width: 100% !important;
+                    height: 40px !important;
+                    line-height: 38px !important;
+                    font-size: 0.85rem !important;
                     padding: 0 !important;
-                    margin-top: 20px !important;
-                    margin-right: 15px !important;
-                    margin-bottom: -54px !important;
+                    margin: 0 0 20px 0 !important;
                     background-color: #FFFDFB !important;
                     border: 1px solid #1A1A1A !important;
                     border-radius: 4px !important;
                     text-align: center !important;
                     box-sizing: border-box !important;
-                    position: relative !important;
-                    z-index: 99 !important;
                 }
 
                 .right-salon-side div[style*="background-color"] {
@@ -276,15 +270,15 @@
                     background-color: #FFFDFB !important;
                     border: 1px solid #EAE5DC !important;
                     border-radius: 4px !important;
+                    white-space: normal !important;
                 }
 
                     .right-salon-side div[style*="background-color"] p {
                         display: block !important;
-                        padding-right: 100px !important;
+                        padding-right: 0 !important;
                         margin-bottom: 12px !important;
                         font-size: 0.85rem !important;
                         text-align: left !important;
-                        white-space: normal !important;
                         width: 100% !important;
                     }
 
@@ -295,13 +289,24 @@
                         margin-bottom: 8px !important;
                     }
 
-                        .right-salon-side div[style*="background-color"] select:last-child {
-                            margin-bottom: 0 !important;
-                        }
+                .salon-cards-container {
+                    display: block !important;
+                    overflow-x: auto !important;
+                    overflow-y: hidden !important;
+                    white-space: nowrap !important;
+                    -webkit-overflow-scrolling: touch !important;
+                    padding-bottom: 12px !important;
+                    width: 100% !important;
+                }
 
-                .salon-card {
+                .salon-card-link {
                     display: inline-block !important;
                     vertical-align: top !important;
+                    text-decoration: none !important;
+                }
+
+                .salon-card {
+                    display: block !important;
                     white-space: normal !important;
                     width: 44vw !important;
                     height: auto !important;
@@ -316,88 +321,50 @@
                     border: 1px solid #C49A45 !important;
                 }
 
-                .salon-card-link {
-                    cursor: pointer;
-                    transition: opacity 0.2s ease;
-                }
-
-                    .salon-card-link:hover .salon-card {
-                        border-color: #1A1A1A !important;
-                        background-color: #FFFDFB !important;
+                    .salon-card h4 {
+                        font-size: 0.88rem !important;
+                        font-weight: 600 !important;
+                        margin-bottom: 4px !important;
+                        text-align: left !important;
+                        white-space: nowrap !important;
+                        overflow: hidden !important;
+                        text-overflow: ellipsis !important;
                     }
 
-                .right-salon-side {
-                    overflow-x: auto !important;
-                    overflow-y: hidden !important;
-                    white-space: nowrap !important;
-                    -webkit-overflow-scrolling: touch !important;
-                    padding-bottom: 12px !important;
-                }
-
-                    .right-salon-side div[style*="background-color"] {
-                        white-space: normal !important;
+                    .salon-card p {
+                        font-size: 0.75rem !important;
+                        color: #666666 !important;
+                        text-align: left !important;
+                        line-height: 1.3 !important;
+                        margin-bottom: 6px !important;
+                        display: -webkit-box !important;
+                        -webkit-line-clamp: 2 !important;
+                        -webkit-box-orient: vertical !important;
+                        overflow: hidden !important;
                     }
 
-                .salon-card h4 {
-                    font-size: 0.88rem !important;
-                    font-weight: 600 !important;
-                    margin-bottom: 4px !important;
-                    text-align: left !important;
-                    white-space: nowrap !important;
-                    overflow: hidden !important;
-                    text-overflow: ellipsis !important;
-                }
+                    .salon-card span {
+                        display: inline-block !important;
+                        font-size: 0.65rem !important;
+                        padding: 1px 5px !important;
+                        margin-right: 3px !important;
+                        margin-bottom: 3px !important;
+                        background: #EAE5DC !important;
+                    }
 
-                .salon-card p {
-                    font-size: 0.75rem !important;
-                    color: #666666 !important;
-                    text-align: left !important;
-                    line-height: 1.3 !important;
-                    margin-bottom: 6px !important;
-                    display: -webkit-box !important;
-                    -webkit-line-clamp: 2 !important;
-                    -webkit-box-orient: vertical !important;
-                    overflow: hidden !important;
-                }
-
-                .salon-card span {
-                    display: inline-block !important;
-                    font-size: 0.65rem !important;
-                    padding: 1px 5px !important;
-                    margin-right: 3px !important;
-                    margin-bottom: 3px !important;
-                    background: #EAE5DC !important;
-                }
-
-                .right-salon-side::-webkit-scrollbar {
+                .salon-cards-container::-webkit-scrollbar {
                     height: 4px !important;
                 }
 
-                .right-salon-side::-webkit-scrollbar-track {
+                .salon-cards-container::-webkit-scrollbar-track {
                     background: #EAE5DC !important;
                     border-radius: 10px !important;
                 }
 
-                .right-salon-side::-webkit-scrollbar-thumb {
+                .salon-cards-container::-webkit-scrollbar-thumb {
                     background: #C49A45 !important;
                     border-radius: 10px !important;
                 }
-                @@media screen and (max-width: 768px) {
-                    .salon-card-link {
-                        display: inline-block !important;
-                        vertical-align: top !important;
-                    }
-
-                .left-results-side {
-                    white-space: normal !important;
-                }
-
-                .result-card {
-                    white-space: normal !important;
-                    width: 100% !important;
-                    display: block !important;
-                }
-            }
             }
 </style>
 </head>
@@ -485,7 +452,7 @@
                     <p style="font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; color: #1A1A1A;">@Localizer["Find_ around_you"]：</p>
                     @await Html.PartialAsync("_LocationSelector")
                 </div>
-
+                    <div class="salon-cards-container">
                 @if (Model.FeaturedShops != null && Model.FeaturedShops.Any())
                 {
                     @using System.Text.RegularExpressions
@@ -520,6 +487,7 @@
                     <p style="font-size: 0.9rem; color: #999; font-style: italic;">@Localizer["No_studios_found"]</p>
                 }
             </div>
+                </div>
         </div>
     </form>
 </div>

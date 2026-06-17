@@ -195,7 +195,7 @@
             @@media screen and (max-width: 768px) {
                 .nailsy-hero {
                     flex-direction: column !important;
-                    padding: 40px 20px 20px 20px !important;
+                    padding: 40px 24px 20px 24px !important;
                     min-height: auto !important;
                 }
 
@@ -207,16 +207,19 @@
                 }
 
                 :lang(zh) .hero-title, .hero-title {
-                    font-size: 2.5rem !important;
+                    font-size: 2.0rem !important;
                     line-height: 1.2 !important;
                     width: 100% !important;
                     max-width: 100% !important;
                     letter-spacing: 0.5px !important;
+                    word-break: keep-all !important;
+                    overflow-wrap: break-word !important;
                 }
 
                     :lang(zh) .hero-title em {
                         font-size: 3.2rem !important;
                         margin-left: 0px !important;
+                        display: inline-block !important;
                     }
 
                 .hero-description {

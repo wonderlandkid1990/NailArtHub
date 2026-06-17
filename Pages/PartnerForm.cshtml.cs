@@ -122,7 +122,7 @@ namespace NailArtHub.Pages
             ModelState.Remove("ApplyForm.PaymentProofCode");
             ModelState.Remove("PaymentProofCode");
 
-            int maxAllowedTags = 3;
+            int maxAllowedTags = 5;
             if (SelectedTagIds != null && SelectedTagIds.Count > maxAllowedTags)
             {
                 ModelState.AddModelError(string.Empty, _localizer["MaxTagsExceededError", maxAllowedTags]);

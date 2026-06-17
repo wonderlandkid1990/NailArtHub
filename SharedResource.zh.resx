@@ -211,16 +211,25 @@
     <value>前往 Pinterest 看看這款設計</value>
   </data>
   <data name="Hero_Sub_Line1" xml:space="preserve">
-    <value>正在尋找當季最熱門的流行色與超人氣款式？還是想發掘離您最近的高質感美甲沙龍？</value>
+    <value>正在尋找當季最熱門的流行色與超人氣款式？</value>
   </data>
   <data name="Hero_Sub_Line2" xml:space="preserve">
     <value>我們的平台為您提供最直覺的搜尋體驗。</value>
   </data>
   <data name="Hero_Sub_Line3" xml:space="preserve">
-    <value>無論是汲取指尖靈感，還是尋覓專業技術服務，</value>
+    <value>無論是汲取指尖靈感，</value>
   </data>
   <data name="Hero_Sub_Line4" xml:space="preserve">
-    <value>您對美感的所有嚮往，都能在此輕鬆實現！</value>
+    <value>您對美感的所有嚮往，</value>
+  </data>
+  <data name="Hero_Sub_Line5" xml:space="preserve">
+    <value>還是想發掘離您最近的高質感美甲沙龍？</value>
+  </data>
+  <data name="Hero_Sub_Line6" xml:space="preserve">
+    <value>還是尋覓專業技術服務，</value>
+  </data>
+  <data name="Hero_Sub_Line7" xml:space="preserve">
+    <value>都能在此輕鬆實現！</value>
   </data>
   <data name="Hero_taglineLabel" xml:space="preserve">
     <value>潮流與智慧的優雅探索</value>

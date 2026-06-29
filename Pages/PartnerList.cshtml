@@ -297,6 +297,7 @@
                                     @if (!string.IsNullOrEmpty(shop.PinterestUrl))
                                     {
                                         var cleanedUrl = shop.PinterestUrl.Trim();
+                                            cleanedUrl = cleanedUrl.Replace(" ", "");
                                         if (cleanedUrl.Contains("?")) { cleanedUrl = cleanedUrl.Split('?')[0]; }
                                         if (!cleanedUrl.EndsWith("/")) { cleanedUrl += "/"; }
 
@@ -372,6 +373,13 @@
 
 @section Scripts {
     <script async src="//www.instagram.com/embed.js"></script>
+        <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    if (window.instgrm) {
+                        window.instgrm.Embeds.process();
+                    }
+                });
+        </script>
     <script>
         function submitWithTag(tagId) {
         const form = document.getElementById("locationForm");
